@@ -1,0 +1,90 @@
+; Sat Nov 19 17:12:02 CET 2016
+; 
+;+ (version "3.5")
+;+ (build "Build 663")
+
+([Ontologia_Class0] of  Painting
+
+	(Complexity 1)
+	(Created+by [Ontologia_Class1])
+	(Exhibited+in [Ontologia_Class10006])
+	(Height 77)
+	(Painted+in [Ontologia_Class10000])
+	(Painting+Name "La Gioconda")
+	(Painting+Style [Ontologia_Class3])
+	(Painting+Topic [Ontologia_Class10008])
+	(Relevance 1)
+	(Width 53)
+	(Year+of+creation 1519))
+
+([Ontologia_Class1] of  Author
+
+	(Active+Interval "1452-1519")
+	(Author+Name "Leonardo da Vinci")
+	(Authors+Style [Ontologia_Class3])
+	(Nationality "Italiano")
+	(Painted [Ontologia_Class0])
+	(Prefered+by [Ontologia_Class10010]))
+
+([Ontologia_Class10000] of  Period
+
+	(Finishing+year 1492)
+	(Paintings [Ontologia_Class0])
+	(Period+Name "Edad Media")
+	(Starting+year 476))
+
+([Ontologia_Class10002] of  Room
+
+	(Adjacent+to
+		[Ontologia_Class10004]
+		[Ontologia_Class10005])
+	(Room+Name "Room 1"))
+
+([Ontologia_Class10004] of  Room
+
+	(Adjacent+to
+		[Ontologia_Class10002]
+		[Ontologia_Class10005])
+	(Room+Name "Room 2"))
+
+([Ontologia_Class10005] of  Room
+
+	(Adjacent+to
+		[Ontologia_Class10006]
+		[Ontologia_Class10004]
+		[Ontologia_Class10002])
+	(Room+Name "Room 3"))
+
+([Ontologia_Class10006] of  Room
+
+	(Adjacent+to [Ontologia_Class10005])
+	(Exhibits [Ontologia_Class0])
+	(Room+Name "Room 4"))
+
+([Ontologia_Class10008] of  Topic
+
+	(Paintings+with+topic [Ontologia_Class0])
+	(Topic+Name "Retrato"))
+
+([Ontologia_Class10010] of  Visitor
+
+	(Days 2)
+	(Duration 1)
+	(Knowledge 100)
+	(Prefernence [Ontologia_Class1])
+	(Type Single_person)
+	(Visitor+Name "Carlos Roldan Montaner"))
+
+([Ontologia_Class3] of  Style
+
+	(Authors+with+style [Ontologia_Class1])
+	(Finishing+year 1660)
+	(Paintings+with+style [Ontologia_Class0])
+	(Starting+year 1400)
+	(Style+Name "Renacimiento"))
+
+([Ontologia_Class36] of  Author
+
+	(Active+Interval "1423-1429")
+	(Author+Name "Fra Giovanni de Fiesole")
+	(Nationality "Italiano"))
