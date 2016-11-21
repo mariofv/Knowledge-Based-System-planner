@@ -1,175 +1,25 @@
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
-	(single-slot Days
-;+		(comment "The number of days in which the visitor visits the museum.")
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Painting+Name
-;+		(comment "The name of a painting.")
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Relevance
-;+		(comment "The relevance of a painting.")
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Prefered+by
-;+		(comment "The visitors that prefer the instance.")
-		(type INSTANCE)
-;+		(allowed-classes Visitor)
-		(create-accessor read-write))
-	(single-slot Period+Name
-;+		(comment "The name of the historical period.")
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Room+Name
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Style+Name
-;+		(comment "The name of an style.")
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Painted+in
-;+		(comment "The period in which a painting was painted.")
-		(type INSTANCE)
-;+		(allowed-classes Period)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Width
-;+		(comment "The width of a painting.")
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Type
-;+		(comment "The kind of visitor.")
-		(type SYMBOL)
-		(allowed-values Family_with_children Family_without_children Single_person Small_group Large_group)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Adjacent+to
-;+		(comment "The rooms connected with a room.")
-		(type INSTANCE)
-;+		(allowed-classes Room)
-		(create-accessor read-write))
 	(single-slot Created+by
 ;+		(comment "The author of the painting.")
 		(type INSTANCE)
 ;+		(allowed-classes Author)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot Visitor+Name
+	(single-slot Room+Name
 		(type STRING)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Nationality
-;+		(comment "The nationality of an author.")
-		(type STRING)
-;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot Year+of+creation
 ;+		(comment "The year in wich the painting was created.")
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot Painting+Topic
-;+		(comment "The topic of a painting.")
-		(type INSTANCE)
-;+		(allowed-classes Topic)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Duration
-;+		(comment "The duration in hours of the visits of a visitor.")
+	(single-slot Days
+;+		(comment "The number of days in which the visitor visits the museum.")
 		(type INTEGER)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Authors+with+style
-;+		(comment "The authors that painted paintings in a pictorial period.")
-		(type INSTANCE)
-;+		(allowed-classes Author)
-		(create-accessor read-write))
-	(single-slot Author+Name
-;+		(comment "The name of an author.")
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Topic+Name
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Painting+Style
-;+		(comment "The pictorial period in which the painting was painted.")
-		(type INSTANCE)
-;+		(allowed-classes Style)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Active+Interval
-;+		(comment "The interval of in which an author painted.")
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Prefernence
-;+		(comment "The preferences of a visitor")
-		(type INSTANCE)
-;+		(allowed-classes Author Period Style Topic)
-		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write))
-	(multislot Exhibits
-;+		(comment "The paintings which are exhibited in a room.")
-		(type INSTANCE)
-;+		(allowed-classes Painting)
-		(create-accessor read-write))
-	(single-slot Finishing+year
-;+		(comment "Year in which the period finished.")
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(multislot Paintings
-;+		(comment "Paintings painted in a period.")
-		(type INSTANCE)
-;+		(allowed-classes Painting)
-		(create-accessor read-write))
-	(single-slot Complexity
-;+		(comment "The complexity of a painting.")
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Exhibited+in
-;+		(comment "The room in which a painting was exhibited.")
-		(type INSTANCE)
-;+		(allowed-classes Room)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Paintings+with+topic
-;+		(comment "The paintings inspired by a topic")
-		(type INSTANCE)
-;+		(allowed-classes Painting)
-		(create-accessor read-write))
-	(single-slot Knowledge
-;+		(comment "The knowledge of a visitor.")
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Height
-;+		(comment "The height of a painting.")
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Paintings+with+style
-;+		(comment "The paintings that were painted in a pictorial period.")
-		(type INSTANCE)
-;+		(allowed-classes Painting)
-		(create-accessor read-write))
-	(multislot Authors+Style
-;+		(comment "The styles of an author.")
-		(type INSTANCE)
-;+		(allowed-classes Style)
-		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
 	(multislot Painted
 ;+		(comment "The paintings that an author painted.")
@@ -181,35 +31,152 @@
 ;+		(comment "Year in which the period started.")
 		(type INTEGER)
 ;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
-(defclass Painting "A painting that is exposed in a museum."
-	(is-a USER)
-	(role concrete)
+		(create-accessor read-write))
+	(single-slot Painted+in
+;+		(comment "The period in which a painting was painted.")
+		(type INSTANCE)
+;+		(allowed-classes Period)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot Prefernence
+;+		(comment "The preferences of a visitor")
+		(type INSTANCE)
+;+		(allowed-classes Author Period Style Topic)
+		(cardinality 1 ?VARIABLE)
+		(create-accessor read-write))
+	(multislot Prefered+by
+;+		(comment "The visitors that prefer the instance.")
+		(type INSTANCE)
+;+		(allowed-classes Visitor)
+		(create-accessor read-write))
+	(multislot Authors+with+style
+;+		(comment "The authors that painted paintings in a pictorial period.")
+		(type INSTANCE)
+;+		(allowed-classes Author)
+		(create-accessor read-write))
+	(single-slot Type
+;+		(comment "The kind of visitor.")
+		(type SYMBOL)
+		(allowed-values Family_with_children Family_without_children Not_a_family)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Author+Name
+;+		(comment "The name of an author.")
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Height
+;+		(comment "The height of a painting.")
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Painting+Topic
+;+		(comment "The topic of a painting.")
+		(type INSTANCE)
+;+		(allowed-classes Topic)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(single-slot Painting+Name
 ;+		(comment "The name of a painting.")
 		(type STRING)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Year+of+creation
-;+		(comment "The year in wich the painting was created.")
-		(type INTEGER)
-;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot Complexity
 ;+		(comment "The complexity of a painting.")
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot Relevance
-;+		(comment "The relevance of a painting.")
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(single-slot Exhibited+in
 ;+		(comment "The room in which a painting was exhibited.")
 		(type INSTANCE)
 ;+		(allowed-classes Room)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Duration
+;+		(comment "The duration in hours of the visits of a visitor.")
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Number+of+People
+;+		(comment "The number of people that composes a group.")
+		(type INTEGER)
+		(range 1 100)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot Paintings+with+style
+;+		(comment "The paintings that were painted in a pictorial period.")
+		(type INSTANCE)
+;+		(allowed-classes Painting)
+		(create-accessor read-write))
+	(multislot Adjacent+to
+;+		(comment "The rooms connected with a room.")
+		(type INSTANCE)
+;+		(allowed-classes Room)
+		(create-accessor read-write))
+	(multislot Paintings
+;+		(comment "Paintings painted in a period.")
+		(type INSTANCE)
+;+		(allowed-classes Painting)
+		(create-accessor read-write))
+	(single-slot Active+Interval
+;+		(comment "The interval of in which an author painted.")
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Topic+Name
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Visitor+Name
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot Paintings+with+topic
+;+		(comment "The paintings inspired by a topic")
+		(type INSTANCE)
+;+		(allowed-classes Painting)
+		(create-accessor read-write))
+	(single-slot Finishing+year
+;+		(comment "Year in which the period finished.")
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot Relevance
+;+		(comment "The relevance of a painting.")
+		(type INTEGER)
+		(range 0 100)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Width
+;+		(comment "The width of a painting.")
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Nationality
+;+		(comment "The nationality of an author.")
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot Authors+Style
+;+		(comment "The styles of an author.")
+		(type INSTANCE)
+;+		(allowed-classes Style)
+		(cardinality 1 ?VARIABLE)
+		(create-accessor read-write))
+	(multislot Exhibits
+;+		(comment "The paintings which are exhibited in a room.")
+		(type INSTANCE)
+;+		(allowed-classes Painting)
+		(create-accessor read-write))
+	(single-slot Knowledge
+;+		(comment "The knowledge of a visitor.")
+		(type INTEGER)
+		(range 0 100)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Style+Name
+;+		(comment "The name of an style.")
+		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Painting+Style
@@ -218,11 +185,59 @@
 ;+		(allowed-classes Style)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
+	(single-slot Period+Name
+;+		(comment "The name of the historical period.")
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write)))
+
+(defclass Painting "A painting that is exposed in a museum."
+	(is-a USER)
+	(role concrete)
+	(single-slot Painting+Topic
+;+		(comment "The topic of a painting.")
+		(type INSTANCE)
+;+		(allowed-classes Topic)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Created+by
+;+		(comment "The author of the painting.")
+		(type INSTANCE)
+;+		(allowed-classes Author)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Year+of+creation
+;+		(comment "The year in wich the painting was created.")
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot Painting+Name
+;+		(comment "The name of a painting.")
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(single-slot Painted+in
 ;+		(comment "The period in which a painting was painted.")
 		(type INSTANCE)
 ;+		(allowed-classes Period)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Exhibited+in
+;+		(comment "The room in which a painting was exhibited.")
+		(type INSTANCE)
+;+		(allowed-classes Room)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Relevance
+;+		(comment "The relevance of a painting.")
+		(type INTEGER)
+		(range 0 100)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Complexity
+;+		(comment "The complexity of a painting.")
+		(type INTEGER)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot Width
 ;+		(comment "The width of a painting.")
@@ -234,16 +249,10 @@
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot Created+by
-;+		(comment "The author of the painting.")
+	(single-slot Painting+Style
+;+		(comment "The pictorial period in which the painting was painted.")
 		(type INSTANCE)
-;+		(allowed-classes Author)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Painting+Topic
-;+		(comment "The topic of a painting.")
-		(type INSTANCE)
-;+		(allowed-classes Topic)
+;+		(allowed-classes Style)
 ;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
@@ -255,16 +264,17 @@
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
+	(multislot Authors+Style
+;+		(comment "The styles of an author.")
+		(type INSTANCE)
+;+		(allowed-classes Style)
+		(cardinality 1 ?VARIABLE)
+		(create-accessor read-write))
 	(multislot Painted
 ;+		(comment "The paintings that an author painted.")
 		(type INSTANCE)
 ;+		(allowed-classes)
 		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write))
-	(single-slot Author+Name
-;+		(comment "The name of an author.")
-		(type STRING)
-;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Active+Interval
 ;+		(comment "The interval of in which an author painted.")
@@ -276,21 +286,15 @@
 		(type INSTANCE)
 ;+		(allowed-classes Visitor)
 		(create-accessor read-write))
-	(multislot Authors+Style
-;+		(comment "The styles of an author.")
-		(type INSTANCE)
-;+		(allowed-classes Style)
-		(cardinality 1 ?VARIABLE)
+	(single-slot Author+Name
+;+		(comment "The name of an author.")
+		(type STRING)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
 (defclass Period "A period in history."
 	(is-a USER)
 	(role concrete)
-	(single-slot Period+Name
-;+		(comment "The name of the historical period.")
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(multislot Paintings
 ;+		(comment "Paintings painted in a period.")
 		(type INSTANCE)
@@ -310,20 +314,20 @@
 ;+		(comment "Year in which the period finished.")
 		(type INTEGER)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot Period+Name
+;+		(comment "The name of the historical period.")
+		(type STRING)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
 (defclass Style "Style / School / Pictorial Period"
 	(is-a USER)
 	(role concrete)
-	(multislot Authors+with+style
-;+		(comment "The authors that painted paintings in a pictorial period.")
+	(multislot Paintings+with+style
+;+		(comment "The paintings that were painted in a pictorial period.")
 		(type INSTANCE)
-;+		(allowed-classes Author)
-		(create-accessor read-write))
-	(single-slot Style+Name
-;+		(comment "The name of an style.")
-		(type STRING)
-;+		(cardinality 1 1)
+;+		(allowed-classes Painting)
 		(create-accessor read-write))
 	(single-slot Starting+year
 ;+		(comment "Year in which the period started.")
@@ -335,28 +339,33 @@
 		(type INSTANCE)
 ;+		(allowed-classes Visitor)
 		(create-accessor read-write))
-	(multislot Paintings+with+style
-;+		(comment "The paintings that were painted in a pictorial period.")
-		(type INSTANCE)
-;+		(allowed-classes Painting)
+	(single-slot Style+Name
+;+		(comment "The name of an style.")
+		(type STRING)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Finishing+year
 ;+		(comment "Year in which the period finished.")
 		(type INTEGER)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot Authors+with+style
+;+		(comment "The authors that painted paintings in a pictorial period.")
+		(type INSTANCE)
+;+		(allowed-classes Author)
 		(create-accessor read-write)))
 
 (defclass Room "A room of the museum."
 	(is-a USER)
 	(role concrete)
-	(single-slot Room+Name
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(multislot Adjacent+to
 ;+		(comment "The rooms connected with a room.")
 		(type INSTANCE)
 ;+		(allowed-classes Room)
+		(create-accessor read-write))
+	(single-slot Room+Name
+		(type STRING)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot Exhibits
 ;+		(comment "The paintings which are exhibited in a room.")
@@ -367,29 +376,21 @@
 (defclass Visitor "A visitor of a museum."
 	(is-a USER)
 	(role concrete)
-	(single-slot Duration
-;+		(comment "The duration in hours of the visits of a visitor.")
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(single-slot Days
 ;+		(comment "The number of days in which the visitor visits the museum.")
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Visitor+Name
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Knowledge
-;+		(comment "The knowledge of a visitor.")
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Type
 ;+		(comment "The kind of visitor.")
 		(type SYMBOL)
-		(allowed-values Family_with_children Family_without_children Single_person Small_group Large_group)
+		(allowed-values Family_with_children Family_without_children Not_a_family)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Knowledge
+;+		(comment "The knowledge of a visitor.")
+		(type INTEGER)
+		(range 0 100)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot Prefernence
@@ -397,6 +398,21 @@
 		(type INSTANCE)
 ;+		(allowed-classes Author Period Style Topic)
 		(cardinality 1 ?VARIABLE)
+		(create-accessor read-write))
+	(single-slot Visitor+Name
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Duration
+;+		(comment "The duration in hours of the visits of a visitor.")
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Number+of+People
+;+		(comment "The number of people that composes a group.")
+		(type INTEGER)
+		(range 1 100)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
 (defclass Topic "A topic."
@@ -406,18 +422,18 @@
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(multislot Paintings+with+topic
-;+		(comment "The paintings inspired by a topic")
-		(type INSTANCE)
-;+		(allowed-classes Painting)
-		(create-accessor read-write))
 	(multislot Prefered+by
 ;+		(comment "The visitors that prefer the instance.")
 		(type INSTANCE)
 ;+		(allowed-classes Visitor)
+		(create-accessor read-write))
+	(multislot Paintings+with+topic
+;+		(comment "The paintings inspired by a topic")
+		(type INSTANCE)
+;+		(allowed-classes Painting)
 		(create-accessor read-write)))
 		
-(definstances instances 
+(definstances instances
 ([Ontologia_Class0] of  Painting
 
 	(Complexity 1)
@@ -485,9 +501,10 @@
 
 	(Days 2)
 	(Duration 1)
-	(Knowledge 100)
+	(Knowledge 33)
+	(Number+of+People 1)
 	(Prefernence [Ontologia_Class1])
-	(Type Single_person)
+	(Type Not_a_family)
 	(Visitor+Name "Carlos Roldan Montaner"))
 
 ([Ontologia_Class3] of  Style
@@ -505,18 +522,71 @@
 	(Nationality "Italiano"))
 )
 
+;;AQUI EMPIEZAN LOS HECHOS
+
 (deftemplate PaintingRelevance
 (slot relevance (type SYMBOL)
 (allowed-values Very_High High Medium Low Very_Low)))
 
 (deftemplate ObservationTime
-(slot relevance (type SYMBOL)
+(slot time (type SYMBOL)
 (allowed-values High Medium Low)))
 
 (deftemplate Knowledge
-(slot relevance (type SYMBOL)
+(slot knowledge (type SYMBOL)
 (allowed-values Very_High High Medium Low Very_Low)))
 
 (deftemplate GroupSize
-(slot relevance (type SYMBOL)
+(slot size (type SYMBOL)
 (allowed-values High Medium Low)))
+
+(deftemplate AuthorPreference 
+(slot preference (type SYMBOL) (allowed-values preference not_preference)))
+
+;;AQUI EMPIEZAN LAS REGLAS DE ABSTRACCION
+
+(deffunction abstractNumber(?relevance)
+	(if (>= ?relevance 80) then Very_High
+		else (if (>= ?relevance 60) then High
+				else (if  (>= ?relevance 40) then Medium
+					else (if (>= ?relevance 20) then Low
+						else Very_Low					
+						    )
+					  )
+			  )
+	)
+)
+
+(deffunction defineGroupSize(?size)
+	(if (<= ?size 5) then Low
+		else (if (<= ?size 10) then Medium
+				else High
+			  )
+	)
+)
+
+
+(defrule AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
+(object (is-a Painting) (Relevance ?relevance))
+=>
+(assert (PaintingRelevance(relevance (abstractNumber ?relevance)))
+))
+
+(defrule AbstractKnowledge "Abstrae el conocimiento sobre un cuadro"
+(object (is-a Visitor) (Knowledge ?knowledge))
+=>
+(assert (Knowledge(knowledge (abstractNumber ?knowledge)))
+))
+
+(defrule AbstractGroupSize "Abstrae el tamaño del grupo"
+(object (is-a Visitor) (Number+of+People ?size))
+=>
+(assert (GroupSize(size (defineGroupSize ?size)))
+))
+
+;;AQUI EMPEIZAN LAS REGLAS DE ASOCIACION HEURISTICA
+ 
+(defrule FirstFilter "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(PaintingRelevance(relevance Very_High))
+=>
+(assert (ObservationTime (time High))))
