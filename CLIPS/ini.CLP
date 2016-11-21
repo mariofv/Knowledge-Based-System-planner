@@ -565,6 +565,11 @@
 	)
 )
 
+(deffunction timeKnowledge(?knowledge)
+	(if (or (eq ?knowledge Very_High) (eq ?knowledge High) (eq ?knowledge Medium)) then High
+		else Medium
+	)
+)
 
 (defrule AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
 (object (is-a Painting) (Relevance ?relevance))
@@ -583,10 +588,21 @@
 =>
 (assert (GroupSize(size (defineGroupSize ?size)))
 ))
-
+ 
 ;;AQUI EMPEIZAN LAS REGLAS DE ASOCIACION HEURISTICA
  
-(defrule FirstFilter "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(defrule FirstFilter1 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
 (PaintingRelevance(relevance Very_High))
 =>
 (assert (ObservationTime (time High))))
+
+(defrule FirstFilter2 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(PaintingRelevance(relevance Very_Low))
+=>
+(assert (ObservationTime (time Low))))
+
+(defrule FirstFilter3 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(PaintingRelevance(relevance High)) (Knowledge (knowledge ?knowledge))
+=>
+(assert (ObservationTime (time (timeKnowledge ?knowledge)))))
+
