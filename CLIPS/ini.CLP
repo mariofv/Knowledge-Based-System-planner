@@ -520,6 +520,7 @@
 	(Active+Interval "1423-1429")
 	(Author+Name "Fra Giovanni de Fiesole")
 	(Nationality "Italiano"))
+<<<<<<< HEAD
 )
 
 ;;AQUI EMPIEZAN LOS HECHOS
@@ -606,4 +607,5 @@
 (PaintingRelevance(relevance High)) (Knowledge (knowledge ?knowledge))
 =>
 (assert (ObservationTime (time (timeKnowledge ?knowledge)))))
+
 
