@@ -53,6 +53,13 @@
 	)
 )
 
+(deffunction timeKnowledge2(?knowledge)
+	(if (or (eq ?knowledge Very_High) (eq ?knowledge High)) then High
+		else (if (eq ?knowledge Medium) then Medium
+            else Low)
+	)
+)
+
 (defrule AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
 (object (is-a Painting) (Relevance ?relevance))
 =>
@@ -87,3 +94,8 @@
 (PaintingRelevance(relevance High)) (Knowledge (knowledge ?knowledge))
 =>
 (assert (ObservationTime (time (timeKnowledge ?knowledge)))))
+
+(defrule FirstFilter4 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(PaintingRelevance(relevance Medium)) (Knowledge (knowledge ?knowledge))
+=>
+(assert (ObservationTime (time (timeKnowledge2 ?knowledge)))))
