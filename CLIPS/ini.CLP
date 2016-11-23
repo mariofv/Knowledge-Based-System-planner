@@ -543,6 +543,7 @@
 (deftemplate AuthorPreference 
 (slot preference (type SYMBOL) (allowed-values preference not_preference)))
 
+
 ;;AQUI EMPIEZAN LAS REGLAS DE ABSTRACCION
 
 (deffunction abstractNumber(?relevance)
