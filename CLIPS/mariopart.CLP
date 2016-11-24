@@ -5,12 +5,39 @@
 
 
 (deffunction correctPreference(?actual, ?painting)
-	(if () then
-		(if () then 
+	(if (= (class ?actual) Author) then
+		(if (= ?actual:Author+Name ?painting:Created+By:Author+Name) then 
 				(assert (AuthorPreference(preference yes)))
 				TRUE
 		else 
 				(assert (AuthorPreference(preference no)))
+				FALSE
+		)
+	)
+	(if (= (class ?actual) Topic) then
+		(if (= ?actual:Topic+Name ?painting:Painting+Topic:Topic+Name) then 
+				(assert (TopicPreference(preference yes)))
+				TRUE
+		else 
+				(assert (TopicPreference(preference no)))
+				FALSE
+		)
+	)
+	(if (= (class ?actual) Style) then
+		(if (= ?actual:Style+Name ?painting:Painting+Style:Style+Name) then 
+				(assert (StylePreference(preference yes)))
+				TRUE
+		else 
+				(assert (StylePreference(preference no)))
+				FALSE
+		)
+	)
+	(if (= (class ?actual) Period) then
+		(if (= ?actual:Period+Name ?painting:Painted+in:Period+Name) then 
+				(assert (PeriodPreference(preference yes)))
+				TRUE
+		else 
+				(assert (PeriodPreference(preference no)))
 				FALSE
 		)
 	)
