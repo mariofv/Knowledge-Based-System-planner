@@ -1,30 +1,7 @@
-(deftemplate PaintingRelevance
-(slot relevance (type SYMBOL)
-(allowed-values Very_High High Medium Low Very_Low)))
-
 (deftemplate ObservationTime
 (slot time (type SYMBOL)
 (allowed-values High Medium Low)))
 
-(deftemplate Knowledge
-(slot knowledge (type SYMBOL)
-(allowed-values Very_High High Medium Low Very_Low)))
-
-(deftemplate GroupSize
-(slot size (type SYMBOL)
-(allowed-values High Medium Low)))
-
-(deftemplate AuthorPreference 
-(slot preference (type SYMBOL) (allowed-values yes no)))
-
-(deftemplate TopicPreference
-(slot preference (type SYMBOL)(allowed-values yes no)))
-
-(deftemplate Preferences
-(slot level (type SYMBOL) (allowed-values Low High)))
-
-(deftemplate NumPreferences
-(slot number (type INTEGER)))
 
 ;AQUI EMPIEZAN LAS REGLAS DE ABSTRACCION
 
@@ -88,13 +65,13 @@
 ))
 
 (defrule AbstractPreferencesHigh ""
-(NumPreferences (numPreferences ?n)) (test (> ?n 1))
+(NumPreferences (number ?n)) (test (> ?n 1))
 =>
 (assert (Preferences (level High)))
 )
 
 (defrule AbstractPreferencesLow ""
-(NumPreferences (numPreferences ?n)) (test (<= ?n 1))
+(NumPreferences (number ?n)) (test (<= ?n 1))
 =>
 (assert (Preferences (level Low)))
 )

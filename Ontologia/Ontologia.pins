@@ -1,4 +1,4 @@
-; Mon Nov 21 16:18:03 CET 2016
+; Thu Nov 24 11:45:16 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -71,7 +71,7 @@
 	(Days 2)
 	(Duration 1)
 	(Number+of+People 1)
-	(Prefernence [Ontologia_Class1])
+	(Preference [Ontologia_Class1])
 	(Type Not_a_family)
 	(Visitor+Name "Carlos Roldan Montaner"))
 
