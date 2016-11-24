@@ -1,14 +1,14 @@
 
 ;DEFFUNCTIONS
 
-(deffunction question-instance
-   (bind ?answer (read))
+(deffunction question-instance ()
+   (bind ?answer (readline))
    (if (lexemep ?answer) 
        then (bind ?answer ?answer))
-   (while (not lexemep ?answer) do
+   (while (not (lexemep ?answer)) do
         (printout t "Introduce a valid string" crlf)
-        bind ?answer (read))
-)
+        bind ?answer (readline))
+?answer)
 
 
 (deffunction ask-question-with-values (?question $?allowed-values)
@@ -118,40 +118,53 @@
         then(printout t "Meeeh, that was okay I guess..." crlf)
     else (printout t "I don't know why you are wasting your money in an art museum if you don't know shit, but hey, it's your money" crlf)))
    
-   
+    (bind ?points 25)
     (bind ?visitor_instance (make-instance visitor of Visitor))
-    (send ?visitor_instance put-Visitor+name ?visitor_name)
+    (send ?visitor_instance put-Visitor+Name ?visitor_name)
     (send ?visitor_instance put-Days ?days)
     (send ?visitor_instance put-Duration ?time)
     (send ?visitor_instance put-Number+of+People ?number_of_people)
     (send ?visitor_instance put-Knowledge ?points)
+    (printout t (send ?visitor_instance get-Visitor+Name) crlf) 
 
-    (bind ?count 0)
+    (bind ?count 1)
     (printout t "Alright, let's check your preferences now." crlf)
-    (printout t "We'll start with the authors. For each author you like, type his name and press ENTER. Type 'done' when you are done");
+    (printout t "We'll start with the authors. For each author you like, type his name and press ENTER. Type 'done' when you are done" crlf);
     (bind ?answer (question-instance))
     (while (not(eq ?answer done)) do
-        (bind ?aux (find-all-instances ((?inst Author)) (eq ?inst:Author+Name answer)))
+        (bind ?aux (find-instance ((?inst Author)) (eq ?inst:Author+Name ?answer)))
+        (printout t ?aux crlf)
         (slot-insert$ ?visitor_instance Preferences ?count ?aux)
         (bind ?count (+ ?count 1))
+        (bind ?answer (question-instance))
     )
-    (printout t "Good. Now same thing for the styles. For each style you like, type its name and press ENTER. Type 'done' when you are done");
+    
+    (printout t "Good. Now same thing for the styles. For each style you like, type its name and press ENTER. Type 'done' when you are done" crlf);
+    (bind ?answer (question-instance))    
     (while (not(eq ?answer done)) do
-        (bind ?aux (find-all-instances ((?inst Style)) (eq ?inst:Style+Name answer)))
+        (bind ?aux (find-all-instances ((?inst Style)) (eq ?inst:Style+Name ?answer)))
         (slot-insert$ ?visitor_instance Preferences ?count ?aux)
         (bind ?count (+ ?count 1))
+        (bind ?answer (question-instance))
+
     )
-    (printout t "Almost done. We also need to know which periods you prefer. For each period you like, type its name and press ENTER. Type 'done' when you are done");
+    (printout t "Almost done. We also need to know which periods you prefer. For each period you like, type its name and press ENTER. Type 'done' when you are done" crlf);
+    (bind ?answer (question-instance))    
     (while (not(eq ?answer done)) do
-        (bind ?aux (find-all-instances ((?inst Period)) (eq ?inst:Period+Name answer)))
+        (bind ?aux (find-all-instances ((?inst Period)) (eq ?inst:Period+Name ?answer)))
         (slot-insert$ ?visitor_instance Preferences ?count ?aux)
         (bind ?count (+ ?count 1))
+        (bind ?answer (question-instance))
+
     )
-    (printout t "Last step! Tell us about the topics you like the most. For each topic you like, type its name and press ENTER. Type 'done' when you are done");
+    (printout t "Last step! Tell us about the topics you like the most. For each topic you like, type its name and press ENTER. Type 'done' when you are done" crlf);
+    (bind ?answer (question-instance))    
     (while (not(eq ?answer done)) do
-        (bind ?aux (find-all-instances ((?inst Topic)) (eq ?inst:Topic+Name answer)))
+        (bind ?aux (find-all-instances ((?inst Topic)) (eq ?inst:Topic+Name ?answer)))
         (slot-insert$ ?visitor_instance Preferences ?count ?aux)
         (bind ?count (+ ?count 1))
+        (bind ?answer (question-instance))
+
     )
 )
    

@@ -567,6 +567,17 @@
 ;/// AQUI EMPIEZAN REGLAS   ////
 ;///////////////////////////////
 
+(deffunction abstractNumber(?relevance)
+	(if (>= ?relevance 80) then Very_High
+		else (if (>= ?relevance 60) then High
+				else (if  (>= ?relevance 40) then Medium
+					else (if (>= ?relevance 20) then Low
+						else Very_Low					
+						    )
+					  )
+			  )
+	)
+)
 
 (deffunction correctPreference(?actual ?painting)
 
@@ -614,7 +625,6 @@
 (bind ?contador 0)
 (loop-for-count (?i 1 (length$ ?preferences)) do
 	(bind ?actual (nth$ ?i ?preferences))
-;aquí hacemos lo que queramos
 	(if (correctPreference ?actual ?painting) then
 		(bind ?contador(+ ?contador 1))
 	)
@@ -631,19 +641,17 @@
 (defrule AbstractPreferencesHigh ""
 (NumPreferences (number ?n)) (test (> ?n 1))
 =>
-(assert (Preferences (level High)))
+(assert (Preference (level High)))
 )
 
 (defrule AbstractPreferencesLow ""
 (NumPreferences (number ?n)) (test (<= ?n 1))
 =>
-(assert (Preferences (level Low)))
+(assert (Preference (level Low)))
 )
 
-
-
 (defrule FindInterestInPaintingVeryHigh "Comprueba si el interes de un visitante por un cuadro es muy alto"
-(PaintingRelevance (relevance ?relevance)) (PaintingRelevance (relevance ?relevance)) 
+(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
 (or 
 (test (eq ?relevance Very_High)) 
 (and (test (eq ?relevance High)) (test (eq ?preferenceLevel High)))
@@ -653,7 +661,7 @@
 )
 
 (defrule FindInterestInPaintingHigh "Comprueba si el interes de un visitante por un cuadro es alto"
-(Preference (level ?preferenceLevel)) (PaintingRelevance (relevance ?relevance)) 
+(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
 (or 
 (and (test (eq ?relevance High)) (test(eq ?preferenceLevel Low)))
 (and (test(eq ?relevance Medium)) (test(eq ?preferenceLevel High)))
@@ -663,7 +671,7 @@
 )
 
 (defrule FindInterestInPaintingLow "Comprueba si el interes de un visitante por un cuadro es bajo"
-(Preference (level ?preferenceLevel)) (PaintingRelevance (relevance ?relevance)) 
+(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
 (or
 (and (test(eq ?relevance Medium)) (test(eq ?preferenceLevel Low)))
 (and (test (eq ?relevance Low)) (test(eq ?preferenceLevel High)))
@@ -673,7 +681,7 @@
 )
 
 (defrule FindInterestInPaintingVeryLow "Comprueba si el interes de un visitante por un cuadro es muy bajo"
-(Preference (level ?preferenceLevel)) (PaintingRelevance (relevance ?relevance)) 
+(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
 (or
 (and (test (eq ?relevance Low)) (test(eq ?preferenceLevel Low)))
 (test (eq ?relevance Very_Low))
