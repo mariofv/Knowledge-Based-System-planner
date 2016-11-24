@@ -560,6 +560,9 @@
 (deftemplate NumPreferences
 (slot number (type INTEGER)))
 
+(deftemplate Interest
+(slot level (type SYMBOL) (allowed-values Very_Low Low High Very_High)))
+
 ;///////////////////////////////
 ;/// AQUI EMPIEZAN REGLAS   ////
 ;///////////////////////////////
@@ -605,7 +608,6 @@
 	)
 )
 
-
 (defrule FindPreferences "Esta regla determina cuantas preferencias tiene un visitante sobre un cuadro y crea los hechos convenientes"
 (object (is-a Visitor) (Preferences $?preferences)) ?painting<-(object (is-a Painting))
 =>
@@ -619,6 +621,68 @@
 )
 (assert (NumPreferences(number ?contador)))
 )
+
+(defrule AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
+(object (is-a Painting) (Relevance ?relevance))
+=>
+(assert (PaintingRelevance(relevance (abstractNumber ?relevance)))
+))
+
+(defrule AbstractPreferencesHigh ""
+(NumPreferences (number ?n)) (test (> ?n 1))
+=>
+(assert (Preferences (level High)))
+)
+
+(defrule AbstractPreferencesLow ""
+(NumPreferences (number ?n)) (test (<= ?n 1))
+=>
+(assert (Preferences (level Low)))
+)
+
+
+
+(defrule FindInterestInPaintingVeryHigh "Comprueba si el interes de un visitante por un cuadro es muy alto"
+(PaintingRelevance (relevance ?relevance)) (PaintingRelevance (relevance ?relevance)) 
+(or 
+(test (eq ?relevance Very_High)) 
+(and (test (eq ?relevance High)) (test (eq ?preferenceLevel High)))
+)
+=>
+(assert (Interest (level Very_High)))
+)
+
+(defrule FindInterestInPaintingHigh "Comprueba si el interes de un visitante por un cuadro es alto"
+(Preference (level ?preferenceLevel)) (PaintingRelevance (relevance ?relevance)) 
+(or 
+(and (test (eq ?relevance High)) (test(eq ?preferenceLevel Low)))
+(and (test(eq ?relevance Medium)) (test(eq ?preferenceLevel High)))
+)
+=>
+(assert (Interest (level High)))
+)
+
+(defrule FindInterestInPaintingLow "Comprueba si el interes de un visitante por un cuadro es bajo"
+(Preference (level ?preferenceLevel)) (PaintingRelevance (relevance ?relevance)) 
+(or
+(and (test(eq ?relevance Medium)) (test(eq ?preferenceLevel Low)))
+(and (test (eq ?relevance Low)) (test(eq ?preferenceLevel High)))
+)
+=>
+(assert (Interest (level Low)))
+)
+
+(defrule FindInterestInPaintingVeryLow "Comprueba si el interes de un visitante por un cuadro es muy bajo"
+(Preference (level ?preferenceLevel)) (PaintingRelevance (relevance ?relevance)) 
+(or
+(and (test (eq ?relevance Low)) (test(eq ?preferenceLevel Low)))
+(test (eq ?relevance Very_Low))
+)
+=>
+(assert (Interest (level Very_Low)))
+)
+
+
 
 
 
