@@ -20,12 +20,13 @@
 (deftemplate TopicPreference
 (slot preference (type SYMBOL)(allowed-values yes no)))
 
-(deftemplate )
+(deftemplate Preferences
+(slot level (type SYMBOL) (allowed-values Low High)))
 
 (deftemplate NumPreferences
 (slot number (type INTEGER)))
 
-;;AQUI EMPIEZAN LAS REGLAS DE ABSTRACCION
+;AQUI EMPIEZAN LAS REGLAS DE ABSTRACCION
 
 (deffunction abstractNumber(?relevance)
 	(if (>= ?relevance 80) then Very_High
@@ -53,6 +54,21 @@
 	)
 )
 
+(deffunction timeKnowledge2(?knowledge)
+	(if (or (eq ?knowledge Very_High) (eq ?knowledge High)) then High
+		else (if (eq ?knowledge Medium) then Medium
+            else Low)
+	)
+)
+
+(deffunction timeKnowledge3(?knowledge)
+	(if (eq ?knowledge Very_High) then Medium
+		else Low
+	)
+)
+
+;Reglas de abstracción
+
 (defrule AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
 (object (is-a Painting) (Relevance ?relevance))
 =>
@@ -70,8 +86,20 @@
 =>
 (assert (GroupSize(size (defineGroupSize ?size)))
 ))
+
+(defrule AbstractPreferencesHigh ""
+(NumPreferences (numPreferences ?n)) (test (> ?n 1))
+=>
+(assert (Preferences (level High)))
+)
+
+(defrule AbstractPreferencesLow ""
+(NumPreferences (numPreferences ?n)) (test (<= ?n 1))
+=>
+(assert (Preferences (level Low)))
+)
  
-;;AQUI EMPEIZAN LAS REGLAS DE ASOCIACION HEURISTICA
+;AQUI EMPEIZAN LAS REGLAS DE ASOCIACION HEURÍSTICA
  
 (defrule FirstFilter1 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
 (PaintingRelevance(relevance Very_High))
@@ -87,3 +115,13 @@
 (PaintingRelevance(relevance High)) (Knowledge (knowledge ?knowledge))
 =>
 (assert (ObservationTime (time (timeKnowledge ?knowledge)))))
+
+(defrule FirstFilter4 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(PaintingRelevance(relevance Medium)) (Knowledge (knowledge ?knowledge))
+=>
+(assert (ObservationTime (time (timeKnowledge2 ?knowledge)))))
+
+(defrule FirstFilter5 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(PaintingRelevance(relevance Low)) (Knowledge (knowledge ?knowledge))
+=>
+(assert (ObservationTime (time (timeKnowledge3 ?knowledge)))))
