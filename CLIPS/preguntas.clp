@@ -1,6 +1,16 @@
 
 ;DEFFUNCTIONS
 
+(deffunction question-instance
+   (bind ?answer (read))
+   (if (lexemep ?answer) 
+       then (bind ?answer ?answer))
+   (while (not lexemep ?answer) do
+        (printout t "Introduce a valid string" crlf)
+        bind ?answer (read))
+)
+
+
 (deffunction ask-question-with-values (?question $?allowed-values)
    (printout t ?question crlf)
    (printout t "Possible values: ")
@@ -60,8 +70,11 @@
       (ask-question-integer "How many people is your group composed of, bitch? "))
    (bind ?days
       (ask-question-integer "How many days are you going to stay, bitch? "))
-   (bind ?days
+   (bind ?time
       (ask-question-integer "How long are you going to stay each day (in minutes), bitch? "))
+   ;//////////////
+   ;BEGIN TEST
+   ;//////////////
    (bind ?points 0)
    (printout t "Let's see how much you know about art..." crlf)
    (bind ?response 
@@ -105,7 +118,41 @@
         then(printout t "Meeeh, that was okay I guess..." crlf)
     else (printout t "I don't know why you are wasting your money in an art museum if you don't know shit, but hey, it's your money" crlf)))
    
+   
+    (bind ?visitor_instance (make-instance visitor of Visitor))
+    (send ?visitor_instance put-Visitor+name ?visitor_name)
+    (send ?visitor_instance put-Days ?days)
+    (send ?visitor_instance put-Duration ?time)
+    (send ?visitor_instance put-Number+of+People ?number_of_people)
+    (send ?visitor_instance put-Knowledge ?points)
 
+    (bind ?count 0)
+    (printout t "Alright, let's check your preferences now." crlf)
+    (printout t "We'll start with the authors. For each author you like, type his name and press ENTER. Type 'done' when you are done");
+    (bind ?answer (question-instance))
+    (while (not(eq ?answer done)) do
+        (bind ?aux (find-all-instances ((?inst Author)) (eq ?inst:Author+Name answer)))
+        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
+        (bind ?count (+ ?count 1))
+    )
+    (printout t "Good. Now same thing for the styles. For each style you like, type its name and press ENTER. Type 'done' when you are done");
+    (while (not(eq ?answer done)) do
+        (bind ?aux (find-all-instances ((?inst Style)) (eq ?inst:Style+Name answer)))
+        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
+        (bind ?count (+ ?count 1))
+    )
+    (printout t "Almost done. We also need to know which periods you prefer. For each period you like, type its name and press ENTER. Type 'done' when you are done");
+    (while (not(eq ?answer done)) do
+        (bind ?aux (find-all-instances ((?inst Period)) (eq ?inst:Period+Name answer)))
+        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
+        (bind ?count (+ ?count 1))
+    )
+    (printout t "Last step! Tell us about the topics you like the most. For each topic you like, type its name and press ENTER. Type 'done' when you are done");
+    (while (not(eq ?answer done)) do
+        (bind ?aux (find-all-instances ((?inst Topic)) (eq ?inst:Topic+Name answer)))
+        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
+        (bind ?count (+ ?count 1))
+    )
 )
    
 
