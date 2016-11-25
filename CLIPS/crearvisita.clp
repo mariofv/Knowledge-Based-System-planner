@@ -82,22 +82,27 @@
   (declare(salience -1000))
    =>
   ;TODODODODOO
-  (bind ?visitor (find-instance((?n Visitor)) TRUE))    
+  (bind ?visitors (find-all-instances((?n Visitor)) TRUE))
+   (bind ?visitor (nth$ 1 ?visitors))    
   (printout t "Estoy en la regla crear-visita")  
   (printout t ?visitor crlf)  
+
   (bind ?days (send ?visitor get-Days))         
-  (bind ?minutes (send ?visitor get-Minutes))   
+  (bind ?minutes (send ?visitor get-Duration))   
   (bind $?listaCuadros (find-all-instances((?m Painting)) TRUE)) 
+  (printout t "Lista de cuadros: " $?listaCuadros crlf)
   (bind $?listaFinal (create$))
   (bind ?daysUsed 0)
   (while (< ?daysUsed ?days) do
-
+      (printout t "Estoy en while dias usados: " ?daysUsed crlf) 
       (bind ?exitMinutes FALSE)
       (bind ?minutesUsed 0)
       (while (and (< ?minutesUsed ?minutes) (eq ?exitMinutes FALSE) ) do
+          (printout t "Estoy en while2 minutos usados: " ?minutesUsed crlf)
           (bind ?rand (+ (mod (random) (length$ ?listaCuadros)) 1))
           (bind ?element (nth$ ?rand ?listaCuadros))
           (bind ?observationTime (send ?element get-Observation+Time))
+          (printout t "Indice: " ?rand " Cuadro: " ?element " ObservationTime: " ?observationTime crlf)
           (bind ?possibleTime (+ ?observationTime ?minutesUsed))
           (if (<= ?possibleTime ?minutes) then
               (bind ?minutesUsed ?possibleTime)
