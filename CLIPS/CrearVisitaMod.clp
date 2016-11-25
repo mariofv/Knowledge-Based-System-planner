@@ -4,9 +4,8 @@
 
 
 (defrule CrearVisitaMod::crear-visita ""
+  (declare(salience -1000))
    =>
-    (printout t "lel" crlf)  
-
   (bind ?visitors (find-all-instances((?n Visitor)) TRUE))
    (bind ?visitor (nth$ 1 ?visitors))    
   (printout t ?visitor crlf)  
@@ -14,7 +13,7 @@
   (bind ?days (send ?visitor get-Days))         
   (bind ?minutes (send ?visitor get-Duration))   
   (bind $?listaCuadros (find-all-instances((?m Painting)) TRUE)) 
-  (bind $?listaFinal (create$ test))
+  (bind $?listaFinal (create$))
   (bind ?daysUsed 0)
   (while (< ?daysUsed ?days) do
       (bind ?exitMinutes FALSE)

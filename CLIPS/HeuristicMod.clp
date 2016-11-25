@@ -74,7 +74,7 @@
 	
 )
 
-(defrule HeuristicModComplete
+(defrule HeuristicMod::HeuristicModComplete "" 
 ?paintingRelevance <- (PaintingRelevance)
 ?preference <- (Preference)
 ?numPreference <- (NumPreferences)
@@ -109,7 +109,6 @@
 (defrule HeuristicMod::AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
 (AnalyzePainting (painting ?painting))
 =>
-(printout t "Hola")
 (assert (PaintingRelevance(relevance (abstractNumber (send ?painting get-Relevance)))))
 )
 

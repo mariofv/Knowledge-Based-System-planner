@@ -214,6 +214,7 @@
 ?gs <- (GroupSize)
 (AnalyzePainting (painting ?painting))
 =>
+(printout t "Holita estoy modificando el " ?painting crlf)
 (send ?painting put-Observation+Time (ComputeObTimeH ?painting))
 (retract ?obsTime)
 (retract ?comp)
@@ -229,6 +230,7 @@
 ?gs <- (GroupSize)
 (AnalyzePainting (painting ?painting))
 =>
+(printout t "Holita estoy modificando el el " ?painting  crlf)
 (send ?painting put-Observation+Time (ComputeObTimeM ?painting))
 (retract ?obsTime)
 (retract ?comp)
@@ -244,6 +246,7 @@
 ?gs <- (GroupSize)
 (AnalyzePainting (painting ?painting))
 =>
+(printout t "Holita estoy modificando el el " ?painting  crlf)
 (send ?painting put-Observation+Time (ComputeObTimeL ?painting))
 (retract ?obsTime)
 (retract ?comp)
