@@ -1,4 +1,4 @@
-; Fri Nov 25 18:08:14 CET 2016
+; Fri Nov 25 19:19:47 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -73,7 +73,7 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
-([KB_080177_Class3] of  Map
+([KB_504380_Class3] of  Map
 )
 
 ([KB_887472_Class0] of  String
@@ -196,23 +196,23 @@
 
 ([Ontologia_ProjectKB_Class10043] of  String
 
-	(name "Visitor")
-	(string_value "Visitor+Name"))
-
-([Ontologia_ProjectKB_Class10044] of  String
-
 	(name "Style")
 	(string_value "Style+Name"))
 
+([Ontologia_ProjectKB_Class10044] of  String
+
+	(name "Visitor")
+	(string_value "Visitor+Name"))
+
 ([Ontologia_ProjectKB_Class10045] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([Ontologia_ProjectKB_Class10046] of  String
 
 	(name "Author")
 	(string_value "Author+Name"))
+
+([Ontologia_ProjectKB_Class10046] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
 
 ([Ontologia_ProjectKB_Class10047] of  String
 
@@ -226,23 +226,23 @@
 
 ([Ontologia_ProjectKB_Class10049] of  String
 
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([Ontologia_ProjectKB_Class10050] of  String
-
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
+([Ontologia_ProjectKB_Class10050] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
 ([Ontologia_ProjectKB_Class10051] of  String
-
-	(name "Painting")
-	(string_value "Painting+Name"))
-
-([Ontologia_ProjectKB_Class10052] of  String
 
 	(name "Topic")
 	(string_value "Topic+Name"))
+
+([Ontologia_ProjectKB_Class10052] of  String
+
+	(name "Painting")
+	(string_value "Painting+Name"))
 
 ([Ontologia_ProjectKB_Class10053] of  Map_Entry
 
@@ -672,8 +672,8 @@
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
 		[INSTANCE_ANNOTATION_FORM_WIDGET]
-		[STANDARD_SLOT_FORM_WIDGET]
 		[STANDARD_FACET_FORM_WIDGET]
+		[STANDARD_SLOT_FORM_WIDGET]
 		[PAL_FORM_WIDGET]
 		[STANDARD_CLASS_FORM_WIDGET])
 	(default_cls_metaclass ":STANDARD-CLASS")
