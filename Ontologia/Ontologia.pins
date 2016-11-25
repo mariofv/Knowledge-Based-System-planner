@@ -1,4 +1,4 @@
-; Fri Nov 25 17:40:50 CET 2016
+; Fri Nov 25 18:08:25 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -9,6 +9,7 @@
 	(Created+by [Ontologia_Class1])
 	(Exhibited+in [Ontologia_Class10002])
 	(Height 77)
+	(Observation+Time 20)
 	(Painted+in [Ontologia_Class10000])
 	(Painting+Name "La Gioconda")
 	(Painting+Style [Ontologia_Class3])
@@ -51,6 +52,7 @@
 	(Created+by [Ontologia_Class20001])
 	(Exhibited+in [Ontologia_Class10002])
 	(Height 95)
+	(Observation+Time 8)
 	(Painted+in [Ontologia_Class20004])
 	(Painting+Name "El caminante sobre el mar de nubes")
 	(Painting+Style [Ontologia_Class20003])
@@ -164,21 +166,22 @@
 	(Created+by [Ontologia_Class30012])
 	(Exhibited+in [Ontologia_Class10002])
 	(Height 92)
-	(Observation+Time -1)
+	(Observation+Time 66)
 	(Painted+in [Ontologia_Class30002])
 	(Painting+Name "La noche estrellada")
 	(Painting+Style [Ontologia_Class30003])
 	(Painting+Topic [Ontologia_Class20002])
 	(Relevance 100)
 	(Visitor+Interest -1)
-	(Width 74))
+	(Width 74)
+	(Year+of+creation 1889))
 
 ([Ontologia_Class30014] of  Painting
 
 	(Created+by [Ontologia_Class30015])
 	(Exhibited+in [Ontologia_Class10002])
 	(Height 91)
-	(Observation+Time -1)
+	(Observation+Time 9)
 	(Painted+in [Ontologia_Class30002])
 	(Painting+Name "El Grito")
 	(Painting+Style [Ontologia_Class30004])
@@ -195,6 +198,144 @@
 	(Authors+Style [Ontologia_Class30004])
 	(Nationality "Noruego")
 	(Painted [Ontologia_Class30014]))
+
+([Ontologia_Class30017] of  Author
+
+	(Active+Interval "1862-1918")
+	(Author+Name "Gustav Klimt")
+	(Authors+Style [Ontologia_Class30005])
+	(Nationality "Austohungaro")
+	(Painted [Ontologia_Class30018]))
+
+([Ontologia_Class30018] of  Painting
+
+	(Created+by [Ontologia_Class30017])
+	(Exhibited+in [Ontologia_Class10002])
+	(Height 180)
+	(Observation+Time 42)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "El beso")
+	(Painting+Style [Ontologia_Class30005])
+	(Painting+Topic [Ontologia_Class30008])
+	(Relevance 70)
+	(Visitor+Interest -1)
+	(Width 180)
+	(Year+of+creation 1907))
+
+([Ontologia_Class30019] of  Author
+
+	(Active+Interval "1904-1989")
+	(Author+Name "Salvador Dali")
+	(Authors+Style [Ontologia_Class30006])
+	(Nationality "Española")
+	(Painted [Ontologia_Class30020]))
+
+([Ontologia_Class30020] of  Painting
+
+	(Created+by [Ontologia_Class30019])
+	(Exhibited+in [Ontologia_Class10002])
+	(Height 33)
+	(Observation+Time 69)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "La Persistencia de la Memoria")
+	(Painting+Style [Ontologia_Class30006])
+	(Painting+Topic [Ontologia_Class20002])
+	(Relevance 90)
+	(Visitor+Interest -1)
+	(Width 24)
+	(Year+of+creation 1931))
+
+([Ontologia_Class30021] of  Author
+
+	(Active+Interval "1445-1510")
+	(Author+Name "Sandro Botticelli")
+	(Authors+Style [Ontologia_Class3])
+	(Nationality "Itailiana")
+	(Painted [Ontologia_Class30022]))
+
+([Ontologia_Class30022] of  Painting
+
+	(Created+by [Ontologia_Class30021])
+	(Exhibited+in [Ontologia_Class10002])
+	(Height 173)
+	(Observation+Time 90)
+	(Painted+in [Ontologia_Class20004])
+	(Painting+Name "El nacimiento de Venus")
+	(Painting+Style [Ontologia_Class3])
+	(Painting+Topic [Ontologia_Class30009])
+	(Relevance 85)
+	(Visitor+Interest -1)
+	(Width 279)
+	(Year+of+creation 1484))
+
+([Ontologia_Class30023] of  Author
+
+	(Active+Interval "1430-1479")
+	(Author+Name "Antonello da Messina")
+	(Authors+Style [Ontologia_Class3])
+	(Nationality "Italiana")
+	(Painted [Ontologia_Class30024]))
+
+([Ontologia_Class30024] of  Painting
+
+	(Created+by [Ontologia_Class30023])
+	(Exhibited+in [Ontologia_Class10002])
+	(Height 74)
+	(Observation+Time 5)
+	(Painted+in [Ontologia_Class20004])
+	(Painting+Name "Cristo muerto sostenido por un angel")
+	(Painting+Style [Ontologia_Class3])
+	(Painting+Topic [Ontologia_Class30009])
+	(Relevance 20)
+	(Visitor+Interest -1)
+	(Width 51)
+	(Year+of+creation 1475))
+
+([Ontologia_Class30025] of  Author
+
+	(Active+Interval "1791-1824")
+	(Author+Name "Theodore Gericault")
+	(Authors+Style [Ontologia_Class20003])
+	(Nationality "Francesa")
+	(Painted [Ontologia_Class30026]))
+
+([Ontologia_Class30026] of  Painting
+
+	(Created+by [Ontologia_Class30025])
+	(Exhibited+in [Ontologia_Class10002])
+	(Height 491)
+	(Observation+Time 50)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "La Balsa de la Medusa")
+	(Painting+Style [Ontologia_Class20003])
+	(Painting+Topic [Ontologia_Class30010])
+	(Relevance 75)
+	(Visitor+Interest -1)
+	(Width 717)
+	(Year+of+creation 1819))
+
+([Ontologia_Class30027] of  Author
+
+	(Active+Interval "1748-1825")
+	(Author+Name "Jacques-Louis David")
+	(Authors+Style [Ontologia_Class30007])
+	(Nationality "Francesa")
+	(Painted [Ontologia_Class30028]))
+
+([Ontologia_Class30028] of  Painting
+
+	(Created+by [Ontologia_Class30027])
+	(Exhibited+in [Ontologia_Class10002])
+	(Height 330)
+	(Observation+Time 24)
+	(Painted+in [Ontologia_Class20004])
+	(Painting+Name "El Juramento de los Horacios")
+	(Painting+Style [Ontologia_Class30007])
+	(Painting+Topic [Ontologia_Class30011])
+	(Relevance 45)
+	(Visitor+Interest -1)
+	(Width 425)
+	(Year+of+creation 1784))
 
 ([Ontologia_Class36] of  Author
 
