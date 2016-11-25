@@ -56,16 +56,13 @@
 ;Reglas de abstracción
 
 (defrule AbstractComplexity
+(AnalyzePainting)
 (object (is-a Painting) (Complexity ?complexity))
 =>
 (assert (Complexity(complexity (fAbstractComplexity ?complexity))))
 )
 
-(defrule AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
-(object (is-a Painting) (Relevance ?relevance))
-=>
-(assert (PaintingRelevance(relevance (abstractNumber ?relevance)))
-))
+
 
 (defrule AbstractKnowledge "Abstrae el conocimiento sobre un cuadro"
 (object (is-a Visitor) (Knowledge ?knowledge))
@@ -79,20 +76,6 @@
 (assert (GroupSize(size (defineGroupSize ?size)))
 ))
 
-(defrule AbstractPreferencesHigh ""
-(NumPreferences (number ?n))
-(test (> ?n 1))
-=>
-(assert (Preference (level High)))
-)
-
-(defrule AbstractPreferencesLow ""
-(NumPreferences (number ?n))
-(test (<= ?n 1))
-=>
-(assert (Preference (level Low)))
-)
- 
 ;AQUI EMPEIZAN LAS REGLAS DE ASOCIACION HEURÍSTICA
  
 (defrule FirstFilter1 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
