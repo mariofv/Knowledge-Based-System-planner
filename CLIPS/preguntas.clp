@@ -62,7 +62,7 @@
    (if (lexemep ?answer) 
        then (bind ?answer ?answer))
    (while (not (lexemep ?answer)) do
-      (printout t "Introduce a string, you idiot" crlf)
+      (printout t "Introduce a string" crlf)
       (printout t ?question)
       (bind ?answer (readline))
       (if (lexemep ?answer) 
@@ -76,8 +76,8 @@
        then (if (> ?answer 1) then (bind ?answer ?answer))
    )
    (while (or(not (integerp ?answer)) (< ?answer 1))  do
-      (if (not (integerp ?answer)) then (printout t "Introduce an integer, dumbass" crlf)
-      else (if (< ?answer 1) then (printout t "Introduce an integer bigger than 0, dumbass" crlf) 
+      (if (not (integerp ?answer)) then (printout t "Introduce an integer" crlf)
+      else (if (< ?answer 1) then (printout t "Introduce an integer bigger than 0" crlf) 
        ))
       (printout t ?question)
       (bind ?answer (read))
@@ -97,13 +97,13 @@
   (initial-fact)
    =>
    (bind ?visitor_name
-      (ask-question-string "What is the your name, bitch? "))
+      (ask-question-string "What is your name? "))
    (bind ?number_of_people
-      (ask-question-integer "How many people is your group composed of, bitch? "))
+      (ask-question-integer "How many people is your group composed of? "))
    (bind ?days
-      (ask-question-integer "How many days are you going to stay, bitch? "))
+      (ask-question-integer "How many days are you going to stay? "))
    (bind ?time
-      (ask-question-integer "How long are you going to stay each day (in minutes), bitch? "))
+      (ask-question-integer "How long are you going to stay each day (in minutes)? "))
    ;//////////////
    ;BEGIN TEST
    ;//////////////
@@ -158,7 +158,7 @@
         then(printout t "Well done you little art nerd!" crlf)
     else (if(> ?points 40)
         then(printout t "Meeeh, that was okay I guess..." crlf)
-    else (printout t "I don't know why you are wasting your money in an art museum if you don't know shit, but hey, it's your money" crlf)))
+    else (printout t "I don't know why you are wasting your money in an art museum if you don't know anything, but hey, it's your money" crlf)))
    
     (bind ?points 25)
     (bind ?visitor_instance (make-instance visitor of Visitor))
