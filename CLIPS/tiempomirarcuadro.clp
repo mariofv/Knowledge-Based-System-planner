@@ -5,17 +5,6 @@
 
 ;AQUI EMPIEZAN LAS REGLAS DE ABSTRACCION
 
-(deffunction abstractNumber(?relevance)
-	(if (>= ?relevance 80) then Very_High
-		else (if (>= ?relevance 60) then High
-				else (if  (>= ?relevance 40) then Medium
-					else (if (>= ?relevance 20) then Low
-						else Very_Low					
-						    )
-					  )
-			  )
-	)
-)
 
 (deffunction defineGroupSize(?size)
 	(if (<= ?size 5) then Low

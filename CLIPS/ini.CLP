@@ -1,3 +1,4 @@
+
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
@@ -37,12 +38,6 @@
 		(type INSTANCE)
 ;+		(allowed-classes Period)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Preferences
-;+		(comment "The Preferencess of a visitor")
-		(type INSTANCE)
-;+		(allowed-classes Author Period Style Topic)
-		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
 	(multislot Prefered+by
 ;+		(comment "The visitors that prefer the instance.")
@@ -96,6 +91,11 @@
 ;+		(comment "The duration in hours of the visits of a visitor.")
 		(type INTEGER)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot Preference
+;+		(comment "The preferences of a visitor")
+		(type INSTANCE)
+;+		(allowed-classes Author Period Style Topic)
 		(create-accessor read-write))
 	(single-slot Number+of+People
 ;+		(comment "The number of people that composes a group.")
@@ -169,7 +169,7 @@
 ;+		(allowed-classes Painting)
 		(create-accessor read-write))
 	(single-slot Knowledge
-;+		(comment "The knowledge of a visitor.")
+;+		(comment "The knowledge of a visitor")
 		(type INTEGER)
 		(range 0 100)
 ;+		(cardinality 1 1)
@@ -388,16 +388,10 @@
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Knowledge
-;+		(comment "The knowledge of a visitor.")
+;+		(comment "The knowledge of a visitor")
 		(type INTEGER)
 		(range 0 100)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Preferences
-;+		(comment "The Preferencess of a visitor")
-		(type INSTANCE)
-;+		(allowed-classes Author Period Style Topic)
-		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
 	(single-slot Visitor+Name
 		(type STRING)
@@ -407,6 +401,11 @@
 ;+		(comment "The duration in hours of the visits of a visitor.")
 		(type INTEGER)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot Preferences
+;+		(comment "The preferences of a visitor")
+		(type INSTANCE)
+;+		(allowed-classes Author Period Style Topic)
 		(create-accessor read-write))
 	(single-slot Number+of+People
 ;+		(comment "The number of people that composes a group.")
@@ -432,8 +431,10 @@
 		(type INSTANCE)
 ;+		(allowed-classes Painting)
 		(create-accessor read-write)))
-		
+
+
 (definstances instances
+
 ([Ontologia_Class0] of  Painting
 
 	(Complexity 1)
@@ -454,8 +455,7 @@
 	(Author+Name "Leonardo da Vinci")
 	(Authors+Style [Ontologia_Class3])
 	(Nationality "Italiano")
-	(Painted [Ontologia_Class0])
-	(Prefered+by [Ontologia_Class10010]))
+	(Painted [Ontologia_Class0]))
 
 ([Ontologia_Class10000] of  Period
 
@@ -497,16 +497,6 @@
 	(Paintings+with+topic [Ontologia_Class0])
 	(Topic+Name "Retrato"))
 
-([Ontologia_Class10010] of  Visitor
-
-	(Days 2)
-	(Duration 1)
-	(Knowledge 33)
-	(Number+of+People 1)
-	(Preferences [Ontologia_Class1])
-	(Type Not_a_family)
-	(Visitor+Name "Carlos Roldan Montaner"))
-
 ([Ontologia_Class3] of  Style
 
 	(Authors+with+style [Ontologia_Class1])
@@ -520,6 +510,7 @@
 	(Active+Interval "1423-1429")
 	(Author+Name "Fra Giovanni de Fiesole")
 	(Nationality "Italiano"))
+
 )
 
 ;///////////////////////////////
@@ -567,45 +558,62 @@
 ;/// AQUI EMPIEZAN REGLAS   ////
 ;///////////////////////////////
 
+(deffunction abstractNumber(?relevance)
+	(if (>= ?relevance 80) then Very_High
+		else (if (>= ?relevance 60) then High
+				else (if  (>= ?relevance 40) then Medium
+					else (if (>= ?relevance 20) then Low
+						else Very_Low					
+						    )
+					  )
+			  )
+	)
+)
 
 (deffunction correctPreference(?actual ?painting)
 
 	(if (eq (class ?actual) Author) then
-		(if (eq (send ?actual get-Author+Name) (send (send ?painting get-Created+By) get-Author+Name)) then 
+		(if (eq (send ?actual get-Author+Name) (send (send ?painting get-Created+by) get-Author+Name)) then 
 				(assert (AuthorPreference(preference yes)))
+                (printout t "SDfisdjfj" crlf)
 				TRUE
 		else 
 				(assert (AuthorPreference(preference no)))
 				FALSE
 		)
-	)
-	(if (eq (class ?actual) Topic) then
-		(if (eq (send ?actual get-Topic+Name)(send (send ?painting get-Painting+Topic) get-Topic+Name)) then 
-				(assert (TopicPreference(preference yes)))
-				TRUE
-		else 
-				(assert (TopicPreference(preference no)))
-				FALSE
-		)
-	)
-	(if (eq (class ?actual) Style) then
-		(if (eq (send ?actual get-Style+Name) (send (send ?painting get-Painting+Style) get-Style+Name)) then 
-				(assert (StylePreference(preference yes)))
-				TRUE
-		else 
-				(assert (StylePreference(preference no)))
-				FALSE
-		)
-	)
-	(if (eq (class ?actual) Period) then
-		(if (eq (send ?actual get-Period+Name) (send (send ?painting get-Painted+in) get-Period+Name)) then 
-				(assert (PeriodPreference(preference yes)))
-				TRUE
-		else 
-				(assert (PeriodPreference(preference no)))
-				FALSE
-		)
-	)
+	else
+        (if (eq (class ?actual) Topic) then
+    		(if (eq (send ?actual get-Topic+Name)(send (send ?painting get-Painting+Topic) get-Topic+Name)) then 
+    				(assert (TopicPreference(preference yes)))
+    				TRUE
+    		else 
+    				(assert (TopicPreference(preference no)))
+    				FALSE
+    		)
+    	else 
+           (if (eq (class ?actual) Style) then
+    		    (if (eq (send ?actual get-Style+Name) (send (send ?painting get-Painting+Style) get-Style+Name)) then 
+    				(assert (StylePreference(preference yes)))
+    				TRUE
+    		    else 
+    				(assert (StylePreference(preference no)))
+    				FALSE
+    		    )
+    	    else (if (eq (class ?actual) Period) then
+    	    	(if (eq (send ?actual get-Period+Name) (send (send ?painting get-Painted+in) get-Period+Name)) then 
+    	    			(assert (PeriodPreference(preference yes)))
+    	    			TRUE
+    	    	else 
+    	    			(assert (PeriodPreference(preference no)))
+    	    			FALSE
+    	    	)
+    	    )
+            )
+    	    
+        )
+    	
+    )
+	
 )
 
 (defrule FindPreferences "Esta regla determina cuantas preferencias tiene un visitante sobre un cuadro y crea los hechos convenientes"
@@ -614,7 +622,6 @@
 (bind ?contador 0)
 (loop-for-count (?i 1 (length$ ?preferences)) do
 	(bind ?actual (nth$ ?i ?preferences))
-;aquí hacemos lo que queramos
 	(if (correctPreference ?actual ?painting) then
 		(bind ?contador(+ ?contador 1))
 	)
@@ -631,19 +638,17 @@
 (defrule AbstractPreferencesHigh ""
 (NumPreferences (number ?n)) (test (> ?n 1))
 =>
-(assert (Preferences (level High)))
+(assert (Preference (level High)))
 )
 
 (defrule AbstractPreferencesLow ""
 (NumPreferences (number ?n)) (test (<= ?n 1))
 =>
-(assert (Preferences (level Low)))
+(assert (Preference (level Low)))
 )
 
-
-
 (defrule FindInterestInPaintingVeryHigh "Comprueba si el interes de un visitante por un cuadro es muy alto"
-(PaintingRelevance (relevance ?relevance)) (PaintingRelevance (relevance ?relevance)) 
+(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
 (or 
 (test (eq ?relevance Very_High)) 
 (and (test (eq ?relevance High)) (test (eq ?preferenceLevel High)))
@@ -653,7 +658,7 @@
 )
 
 (defrule FindInterestInPaintingHigh "Comprueba si el interes de un visitante por un cuadro es alto"
-(Preference (level ?preferenceLevel)) (PaintingRelevance (relevance ?relevance)) 
+(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
 (or 
 (and (test (eq ?relevance High)) (test(eq ?preferenceLevel Low)))
 (and (test(eq ?relevance Medium)) (test(eq ?preferenceLevel High)))
@@ -663,7 +668,7 @@
 )
 
 (defrule FindInterestInPaintingLow "Comprueba si el interes de un visitante por un cuadro es bajo"
-(Preference (level ?preferenceLevel)) (PaintingRelevance (relevance ?relevance)) 
+(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
 (or
 (and (test(eq ?relevance Medium)) (test(eq ?preferenceLevel Low)))
 (and (test (eq ?relevance Low)) (test(eq ?preferenceLevel High)))
@@ -673,7 +678,7 @@
 )
 
 (defrule FindInterestInPaintingVeryLow "Comprueba si el interes de un visitante por un cuadro es muy bajo"
-(Preference (level ?preferenceLevel)) (PaintingRelevance (relevance ?relevance)) 
+(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
 (or
 (and (test (eq ?relevance Low)) (test(eq ?preferenceLevel Low)))
 (test (eq ?relevance Very_Low))
