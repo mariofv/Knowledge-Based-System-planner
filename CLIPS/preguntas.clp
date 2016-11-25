@@ -1,6 +1,7 @@
 ;DEFFUNCTIONS
+(defmodule PreguntasMod (import Main defclass ?ALL))
 
-(deffunction question-instance ()
+(deffunction PreguntasMod::question-instance ()
    (bind ?answer (readline))
    (if (lexemep ?answer) 
        then (bind ?answer ?answer))

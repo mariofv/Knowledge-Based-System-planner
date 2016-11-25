@@ -84,17 +84,14 @@
   ;TODODODODOO
   (bind ?visitors (find-all-instances((?n Visitor)) TRUE))
    (bind ?visitor (nth$ 1 ?visitors))    
-  (printout t "Estoy en la regla crear-visita")  
   (printout t ?visitor crlf)  
 
   (bind ?days (send ?visitor get-Days))         
   (bind ?minutes (send ?visitor get-Duration))   
   (bind $?listaCuadros (find-all-instances((?m Painting)) TRUE)) 
-  (printout t "Lista de cuadros: " $?listaCuadros crlf)
   (bind $?listaFinal (create$ test))
   (bind ?daysUsed 0)
   (while (< ?daysUsed ?days) do
-      (printout t "Estoy en while dias usados: " ?daysUsed crlf) 
       (bind ?exitMinutes FALSE)
       (bind ?minutesUsed 0)
       
