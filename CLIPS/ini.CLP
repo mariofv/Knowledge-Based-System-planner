@@ -685,9 +685,3 @@
 =>
 (assert (Interest (level Very_Low)))
 )
-
-
-
-
-
->>>>>>> 81c6dda9c4227f8b0c2f18a526b66014fbccd1c5
