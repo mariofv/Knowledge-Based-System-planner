@@ -1,16 +1,18 @@
+(defmodule ObsTimeMod(import MAIN deffunction deftemplate))
+
 ;hECHOS
-(deftemplate ObservationTime
+(deftemplate ObsTimeMod::ObservationTime
 (slot time (type SYMBOL)
 (allowed-values High Medium Low)))
 
-(deftemplate Complexity
+(deftemplate ObsTimeMod::Complexity
 (slot complexity (type SYMBOL)
 (allowed-values High Medium Low)))
 
 ;AQUI EMPIEZAN LAS FUNCIONES
 
 
-(deffunction fAbstractComplexity (?complexity)
+(deffunction ObsTimeMod::fAbstractComplexity (?complexity)
     (if (>= ?complexity 66) then HIGH
         else (if (>= ?complexity 33) then Medium
             else Low
@@ -18,7 +20,7 @@
     )
 )
 
-(deffunction defineGroupSize(?size)
+(deffunction ObsTimeMod::defineGroupSize(?size)
 	(if (<= ?size 5) then Low
 		else (if (<= ?size 10) then Medium
 				else High
@@ -26,26 +28,26 @@
 	)
 )
 
-(deffunction timeKnowledge(?knowledge)
+(deffunction ObsTimeMod::timeKnowledge(?knowledge)
 	(if (or (eq ?knowledge Very_High) (eq ?knowledge High) (eq ?knowledge Medium)) then High
 		else Medium
 	)
 )
 
-(deffunction timeKnowledge2(?knowledge)
+(deffunction ObsTimeMod::timeKnowledge2(?knowledge)
 	(if (or (eq ?knowledge Very_High) (eq ?knowledge High)) then High
 		else (if (eq ?knowledge Medium) then Medium
             else Low)
 	)
 )
 
-(deffunction timeKnowledge3(?knowledge)
+(deffunction ObsTimeMod::timeKnowledge3(?knowledge)
 	(if (eq ?knowledge Very_High) then Medium
 		else Low
 	)
 )
 
-(deffunction upgradeObsTime(?obsTime)
+(deffunction ObsTimeMod::upgradeObsTime(?obsTime)
     (if (eq ?obsTime Low) then Medium
         else (if (eq ?obsTime Medium) then High
             else High
@@ -55,19 +57,19 @@
 
 ;Reglas de abstracción
 
-(defrule AbstractComplexity
+(defrule ObsTimeMod::AbstractComplexity
 (object (is-a Painting) (Complexity ?complexity))
 =>
 (assert (Complexity(complexity (fAbstractComplexity ?complexity))))
 )
 
-(defrule AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
+(defrule ObsTimeMod::AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
 (object (is-a Painting) (Relevance ?relevance))
 =>
 (assert (PaintingRelevance(relevance (abstractNumber ?relevance)))
 ))
 
-(defrule AbstractKnowledge "Abstrae el conocimiento sobre un cuadro"
+(defrule ObsTimeMod::AbstractKnowledge "Abstrae el conocimiento sobre un cuadro"
 (object (is-a Visitor) (Knowledge ?knowledge))
 =>
 (assert (Knowledge(knowledge (abstractNumber ?knowledge)))

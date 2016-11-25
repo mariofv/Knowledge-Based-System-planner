@@ -1,4 +1,7 @@
-(defmodule MAIN (export defclass Visitor) (export deftemplate ?ALL))
+(defmodule MAIN
+(export defclass ?ALL)
+(export deftemplate ?ALL)
+)
 
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
@@ -553,178 +556,52 @@
 	(Nationality "Italiano"))
 )
 
-;///////////////////////////////
-;/// AQUI ACABA LA ONTOLOGIA////
-;///////////////////////////////
+(deftemplate AnalyzePainting
+(slot painting (type INSTANCE) (allowed-classes Painting)))
 
-;///////////////////////////////
-;/// AQUI EMPIEZAN HECHOS   ////
-;///////////////////////////////
+(deftemplate MaxMinPaintingArea
+(slot max (type INTEGER))
+(slot min (type INTEGER)))
 
-(deftemplate PaintingRelevance
-(slot relevance (type SYMBOL)
-(allowed-values Very_High High Medium Low Very_Low)))
-
-(deftemplate Knowledge
-(slot knowledge (type SYMBOL)
-(allowed-values Very_High High Medium Low Very_Low)))
-
-(deftemplate GroupSize
-(slot size (type SYMBOL)
-(allowed-values High Medium Low)))
-
-(deftemplate AuthorPreference
-(slot preference (type SYMBOL) (allowed-values yes no)))
-
-(deftemplate TopicPreference
-(slot preference (type SYMBOL)(allowed-values yes no)))
-
-(deftemplate StylePreference
-(slot preference (type SYMBOL)(allowed-values yes no)))
-
-(deftemplate PeriodPreference
-(slot preference (type SYMBOL)(allowed-values yes no)))
-
-(deftemplate Preference
-(slot level (type SYMBOL) (allowed-values Low High)))
-
-(deftemplate NumPreferences
-(slot number (type INTEGER)))
-
-(deftemplate Interest
-(slot level (type SYMBOL) (allowed-values Very_Low Low High Very_High)))
-
-;///////////////////////////////
-;/// AQUI EMPIEZAN REGLAS   ////
-;///////////////////////////////
-
-(deffunction abstractNumber(?relevance)
-	(if (>= ?relevance 80) then Very_High
-		else (if (>= ?relevance 60) then High
-				else (if  (>= ?relevance 40) then Medium
-					else (if (>= ?relevance 20) then Low
-						else Very_Low					
-						    )
-					  )
-			  )
-	)
-)
-
-(deffunction correctPreference(?actual ?painting)
-
-	(if (eq (class ?actual) Author) then
-		(if (eq (send ?actual get-Author+Name) (send (send ?painting get-Created+by) get-Author+Name)) then 
-				(assert (AuthorPreference(preference yes)))
-                (printout t "SDfisdjfj" crlf)
-				TRUE
-		else 
-				(assert (AuthorPreference(preference no)))
-				FALSE
-		)
-	else
-        (if (eq (class ?actual) Topic) then
-    		(if (eq (send ?actual get-Topic+Name)(send (send ?painting get-Painting+Topic) get-Topic+Name)) then 
-    				(assert (TopicPreference(preference yes)))
-    				TRUE
-    		else 
-    				(assert (TopicPreference(preference no)))
-    				FALSE
-    		)
-    	else 
-           (if (eq (class ?actual) Style) then
-    		    (if (eq (send ?actual get-Style+Name) (send (send ?painting get-Painting+Style) get-Style+Name)) then 
-    				(assert (StylePreference(preference yes)))
-    				TRUE
-    		    else 
-    				(assert (StylePreference(preference no)))
-    				FALSE
-    		    )
-    	    else (if (eq (class ?actual) Period) then
-    	    	(if (eq (send ?actual get-Period+Name) (send (send ?painting get-Painted+in) get-Period+Name)) then 
-    	    			(assert (PeriodPreference(preference yes)))
-    	    			TRUE
-    	    	else 
-    	    			(assert (PeriodPreference(preference no)))
-    	    			FALSE
-    	    	)
-    	    )
-            )
-    	    
+(defrule FindMaxMinPaintingArea "Esta regla determina el area maxima y minima de los cuadros"
+(declare(salience 100))
+(object (is-a Painting) (Width ?width) (Height ?height)) ?limit <-(MaxMinPaintingArea (max ?max) (min ?min))
+=>
+(bind ?area (* ?width ?height))
+    (if (< ?max ?area) then
+	    (modify ?limit (max ?area))
+    else
+        (if (> ?min ?area) then
+	        (modify ?limit (min ?area))
         )
-    	
     )
-	
 )
 
-(defrule FindPreferences "Esta regla determina cuantas preferencias tiene un visitante sobre un cuadro y crea los hechos convenientes"
-(object (is-a Visitor) (Preferences $?preferences)) ?painting<-(object (is-a Painting))
+(defrule NormalizeComplexity "Esta regla normaliza la complejidad de los cuadros"
+(declare(salience 50))
+(object (is-a Painting) (Width ?width) (Height ?height) (Complexity ?complexity))
+(MaxMinPaintingArea (max ?max) (min ?min))
 =>
-(bind ?contador 0)
-(loop-for-count (?i 1 (length$ ?preferences)) do
-	(bind ?actual (nth$ ?i ?preferences))
-	(if (correctPreference ?actual ?painting) then
-		(bind ?contador(+ ?contador 1))
-	)
-)
-(assert (NumPreferences(number ?contador)))
+(bind ?area (* ?width ?height))
+(bind ?complexity (/ (- ?area ?min) (- ?max ?min)))
 )
 
-(defrule AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
-(object (is-a Painting) (Relevance ?relevance))
+(defrule InitializeMaxMinPaintingArea "Inicializa MaxMinPaintingArea"
+(declare (salience 150))
 =>
-(assert (PaintingRelevance(relevance (abstractNumber ?relevance)))
-))
+(printout t "Ejecuto la regla de inicializar" crlf)
+(assert (MaxMinPaintingArea(max 0) (min 999999)))
+)
 
-(defrule AbstractPreferencesHigh ""
-(NumPreferences (number ?n)) (test (> ?n 1))
+(defrule StartRule
+(declare (salience 0))
 =>
-(assert (Preference (level High)))
-)
+(bind ?paintings (find-all-instances ((?inst Painting)) TRUE))
 
-(defrule AbstractPreferencesLow ""
-(NumPreferences (number ?n)) (test (<= ?n 1))
-=>
-(assert (Preference (level Low)))
+    (loop-for-count (?i 1 (length$ ?paintings)) do
+        (bind ?fact (assert (AnalyzePainting (painting (nth$ ?i ?paintings)))))
+        (printout t "module HeuristicMod " ?i crlf)
+        (focus HeuristicMod)
+        (retract ?fact)
+    )
 )
-
-(defrule FindInterestInPaintingVeryHigh "Comprueba si el interes de un visitante por un cuadro es muy alto"
-(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
-(or 
-(test (eq ?relevance Very_High)) 
-(and (test (eq ?relevance High)) (test (eq ?preferenceLevel High)))
-)
-=>
-(assert (Interest (level Very_High)))
-)
-
-(defrule FindInterestInPaintingHigh "Comprueba si el interes de un visitante por un cuadro es alto"
-(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
-(or 
-(and (test (eq ?relevance High)) (test(eq ?preferenceLevel Low)))
-(and (test(eq ?relevance Medium)) (test(eq ?preferenceLevel High)))
-)
-=>
-(assert (Interest (level High)))
-)
-
-(defrule FindInterestInPaintingLow "Comprueba si el interes de un visitante por un cuadro es bajo"
-(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
-(or
-(and (test(eq ?relevance Medium)) (test(eq ?preferenceLevel Low)))
-(and (test (eq ?relevance Low)) (test(eq ?preferenceLevel High)))
-)
-=>
-(assert (Interest (level Low)))
-)
-
-(defrule FindInterestInPaintingVeryLow "Comprueba si el interes de un visitante por un cuadro es muy bajo"
-(PaintingRelevance (relevance ?relevance)) (Preference (level ?preferenceLevel)) 
-(or
-(and (test (eq ?relevance Low)) (test(eq ?preferenceLevel Low)))
-(test (eq ?relevance Very_Low))
-)
-=>
-(assert (Interest (level Very_Low)))
-)
-
-
