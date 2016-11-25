@@ -1,9 +1,13 @@
+;hECHOS
 (deftemplate ObservationTime
 (slot time (type SYMBOL)
 (allowed-values High Medium Low)))
 
+(deftemplate Complexity
+(slot complexity (type SYMBOL))
+(allowed-values High Medium Low))
 
-;AQUI EMPIEZAN LAS REGLAS DE ABSTRACCION
+;AQUI EMPIEZAN LAS FUNCIONES
 
 (deffunction abstractNumber(?relevance)
 	(if (>= ?relevance 80) then Very_High
@@ -46,6 +50,12 @@
 
 ;Reglas de abstracción
 
+(defrule AbstractComplexity
+(object (is-a Painting) (Complexity ?complexity)
+=>
+(assert )
+)
+
 (defrule AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
 (object (is-a Painting) (Relevance ?relevance))
 =>
@@ -84,21 +94,26 @@
 (assert (ObservationTime (time High))))
 
 (defrule FirstFilter2 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
-(PaintingRelevance(relevance Very_Low))
-=>
-(assert (ObservationTime (time Low))))
-
-(defrule FirstFilter3 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
 (PaintingRelevance(relevance High)) (Knowledge (knowledge ?knowledge))
 =>
 (assert (ObservationTime (time (timeKnowledge ?knowledge)))))
 
-(defrule FirstFilter4 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(defrule FirstFilter3 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
 (PaintingRelevance(relevance Medium)) (Knowledge (knowledge ?knowledge))
 =>
 (assert (ObservationTime (time (timeKnowledge2 ?knowledge)))))
 
-(defrule FirstFilter5 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(defrule FirstFilter4 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
 (PaintingRelevance(relevance Low)) (Knowledge (knowledge ?knowledge))
 =>
 (assert (ObservationTime (time (timeKnowledge3 ?knowledge)))))
+
+(defrule FirstFilter5 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(PaintingRelevance(relevance Very_Low))
+=>
+(assert (ObservationTime (time Low))))
+
+(defrule SecondFilter
+(PaintingRelevance(relevance Very_Low))
+=>
+(assert (ObservationTime (time Low))))
