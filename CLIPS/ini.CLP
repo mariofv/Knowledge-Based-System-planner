@@ -49,6 +49,11 @@
 		(type INSTANCE)
 ;+		(allowed-classes Author)
 		(create-accessor read-write))
+	(multislot Preferences
+;+		(comment "The preferences of a visitor")
+		(type INSTANCE)
+;+		(allowed-classes Author Period Style Topic)
+		(create-accessor read-write))
 	(single-slot Type
 ;+		(comment "The kind of visitor.")
 		(type SYMBOL)
@@ -91,11 +96,6 @@
 ;+		(comment "The duration in hours of the visits of a visitor.")
 		(type INTEGER)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Preference
-;+		(comment "The preferences of a visitor")
-		(type INSTANCE)
-;+		(allowed-classes Author Period Style Topic)
 		(create-accessor read-write))
 	(single-slot Number+of+People
 ;+		(comment "The number of people that composes a group.")
@@ -376,6 +376,11 @@
 (defclass Visitor "A visitor of a museum."
 	(is-a USER)
 	(role concrete)
+	(multislot Preferences
+;+		(comment "The preferences of a visitor")
+		(type INSTANCE)
+;+		(allowed-classes Author Period Style Topic)
+		(create-accessor read-write))
 	(single-slot Days
 ;+		(comment "The number of days in which the visitor visits the museum.")
 		(type INTEGER)
@@ -402,11 +407,6 @@
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(multislot Preferences
-;+		(comment "The preferences of a visitor")
-		(type INSTANCE)
-;+		(allowed-classes Author Period Style Topic)
-		(create-accessor read-write))
 	(single-slot Number+of+People
 ;+		(comment "The number of people that composes a group.")
 		(type INTEGER)
@@ -431,8 +431,6 @@
 		(type INSTANCE)
 ;+		(allowed-classes Painting)
 		(create-accessor read-write)))
-
-
 (definstances instances
 
 ([Ontologia_Class0] of  Painting
@@ -484,6 +482,7 @@
 		[Ontologia_Class10006]
 		[Ontologia_Class10004]
 		[Ontologia_Class10002])
+	(Exhibits [Ontologia_Class20000])
 	(Room+Name "Room 3"))
 
 ([Ontologia_Class10006] of  Room
@@ -496,6 +495,47 @@
 
 	(Paintings+with+topic [Ontologia_Class0])
 	(Topic+Name "Retrato"))
+
+([Ontologia_Class20000] of  Painting
+
+	(Created+by [Ontologia_Class20001])
+	(Exhibited+in [Ontologia_Class10005])
+	(Height 95)
+	(Painted+in [Ontologia_Class20004])
+	(Painting+Name "El caminante sobre el mar de nubes")
+	(Painting+Style [Ontologia_Class20003])
+	(Painting+Topic [Ontologia_Class20002])
+	(Relevance 75)
+	(Width 75)
+	(Year+of+creation 1818))
+
+([Ontologia_Class20001] of  Author
+
+	(Active+Interval "1774-1840")
+	(Author+Name "Caspar David Friedrich")
+	(Authors+Style [Ontologia_Class20003])
+	(Nationality "Alemana")
+	(Painted [Ontologia_Class20000]))
+
+([Ontologia_Class20002] of  Topic
+
+	(Paintings+with+topic [Ontologia_Class20000])
+	(Topic+Name "Paisaje"))
+
+([Ontologia_Class20003] of  Style
+
+	(Authors+with+style [Ontologia_Class20001])
+	(Finishing+year 1870)
+	(Paintings+with+style [Ontologia_Class20000])
+	(Starting+year 1770)
+	(Style+Name "Romanticismo"))
+
+([Ontologia_Class20004] of  Period
+
+	(Finishing+year 1789)
+	(Paintings [Ontologia_Class20000])
+	(Period+Name "Edad Moderna")
+	(Starting+year 1492))
 
 ([Ontologia_Class3] of  Style
 
@@ -510,7 +550,6 @@
 	(Active+Interval "1423-1429")
 	(Author+Name "Fra Giovanni de Fiesole")
 	(Nationality "Italiano"))
-
 )
 
 ;///////////////////////////////
@@ -686,8 +725,5 @@
 =>
 (assert (Interest (level Very_Low)))
 )
-
-
-
 
 

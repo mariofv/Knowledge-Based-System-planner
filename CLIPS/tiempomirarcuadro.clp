@@ -1,16 +1,28 @@
+;hECHOS
 (deftemplate ObservationTime
 (slot time (type SYMBOL)
 (allowed-values High Medium Low)))
 
+(deftemplate Complexity
+(slot complexity (type SYMBOL)
+(allowed-values High Medium Low)))
 
-;AQUI EMPIEZAN LAS REGLAS DE ABSTRACCION
+;AQUI EMPIEZAN LAS FUNCIONES
 
+
+(deffunction fAbstractComplexity (?complexity)
+    (if (>= ?complexity 66) then HIGH
+        else (if (>= ?complexity 33) then Medium
+            else Low
+        )
+    )
+)
 
 (deffunction defineGroupSize(?size)
 	(if (<= ?size 5) then Low
 		else (if (<= ?size 10) then Medium
 				else High
-			  )
+        )
 	)
 )
 
@@ -33,7 +45,21 @@
 	)
 )
 
+(deffunction upgradeObsTime(?obsTime)
+    (if (eq ?obsTime Low) then Medium
+        else (if (eq ?obsTime Medium) then High
+            else High
+        )
+    )
+)
+
 ;Reglas de abstracción
+
+(defrule AbstractComplexity
+(object (is-a Painting) (Complexity ?complexity))
+=>
+(assert (Complexity(complexity (fAbstractComplexity ?complexity))))
+)
 
 (defrule AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
 (object (is-a Painting) (Relevance ?relevance))
@@ -54,15 +80,17 @@
 ))
 
 (defrule AbstractPreferencesHigh ""
-(NumPreferences (number ?n)) (test (> ?n 1))
+(NumPreferences (number ?n))
+(test (> ?n 1))
 =>
-(assert (Preferences (level High)))
+(assert (Preference (level High)))
 )
 
 (defrule AbstractPreferencesLow ""
-(NumPreferences (number ?n)) (test (<= ?n 1))
+(NumPreferences (number ?n))
+(test (<= ?n 1))
 =>
-(assert (Preferences (level Low)))
+(assert (Preference (level Low)))
 )
  
 ;AQUI EMPEIZAN LAS REGLAS DE ASOCIACION HEURÍSTICA
@@ -70,24 +98,73 @@
 (defrule FirstFilter1 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
 (PaintingRelevance(relevance Very_High))
 =>
-(assert (ObservationTime (time High))))
+(assert (ObservationTime (time High)))
+(assert (First))
+)
 
 (defrule FirstFilter2 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
-(PaintingRelevance(relevance Very_Low))
+(PaintingRelevance(relevance High))
+(Knowledge (knowledge ?knowledge))
 =>
-(assert (ObservationTime (time Low))))
+(assert (ObservationTime (time (timeKnowledge ?knowledge))))
+)
 
 (defrule FirstFilter3 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
-(PaintingRelevance(relevance High)) (Knowledge (knowledge ?knowledge))
+(PaintingRelevance(relevance Medium))
+(Knowledge (knowledge ?knowledge))
 =>
-(assert (ObservationTime (time (timeKnowledge ?knowledge)))))
+(assert (ObservationTime (time (timeKnowledge2 ?knowledge))))
+)
 
 (defrule FirstFilter4 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
-(PaintingRelevance(relevance Medium)) (Knowledge (knowledge ?knowledge))
+(PaintingRelevance(relevance Low))
+(Knowledge (knowledge ?knowledge))
 =>
-(assert (ObservationTime (time (timeKnowledge2 ?knowledge)))))
+(assert (ObservationTime (time (timeKnowledge3 ?knowledge))))
+)
 
 (defrule FirstFilter5 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
-(PaintingRelevance(relevance Low)) (Knowledge (knowledge ?knowledge))
+(PaintingRelevance(relevance Very_Low))
 =>
-(assert (ObservationTime (time (timeKnowledge3 ?knowledge)))))
+(assert (ObservationTime (time Low)))
+)
+
+(defrule SecondFilter1
+?f <- (ObservationTime(time ?t))
+(GroupSize (size ?size))
+(Complexity (complexity ?complexity))
+(Preference (level ?level))
+(not (and
+    (test (eq ?t Low))
+    (test (eq ?size High))
+    (test (eq ?complexity High))
+    (test (eq ?level High))
+))
+(or
+    (test (eq ?size High))
+    (test (eq ?complexity High))
+    (test (eq ?level High))
+    (and
+        (test (eq ?size Medium))
+        (or
+            (test (eq ?complexity Medium))
+            (test (eq ?level Medium))
+        )
+    )
+    (and
+        (test (eq ?complexity Medium))
+        (test (eq ?level Medium))
+    )
+)
+=>
+(modify ?f (time (upgradeObsTime ?t)))
+)
+
+(defrule SecondFilter2
+?f <- (ObservationTime(time Low))
+(GroupSize (size High))
+(Complexity (complexity High))
+(Preference (level High))
+=>
+(modify ?f (time High))
+)
