@@ -91,34 +91,33 @@
   (bind ?minutes (send ?visitor get-Duration))   
   (bind $?listaCuadros (find-all-instances((?m Painting)) TRUE)) 
   (printout t "Lista de cuadros: " $?listaCuadros crlf)
-  (bind $?listaFinal (create$))
+  (bind $?listaFinal (create$ test))
   (bind ?daysUsed 0)
   (while (< ?daysUsed ?days) do
       (printout t "Estoy en while dias usados: " ?daysUsed crlf) 
       (bind ?exitMinutes FALSE)
       (bind ?minutesUsed 0)
+      
       (while (and (< ?minutesUsed ?minutes) (eq ?exitMinutes FALSE) ) do
-          (printout t "Estoy en while2 minutos usados: " ?minutesUsed crlf)
           (bind ?rand (+ (mod (random) (length$ ?listaCuadros)) 1))
           (bind ?element (nth$ ?rand ?listaCuadros))
           (bind ?observationTime (send ?element get-Observation+Time))
-          (printout t "Indice: " ?rand " Cuadro: " ?element " ObservationTime: " ?observationTime crlf)
           (bind ?possibleTime (+ ?observationTime ?minutesUsed))
           (if (<= ?possibleTime ?minutes) then
               (bind ?minutesUsed ?possibleTime)
-              (insert$ ?listaFinal 1 ?element)
-              (delete$ ?listaCuadros ?rand ?rand)
+              (bind ?listaFinal (insert$ ?listaFinal 1 ?element))
+              (bind ?listaCuadros (delete$ ?listaCuadros ?rand ?rand))
            else 
               (bind ?index 1)
               (bind ?exit FALSE)
               (while (and (<= ?index (length$ ?listaCuadros)) (eq ?exit FALSE)) do
                    (bind ?element (nth$ ?index ?listaCuadros))
                    (bind ?observationTime (send ?element get-Observation+Time))
-                   (bind ?possibletime (+ ?observationTime ?minutesUsed))
+                   (bind ?possibleTime (+ ?observationTime ?minutesUsed))
                    (if (<= ?possibleTime ?minutes) then
                        (bind ?minutesUsed ?possibleTime)
-                       (insert$ ?listaFinal 1 ?element)
-                       (delete$ ?listaCuadros ?rand ?rand)
+                       (bind ?listaFinal (insert$ ?listaFinal 1 ?element))
+                       (bind ?listaCuadros (delete$ ?listaCuadros ?index ?index))
                        (bind ?exit TRUE)
                    else (bind ?index (+ ?index 1))
                    )
