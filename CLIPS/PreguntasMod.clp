@@ -1,5 +1,5 @@
 ;DEFFUNCTIONS
-(defmodule PreguntasMod (import Main defclass ?ALL))
+(defmodule PreguntasMod (import MAIN defclass ?ALL))
 
 (deffunction PreguntasMod::question-instance ()
    (bind ?answer (readline))
@@ -10,7 +10,7 @@
         bind ?answer (readline))
 ?answer)
 
-(deffunction add-preference (?classtype ?slot ?count ?visitor_instance)
+(deffunction PreguntasMod::add-preference (?classtype ?slot ?count ?visitor_instance)
     (bind ?answer (question-instance))
     (while (not(eq ?answer "done")) do
         (bind ?aux (find-instance ((?inst ?classtype)) (eq (lowcase ?inst:?slot) (lowcase ?answer))))
@@ -25,7 +25,7 @@
     )
 )
 
-(deffunction ask-question-with-values-int (?question $?allowed-values)
+(deffunction PreguntasMod::ask-question-with-values-int (?question $?allowed-values)
    (printout t ?question crlf)
    (printout t "Possible values: [" 1 "," (length$ ?allowed-values)"]")
    (printout t $?allowed-values crlf)
@@ -41,7 +41,7 @@
           then (bind ?answer ?answer)))
    ?answer)
 
-(deffunction ask-question-with-values (?question $?allowed-values)
+(deffunction PreguntasMod::ask-question-with-values (?question $?allowed-values)
    (printout t ?question crlf)
    (printout t "Possible values: ")
    (printout t $?allowed-values crlf)
@@ -56,8 +56,9 @@
       (if (lexemep ?answer) 
           then (bind ?answer ?answer)))
    ?answer)
-;noob
-(deffunction ask-question-string (?question)
+
+
+(deffunction PreguntasMod::ask-question-string (?question)
    (printout t ?question)
    (bind ?answer (readline))
    (if (lexemep ?answer) 
@@ -70,7 +71,7 @@
           then (bind ?answer ?answer)))
    ?answer)
 
-(deffunction ask-question-integer (?question)
+(deffunction PreguntasMod::ask-question-integer (?question)
    (printout t ?question)
    (bind ?answer (read))
    (if (integerp ?answer) 
@@ -86,7 +87,7 @@
           then (bind ?answer ?answer)))
    ?answer)
 
-(deffunction yes-or-no-p (?question)
+(deffunction PreguntasMod::yes-or-no-p (?question)
    (bind ?response (ask-question-with-values ?question yes no y n))
    (if (or (eq ?response yes) (eq ?response y))
        then TRUE 
@@ -94,9 +95,10 @@
 
 ;//DEFRULES
 
-(defrule visitor-questions ""
-  (initial-fact)
+(defrule PreguntasMod::visitor-questions ""
+(declare (salience 10000))
    =>
+    (printout t "HOLA" crlf)
    (bind ?visitor_name
       (ask-question-string "What is your name? "))
    (bind ?number_of_people
@@ -173,59 +175,18 @@
     (bind ?count 1)
     (printout t "Alright, let's check your preferences now." crlf)
     (printout t "We'll start with the authors. For each author you like, type his name and press ENTER. Type 'done' when you are done" crlf);
-;    (bind ?answer (question-instance))
-;    (while (not(eq ?answer "done")) do
-;        (bind ?aux (find-instance ((?inst Author)) (eq (lowcase ?inst:Author+Name) (lowcase ?answer))))
-;        (bind ?mslot (send ?visitor_instance get-Preferences))
-;        (bind ?already (member$ ?aux ?mslot))
-;
-;        (printout t ?aux crlf)
-;        (if (not ?already) then    
-;        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
-;        (bind ?count (+ ?count 1)))
-;        (bind ?answer (question-instance))
-;    )
+
     (add-preference Author Author+Name ?count ?visitor_instance)
     
     (printout t "Good. Now same thing for the styles. For each style you like, type its name and press ENTER. Type 'done' when you are done" crlf);
     (add-preference Style Style+Name ?count ?visitor_instance)
-;    (bind ?answer (question-instance))    
-;    (while (not(eq ?answer "done")) do
-;        (bind ?aux (find-all-instances ((?inst Style)) (eq (lowcase ?inst:Style+Name) (lowcase ?answer))))
-;        (bind ?mslot (send ?visitor_instance get-Preferences))
-;        (bind ?already (member$ ?aux ?mslot))        
-;        (if (not ?already) then    
-;        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
-;        (bind ?count (+ ?count 1)))
-;        (bind ?answer (question-instance))
-;
-;    )
+
     (printout t "Almost done. We also need to know which periods you prefer. For each period you like, type its name and press ENTER. Type 'done' when you are done" crlf);
     (add-preference Period Period+Name ?count ?visitor_instance)
-;    (bind ?answer (question-instance))    
-;    (while (not(eq ?answer "done")) do
-;        (bind ?aux (find-all-instances ((?inst Period)) (eq (lowcase ?inst:Period+Name) (lowcase ?answer))))
-;        (bind ?mslot (send ?visitor_instance get-Preferences))
-;        (bind ?already (member$ ?aux ?mslot))        
-;        (if (not ?already) then    
-;        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
-;        (bind ?count (+ ?count 1)))
-;        (bind ?answer (question-instance))
-;
-;    )
+
     (printout t "Last step! Tell us about the topics you like the most. For each topic you like, type its name and press ENTER. Type 'done' when you are done" crlf);
     (add-preference Topic Topic+Name ?count ?visitor_instance)
-;    (bind ?answer (question-instance))    
-;    (while (not(eq ?answer "done")) do
-;        (bind ?aux (find-all-instances ((?inst Topic)) (eq (lowcase ?inst:Topic+Name) (lowcase ?answer))))
-;        (bind ?mslot (send ?visitor_instance get-Preferences))
-;        (bind ?already (member$ ?aux ?mslot))        
-;        (if (not ?already) then    
-;        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
-;        (bind ?count (+ ?count 1)))
-;        (bind ?answer (question-instance))
-;
-;    )
+
 )
    
 

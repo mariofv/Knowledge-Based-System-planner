@@ -1,11 +1,10 @@
-; Fri Nov 25 19:19:55 CET 2016
+; Fri Nov 25 21:28:23 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
 
 ([Ontologia_Class0] of  Painting
 
-	(Complexity 1)
 	(Created+by [Ontologia_Class1])
 	(Exhibited+in [Ontologia_Class10002])
 	(Height 77)

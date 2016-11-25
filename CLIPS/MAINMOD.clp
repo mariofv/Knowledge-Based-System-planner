@@ -461,7 +461,7 @@
 
 ([Ontologia_Class0] of  Painting
 
-	(Complexity 1)
+	(Complexity 0)
 	(Created+by [Ontologia_Class1])
 	(Exhibited+in [Ontologia_Class10002])
 	(Height 77)
@@ -824,11 +824,11 @@
 
 (defrule NormalizeComplexity "Esta regla normaliza la complejidad de los cuadros"
 (declare(salience 50))
-(object (is-a Painting) (Width ?width) (Height ?height) (Complexity ?complexity))
+?painting<-(object (is-a Painting) (Width ?width) (Height ?height))
 (MaxMinPaintingArea (max ?max) (min ?min))
 =>
 (bind ?area (* ?width ?height))
-(bind ?complexity (/ (- ?area ?min) (- ?max ?min)))
+(send ?painting put-Complexity (*(/ (- ?area ?min) (- ?max ?min)) 100))
 )
 
 (defrule InitializeMaxMinPaintingArea "Inicializa MaxMinPaintingArea"
@@ -841,7 +841,9 @@
 (defrule StartRule
 (declare (salience 0))
 =>
+(printout t "HOLA!" crlf)
 (focus PreguntasMod)
+(printout t "ADIOS!" crlf)
 (bind ?paintings (find-all-instances ((?inst Painting)) TRUE))
 
     (loop-for-count (?i 1 (length$ ?paintings)) do
@@ -850,4 +852,5 @@
         (focus HeuristicMod)
         (retract ?fact)
     )
+(focus CrearVisitaMod)
 )
