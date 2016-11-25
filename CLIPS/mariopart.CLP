@@ -49,4 +49,6 @@
 	(if (correctPreference ?actual ?painting) then
 		(bind ?contador(+ ?contador 1))
 	)
-))
+)
+(assert (NumPreferences(number ?contador)))
+)
