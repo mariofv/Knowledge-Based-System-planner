@@ -1,4 +1,4 @@
-; Thu Nov 24 11:45:16 CET 2016
+; Fri Nov 25 10:33:45 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -23,8 +23,7 @@
 	(Author+Name "Leonardo da Vinci")
 	(Authors+Style [Ontologia_Class3])
 	(Nationality "Italiano")
-	(Painted [Ontologia_Class0])
-	(Prefered+by [Ontologia_Class10010]))
+	(Painted [Ontologia_Class0]))
 
 ([Ontologia_Class10000] of  Period
 
@@ -65,15 +64,6 @@
 
 	(Paintings+with+topic [Ontologia_Class0])
 	(Topic+Name "Retrato"))
-
-([Ontologia_Class10010] of  Visitor
-
-	(Days 2)
-	(Duration 1)
-	(Number+of+People 1)
-	(Preference [Ontologia_Class1])
-	(Type Not_a_family)
-	(Visitor+Name "Carlos Roldan Montaner"))
 
 ([Ontologia_Class3] of  Style
 
