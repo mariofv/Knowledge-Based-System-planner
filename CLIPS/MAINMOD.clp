@@ -808,6 +808,8 @@
 (slot max (type INTEGER))
 (slot min (type INTEGER)))
 
+(deftemplate iniRule)
+
 (defrule FindMaxMinPaintingArea "Esta regla determina el area maxima y minima de los cuadros"
 (declare(salience 100))
 (object (is-a Painting) (Width ?width) (Height ?height)) ?limit <-(MaxMinPaintingArea (max ?max) (min ?min))

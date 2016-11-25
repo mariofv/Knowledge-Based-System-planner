@@ -1,5 +1,6 @@
 ;DEFFUNCTIONS
-(defmodule PreguntasMod (import MAIN defclass ?ALL))
+(defmodule PreguntasMod (import MAIN defclass ?ALL)
+(import MAIN deftemplate ?ALL))
 
 (deffunction PreguntasMod::question-instance ()
    (bind ?answer (readline))
@@ -96,9 +97,8 @@
 ;//DEFRULES
 
 (defrule PreguntasMod::visitor-questions ""
-(declare (salience 10000))
    =>
-    (printout t "HOLA" crlf)
+    (printout t "HOLAS" crlf)
    (bind ?visitor_name
       (ask-question-string "What is your name? "))
    (bind ?number_of_people

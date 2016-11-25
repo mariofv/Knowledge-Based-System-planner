@@ -1,0 +1,8 @@
+(load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/MAINMOD.CLP")
+(load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/PreguntasMod.CLP")
+(load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/HeuristicMod.CLP")
+(load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/ObsTimeMod.CLP")
+(load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/PaintIntMod.CLP")
+(load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/CrearVisitaMod.CLP")
+(reset)
+(run)
