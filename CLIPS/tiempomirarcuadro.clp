@@ -57,17 +57,26 @@
 
 ;Reglas de abstracción
 
+<<<<<<< HEAD
 (defrule ObsTimeMod::AbstractComplexity
+=======
+(defrule AbstractComplexity
+(AnalyzePainting)
+>>>>>>> ed77a24fe850321a2ecb20c4e0f6db26be3661f1
 (object (is-a Painting) (Complexity ?complexity))
 =>
 (assert (Complexity(complexity (fAbstractComplexity ?complexity))))
 )
 
+<<<<<<< HEAD
 (defrule ObsTimeMod::AbstractPaintingRelevance "Abstrae la relevancia de un cuadro"
 (object (is-a Painting) (Relevance ?relevance))
 =>
 (assert (PaintingRelevance(relevance (abstractNumber ?relevance)))
 ))
+=======
+
+>>>>>>> ed77a24fe850321a2ecb20c4e0f6db26be3661f1
 
 (defrule ObsTimeMod::AbstractKnowledge "Abstrae el conocimiento sobre un cuadro"
 (object (is-a Visitor) (Knowledge ?knowledge))
@@ -81,20 +90,6 @@
 (assert (GroupSize(size (defineGroupSize ?size)))
 ))
 
-(defrule AbstractPreferencesHigh ""
-(NumPreferences (number ?n))
-(test (> ?n 1))
-=>
-(assert (Preference (level High)))
-)
-
-(defrule AbstractPreferencesLow ""
-(NumPreferences (number ?n))
-(test (<= ?n 1))
-=>
-(assert (Preference (level Low)))
-)
- 
 ;AQUI EMPEIZAN LAS REGLAS DE ASOCIACION HEURÍSTICA
  
 (defrule FirstFilter1 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
