@@ -1,3 +1,4 @@
+(defmodule MAIN (export defclass Visitor) (export deftemplate ?ALL))
 
 
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
