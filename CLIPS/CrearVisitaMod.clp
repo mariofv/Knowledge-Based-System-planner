@@ -7,8 +7,7 @@
   (declare(salience -1000))
    =>
   (bind ?visitors (find-all-instances((?n Visitor)) TRUE))
-   (bind ?visitor (nth$ 1 ?visitors))    
-  (printout t ?visitor crlf)  
+  (bind ?visitor (nth$ 1 ?visitors))     
 
   (bind ?days (send ?visitor get-Days))         
   (bind ?minutes (send ?visitor get-Duration))   

@@ -1,6 +1,6 @@
 (defmodule HeuristicMod 
 (import MAIN deftemplate ?ALL) 
-(import MAIN defclass Visitor) 
+(import MAIN defclass ?ALL) 
 
 (export deftemplate ?ALL)
 (export deffunction abstractNumber)
@@ -75,28 +75,42 @@
 )
 
 (defrule HeuristicMod::HeuristicModComplete "" 
+(PaintingRelevance)
+(Preference)
+=>
+(focus PaintIntMod)
+)
+
+(defrule HeuristicMod::AllHeuristicModComplete1
+(declare (salience 0))
+(FinalPaintingInterest)
+=>
+(focus ObsTimeMod)
+)
+
+(defrule HeuristicMod::AllHeuristicModComplete2
+(declare (salience 1))
 ?paintingRelevance <- (PaintingRelevance)
 ?preference <- (Preference)
 ?numPreference <- (NumPreferences)
+(FinalPaintingInterest)
+(FinalObservationTime)
 =>
-(retract ?numPreference)
-(printout t "Heuristic finished, ObsTimeMod focused" clrf)
-(focus ObsTimeMod)
-(printout t "Heuristic finished, PaintIntMod focused" clrf)
-(focus PaintIntMod)
-(retract ?preference)
 (retract ?paintingRelevance)
+(retract ?preference)
+(retract ?numPreference)
 )
-
 ;/////////////////////////
 ;REGLAS DE ABSTRACCIÓN //
 ;///////////////////////
 
 (defrule HeuristicMod::AbstractPreferences "Esta regla determina cuantas preferencias tiene un visitante sobre un cuadro y crea los hechos convenientes"
-(object (is-a Visitor) (Preferences $?preferences))
+(AnalyzeVisitor (visitor ?visitor))
 (AnalyzePainting (painting ?painting))
 =>
 (bind ?contador 0)
+(printout t ?visitor)
+(bind ?preferences (send ?visitor get-Preferences))
 (loop-for-count (?i 1 (length$ ?preferences)) do
 	(bind ?actual (nth$ ?i ?preferences))
 	(if (correctPreference ?actual ?painting) then
@@ -111,7 +125,7 @@
 =>
 (assert (PaintingRelevance(relevance (abstractNumber (send ?painting get-Relevance)))))
 )
-
+;
 (defrule HeuristicMod::AbstractPreferencesHigh
 (NumPreferences (number ?n))
 (test (> ?n 1))

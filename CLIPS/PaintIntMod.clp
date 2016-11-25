@@ -1,10 +1,11 @@
-(defmodule PaintIntMod 
+(defmodule PaintIntMod
+(import HeuristicMod defclass ?ALL) 
 (import HeuristicMod deffunction ?ALL)
 (import HeuristicMod deftemplate ?ALL)
 )
 
 ;Output modulo PaintInt
-(deftemplate HeuristicMod::Interest
+(deftemplate PaintIntMod::Interest
 (slot level (type SYMBOL)
 (allowed-values Very_Low Low High Very_High)))
 
@@ -50,9 +51,7 @@
 
 (defrule PaintIntModFinish
 ?f <- (Interest)
-(AnalyzePainting (painting ?painting))
 =>
-(printout t "hula" clrf)
-(send ?painting put-Painting+Interest 50)
+(assert (FinalPaintingInterest (interest 50)))
 (retract ?f)
 )

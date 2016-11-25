@@ -75,7 +75,7 @@
         (mod 
             50 
             (+ 
-                (* 0.5 (send ?painting get-Group+Size))
+                (* 0.5 (send ?painting get-Number+of+People))
                 (* 0.1 (send ?painting get-Knowledge))
             )
         )
@@ -88,7 +88,7 @@
         (mod 
             50 
             (+ 
-                (* 0.5 (send ?painting get-Group+Size))
+                (* 0.5 (send ?painting get-Number+of+People))
                 (* 0.1 (send ?painting get-Knowledge))
             )
         )
@@ -101,7 +101,7 @@
         (mod 
             50 
             (+ 
-                (* 0.5 (send ?painting get-Group+Size))
+                (* 0.5 (send ?painting get-Number+of+People))
                 (* 0.1 (send ?painting get-Knowledge))
             )
         )
@@ -110,17 +110,12 @@
 
 ;Reglas de abstracción
 
-(defrule ObsTimeMod::AbstractKnowledge "Abstrae el conocimiento sobre un cuadro"
-(object (is-a Visitor) (Knowledge ?knowledge))
+(defrule ObsTimeMod::AbstractKnowledgeAndGroupSize "Abstrae el conocimiento sobre un cuadro"
+(AnalyzeVisitor (visitor ?visitor))
 =>
-(assert (Knowledge(knowledge (abstractNumber ?knowledge))))
+(assert (Knowledge(knowledge (abstractNumber (send ?visitor get-Knowledge)))))
+(assert (GroupSize(size (defineGroupSize (send ?visitor get-Number+of+People)))))
 )
-
-(defrule ObsTimeMod::AbstractGroupSize "Abstrae el tamaño del grupo"
-(object (is-a Visitor) (Number+of+People ?size))
-=>
-(assert (GroupSize(size (defineGroupSize ?size)))
-))
  
 (defrule ObsTimeMod::AbstractComplexity
 (AnalyzePainting (painting ?painting))
@@ -212,10 +207,8 @@
 ?comp <- (Complexity)
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
-(AnalyzePainting (painting ?painting))
 =>
-(printout t "Holita estoy modificando el " ?painting crlf)
-(send ?painting put-Observation+Time (ComputeObTimeH ?painting))
+(assert (FinalObservationTime (time 120)))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)
@@ -228,10 +221,8 @@
 ?comp <- (Complexity)
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
-(AnalyzePainting (painting ?painting))
 =>
-(printout t "Holita estoy modificando el el " ?painting  crlf)
-(send ?painting put-Observation+Time (ComputeObTimeM ?painting))
+(assert (FinalObservationTime (time 120)))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)
@@ -244,10 +235,8 @@
 ?comp <- (Complexity)
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
-(AnalyzePainting (painting ?painting))
 =>
-(printout t "Holita estoy modificando el el " ?painting  crlf)
-(send ?painting put-Observation+Time (ComputeObTimeL ?painting))
+(assert (FinalObservationTime (time 120)))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)

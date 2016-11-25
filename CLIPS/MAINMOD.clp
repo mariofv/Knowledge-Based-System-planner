@@ -804,9 +804,21 @@
 (deftemplate AnalyzePainting
 (slot painting (type INSTANCE) (allowed-classes Painting)))
 
+(deftemplate AnalyzeVisitor
+(slot visitor (type INSTANCE) (allowed-classes Visitor)))
+
+(deftemplate PaintingFact
+(slot paintingFact (type INSTANCE) (allowed-classes Painting)))
+
 (deftemplate MaxMinPaintingArea
 (slot max (type INTEGER))
 (slot min (type INTEGER)))
+
+(deftemplate FinalObservationTime
+(slot time (type INTEGER)))
+
+(deftemplate FinalPaintingInterest
+(slot interest (type INTEGER)))
 
 (defrule FindMaxMinPaintingArea "Esta regla determina el area maxima y minima de los cuadros"
 (declare(salience 100))
@@ -834,7 +846,6 @@
 (defrule InitializeMaxMinPaintingArea "Inicializa MaxMinPaintingArea"
 (declare (salience 150))
 =>
-(printout t "Ejecuto la regla de inicializar" crlf)
 (assert (MaxMinPaintingArea(max 0) (min 999999)))
 )
 
@@ -844,25 +855,43 @@
 (focus PreguntasMod)
 )
 
-
 (defrule changeCrearVisitaModul
 (declare (salience -25))
 =>
 (focus CrearVisitaMod)
-
 )
 
 (defrule StartRule
 (declare (salience 0))
 =>
-(printout t "HOLA!" crlf)
-(printout t "ADIOS!" crlf)
 (bind ?paintings (find-all-instances ((?inst Painting)) TRUE))
 
     (loop-for-count (?i 1 (length$ ?paintings)) do
-        (bind ?fact (assert (AnalyzePainting (painting (nth$ ?i ?paintings)))))
-        (printout t "module HeuristicMod " ?i crlf)
-        (focus HeuristicMod)
-        (retract ?fact)
+        (assert (PaintingFact (paintingFact (nth$ ?i ?paintings))))
     )
+)
+
+(defrule AnalyzePainting ""
+(declare (salience 0))
+?f <- (PaintingFact (paintingFact ?painting))
+=>
+(assert (AnalyzeVisitor(visitor (nth$ 1 (find-all-instances ((?inst Visitor)) TRUE)))))
+(assert (AnalyzePainting (painting ?painting)))
+(focus HeuristicMod)
+(retract ?f)
+)
+
+(defrule FinishAnalyzing
+(declare (salience 1))
+?f1 <- (FinalObservationTime (time ?time))
+?f2 <- (FinalPaintingInterest (interest ?interest))
+?f3 <- (AnalyzePainting (painting ?painting))
+?f4 <- (AnalyzeVisitor)
+=>
+(send ?painting put-Visitor+Interest ?interest)
+(send ?painting put-Observation+Time ?time)
+(retract ?f1)
+(retract ?f2)
+(retract ?f3)
+(retract ?f4)
 )
