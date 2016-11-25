@@ -1,3 +1,5 @@
+
+
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
@@ -450,12 +452,13 @@
 		(type INSTANCE)
 ;+		(allowed-classes Painting)
 		(create-accessor read-write)))
+
 (definstances instances
 ([Ontologia_Class0] of  Painting
 
 	(Complexity 1)
 	(Created+by [Ontologia_Class1])
-	(Exhibited+in [Ontologia_Class10006])
+	(Exhibited+in [Ontologia_Class10002])
 	(Height 77)
 	(Painted+in [Ontologia_Class10000])
 	(Painting+Name "La Gioconda")
@@ -475,39 +478,19 @@
 
 ([Ontologia_Class10000] of  Period
 
-	(Finishing+year 1492)
+	(Finishing+year 1453)
 	(Paintings [Ontologia_Class0])
 	(Period+Name "Edad Media")
 	(Starting+year 476))
 
 ([Ontologia_Class10002] of  Room
 
-	(Adjacent+to
-		[Ontologia_Class10004]
-		[Ontologia_Class10005])
+	(Exhibits
+		[Ontologia_Class30013]
+		[Ontologia_Class0]
+		[Ontologia_Class30014]
+		[Ontologia_Class20000])
 	(Room+Name "Room 1"))
-
-([Ontologia_Class10004] of  Room
-
-	(Adjacent+to
-		[Ontologia_Class10002]
-		[Ontologia_Class10005])
-	(Room+Name "Room 2"))
-
-([Ontologia_Class10005] of  Room
-
-	(Adjacent+to
-		[Ontologia_Class10006]
-		[Ontologia_Class10004]
-		[Ontologia_Class10002])
-	(Exhibits [Ontologia_Class20000])
-	(Room+Name "Room 3"))
-
-([Ontologia_Class10006] of  Room
-
-	(Adjacent+to [Ontologia_Class10005])
-	(Exhibits [Ontologia_Class0])
-	(Room+Name "Room 4"))
 
 ([Ontologia_Class10008] of  Topic
 
@@ -517,7 +500,7 @@
 ([Ontologia_Class20000] of  Painting
 
 	(Created+by [Ontologia_Class20001])
-	(Exhibited+in [Ontologia_Class10005])
+	(Exhibited+in [Ontologia_Class10002])
 	(Height 95)
 	(Painted+in [Ontologia_Class20004])
 	(Painting+Name "El caminante sobre el mar de nubes")
@@ -553,7 +536,7 @@
 	(Finishing+year 1789)
 	(Paintings [Ontologia_Class20000])
 	(Period+Name "Edad Moderna")
-	(Starting+year 1492))
+	(Starting+year 1453))
 
 ([Ontologia_Class3] of  Style
 
@@ -563,11 +546,113 @@
 	(Starting+year 1400)
 	(Style+Name "Renacimiento"))
 
+([Ontologia_Class30002] of  Period
+
+	(Paintings [Ontologia_Class30013])
+	(Period+Name "Edad Contemporanea")
+	(Starting+year 1789))
+
+([Ontologia_Class30003] of  Style
+
+	(Authors+with+style [Ontologia_Class30012])
+	(Finishing+year 1905)
+	(Paintings+with+style [Ontologia_Class30013])
+	(Starting+year 1880)
+	(Style+Name "PostImpresionismo"))
+
+([Ontologia_Class30004] of  Style
+
+	(Authors+with+style [Ontologia_Class30012])
+	(Finishing+year 1925)
+	(Starting+year 1905)
+	(Style+Name "Expresionismo"))
+
+([Ontologia_Class30005] of  Style
+
+	(Starting+year 1880)
+	(Style+Name "Simbolismo"))
+
+([Ontologia_Class30006] of  Style
+
+	(Finishing+year 1942)
+	(Starting+year 1924)
+	(Style+Name "Surrealismo"))
+
+([Ontologia_Class30007] of  Style
+
+	(Finishing+year 1830)
+	(Starting+year 1760)
+	(Style+Name "Neoclasicismo"))
+
+([Ontologia_Class30008] of  Topic
+
+	(Topic+Name "Amor"))
+
+([Ontologia_Class30009] of  Topic
+
+	(Topic+Name "Religion"))
+
+([Ontologia_Class30010] of  Topic
+
+	(Topic+Name "Muerte"))
+
+([Ontologia_Class30011] of  Topic
+
+	(Topic+Name "Juramento"))
+
+([Ontologia_Class30012] of  Author
+
+	(Active+Interval "1853-1890")
+	(Author+Name "Vincent van Gogh")
+	(Authors+Style
+		[Ontologia_Class30003]
+		[Ontologia_Class30004])
+	(Nationality "Neerlandés")
+	(Painted [Ontologia_Class30013]))
+
+([Ontologia_Class30013] of  Painting
+
+	(Created+by [Ontologia_Class30012])
+	(Exhibited+in [Ontologia_Class10002])
+	(Height 92)
+	(Observation+Time -1)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "La noche estrellada")
+	(Painting+Style [Ontologia_Class30003])
+	(Painting+Topic [Ontologia_Class20002])
+	(Relevance 100)
+	(Visitor+Interest -1)
+	(Width 74))
+
+([Ontologia_Class30014] of  Painting
+
+	(Created+by [Ontologia_Class30015])
+	(Exhibited+in [Ontologia_Class10002])
+	(Height 91)
+	(Observation+Time -1)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "El Grito")
+	(Painting+Style [Ontologia_Class30004])
+	(Painting+Topic [Ontologia_Class10008])
+	(Relevance 100)
+	(Visitor+Interest -1)
+	(Width 74)
+	(Year+of+creation 1893))
+
+([Ontologia_Class30015] of  Author
+
+	(Active+Interval "1863-1944")
+	(Author+Name "Edvard Munch")
+	(Authors+Style [Ontologia_Class30004])
+	(Nationality "Noruego")
+	(Painted [Ontologia_Class30014]))
+
 ([Ontologia_Class36] of  Author
 
 	(Active+Interval "1423-1429")
 	(Author+Name "Fra Giovanni de Fiesole")
 	(Nationality "Italiano"))
+
 )
 
 ;///////////////////////////////

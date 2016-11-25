@@ -79,15 +79,51 @@
 ;//DEFRULES
 
 (defrule crear-visita ""
-  (salience -1000)
+  (declare(salience -1000))
    =>
   ;TODODODODOO
-  (bind ?listaCuadros (find-all-instances(?m Painting)))
-  (bind ?rand (+ (mod (random) (length$ ?listaCuadros) 1))
-  (bind ?element (nth$ ?rand ?listaCuadros))
+  (bind ?visitor (find-instance((?n Visitor)) TRUE))    ;Instancia del visitante
+  (bind ?days (send ?visitor get-Days))         ;Dias         
+  (bind ?minutes (send ?visitor get-Minutes))   ;Minutos
+  (bind $?listaCuadros (find-all-instances((?m Painting)) TRUE)) ;ListaCuadros
+  (bind $?listaFinal (create$))
+  (bind ?daysUsed 0)
+  (while (< ?daysUsed ?days) do
 
-   
+      (bind ?exitMinutes FALSE)
+      (bind ?minutesUsed 0)
+      (while (and (< ?minutesUsed ?minutes) (eq ?exitMinutes FALSE) ) do
+          (bind ?rand (+ (mod (random) (length$ ?listaCuadros)) 1))
+          (bind ?element (nth$ ?rand ?listaCuadros))
+          (bind ?observationTime (send ?element get-Observation+Time))
+          (bind ?possibleTime (+ ?observationTime ?minutesUsed))
+          (if (<= ?possibleTime ?minutes) then
+              (bind ?minutesUsed ?possibleTime)
+              (insert$ ?listaFinal 1 ?element)
+              (delete$ ?listaCuadros ?rand ?rand)
+           else 
+              (bind ?index 1)
+              (bind ?exit FALSE)
+              (while (and (<= ?index (length$ ?listaCuadros)) (eq ?exit FALSE)) do
+                   (bind ?element (nth$ ?index ?listaCuadros))
+                   (bind ?observationTime (send ?element get-Observation+Time))
+                   (bind ?possibletime (+ ?observationTime ?minutesUsed))
+                   (if (<= ?possibleTime ?minutes) then
+                       (bind ?minutesUsed ?possibleTime)
+                       (insert$ ?listaFinal 1 ?element)
+                       (delete$ ?listaCuadros ?rand ?rand)
+                       (bind ?exit TRUE)
+                   else (bind ?index (+ ?index 1))
+                   )
+               )
+               (if (eq ?exit FALSE) then (bind ?exitMinutes TRUE))
+            )
+        )
+       (bind ?daysUsed (+ ?daysUsed 1))
+    )
+   (printout t ?listaFinal crlf)
 )
+   
    
    
 
