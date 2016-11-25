@@ -1,3 +1,4 @@
+
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
@@ -684,4 +685,12 @@
 )
 =>
 (assert (Interest (level Very_Low)))
+<<<<<<< HEAD
 )
+=======
+)
+
+
+
+
+>>>>>>> 274f9da080d9bd80cc344e0ddf37c01eb7901216
