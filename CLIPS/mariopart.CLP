@@ -1,54 +1,29 @@
-(deffunction correctPreference(?actual ?painting)
+(deftemplate MaxMinPaintingArea
+(slot max (type INTEGER))
+(slot min (type INTEGER)))
 
-	(if (eq (class ?actual) Author) then
-		(if (eq (send ?actual get-Author+Name) (send (send ?painting get-Created+By) get-Author+Name)) then 
-				(assert (AuthorPreference(preference yes)))
-				TRUE
-		else 
-				(assert (AuthorPreference(preference no)))
-				FALSE
-		)
-	)
-	(if (eq (class ?actual) Topic) then
-		(if (eq (send ?actual get-Topic+Name)(send (send ?painting get-Painting+Topic) get-Topic+Name)) then 
-				(assert (TopicPreference(preference yes)))
-				TRUE
-		else 
-				(assert (TopicPreference(preference no)))
-				FALSE
-		)
-	)
-	(if (eq (class ?actual) Style) then
-		(if (eq (send ?actual get-Style+Name) (send (send ?painting get-Painting+Style) get-Style+Name)) then 
-				(assert (StylePreference(preference yes)))
-				TRUE
-		else 
-				(assert (StylePreference(preference no)))
-				FALSE
-		)
-	)
-	(if (eq (class ?actual) Period) then
-		(if (eq (send ?actual get-Period+Name) (send (send ?painting get-Painted+in) get-Period+Name)) then 
-				(assert (PeriodPreference(preference yes)))
-				TRUE
-		else 
-				(assert (PeriodPreference(preference no)))
-				FALSE
-		)
-	)
-)
-
-
-(defrule FindPreferences "Esta regla determina cuantos interes tiene un visitante sobre un cuadro y crea los hechos convenientes"
-(object (is-a Visitor) (Preferences $?preferences)) ?painting<-(object (is-a Painting))
+(defrule FindMaxMinPaintingArea "Esta regla determina el area maxima y minima de los cuadros"
+(salience 100)
+(object (is-a Painting) (Width ?width) (Height ?height)) ?limit <-(MaximumPaintingArea (max ?max) (min ?min))
 =>
-(bind ?contador 0)
-(loop-for-count (?i 1 (length$ ?preferences)) do
-	(bind ?actual (nth$ ?i ?preferences))
-;aquí hacemos lo que queramos
-	(if (correctPreference ?actual ?painting) then
-		(bind ?contador(+ ?contador 1))
-	)
+(bind ?area (* ?width ?height))
+(if ((< ?max ?area) 
+	(modify ?limit (max ?area)
 )
-(assert (NumPreferences(number ?contador)))
+(if ((> ?min ?area) 
+	(modify ?limit (min ?area)
 )
+)
+
+
+(defrule NormalizeComplexity "Esta regla normaliza la complejidad de los cuadros"
+(salience 50)
+(object (is-a Painting) (Width ?width) (Height ?height) (Complexity ?complexity) (MaximumPaintingArea (max ?max) (min ?min))
+=>
+(bind ?area (* ?width ?height))
+(bind ?complexity (/ (- ?area ?min) (- ?max ?min)))
+)
+
+
+
+
