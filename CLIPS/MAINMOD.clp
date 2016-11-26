@@ -459,9 +459,9 @@
 		(create-accessor read-write)))
 (definstances instances
 
+
 ([Ontologia_Class0] of  Painting
 
-	(Complexity 0)
 	(Created+by [Ontologia_Class1])
 	(Exhibited+in [Ontologia_Class10002])
 	(Height 77)
@@ -470,7 +470,8 @@
 	(Painting+Name "La Gioconda")
 	(Painting+Style [Ontologia_Class3])
 	(Painting+Topic [Ontologia_Class10008])
-	(Relevance 1)
+	(Relevance 100)
+	(Visitor+Interest -1)
 	(Width 53)
 	(Year+of+creation 1519))
 
@@ -514,6 +515,7 @@
 	(Painting+Style [Ontologia_Class20003])
 	(Painting+Topic [Ontologia_Class20002])
 	(Relevance 75)
+	(Visitor+Interest -1)
 	(Width 75)
 	(Year+of+creation 1818))
 
@@ -799,7 +801,6 @@
 	(Author+Name "Fra Giovanni de Fiesole")
 	(Nationality "Italiano"))
 
-
 )
 (deftemplate AnalyzePainting
 (slot painting (type INSTANCE) (allowed-classes Painting)))
@@ -888,6 +889,7 @@
 ?f3 <- (AnalyzePainting (painting ?painting))
 ?f4 <- (AnalyzeVisitor)
 =>
+(printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " ?interest " y un tiempo de observacion de " ?time " segundos." crlf)
 (send ?painting put-Visitor+Interest ?interest)
 (send ?painting put-Observation+Time ?time)
 (retract ?f1)

@@ -109,7 +109,6 @@
 (AnalyzePainting (painting ?painting))
 =>
 (bind ?contador 0)
-(printout t ?visitor)
 (bind ?preferences (send ?visitor get-Preferences))
 (loop-for-count (?i 1 (length$ ?preferences)) do
 	(bind ?actual (nth$ ?i ?preferences))

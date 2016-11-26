@@ -222,7 +222,7 @@
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time 120)))
+(assert (FinalObservationTime (time 60)))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)
@@ -236,7 +236,7 @@
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time 120)))
+(assert (FinalObservationTime (time 30)))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)

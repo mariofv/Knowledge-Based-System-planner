@@ -49,9 +49,40 @@
 (assert (Interest (level Very_Low)))
 )
 
-(defrule PaintIntModFinish
-?f <- (Interest)
+
+
+(defrule PaintIntMod:::FinishModuleVH
+(declare (salience 0))
+?f <- (Interest (level Very_High))
+
 =>
-(assert (FinalPaintingInterest (interest 50)))
+(assert (FinalPaintingInterest (interest 100)))
+(retract ?f)
+)
+
+(defrule PaintIntMod:::FinishModuleH
+(declare (salience 0))
+?f <- (Interest (level High))
+
+=>
+(assert (FinalPaintingInterest (interest 66)))
+(retract ?f)
+)
+
+(defrule PaintIntMod::FinishModuleL
+(declare (salience 0))
+?f <- (Interest (level Low))
+
+=>
+(assert (FinalPaintingInterest (interest 33)))
+(retract ?f)
+)
+
+(defrule PaintIntMod::FinishModuleVL
+(declare (salience 0))
+?f <- (Interest (level Very_Low))
+
+=>
+(assert (FinalPaintingInterest (interest 0)))
 (retract ?f)
 )

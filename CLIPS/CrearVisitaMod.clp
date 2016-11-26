@@ -47,7 +47,12 @@
         )
        (bind ?daysUsed (+ ?daysUsed 1))
     )
-   (printout t ?listaFinal crlf)
+    (printout t crlf "Los cuadros elegidos han sido :" crlf)
+    (loop-for-count (?i 1 (length$ ?listaFinal)) do
+	(bind ?actual (nth$ ?i ?listaFinal))
+	   (printout t (send ?actual get-Painting+Name) crlf)
+
+    )
 )
    
    

@@ -1,4 +1,4 @@
-; Fri Nov 25 21:28:23 CET 2016
+; Sat Nov 26 01:25:44 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -72,9 +72,6 @@
 
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
-
-([KB_298895_Class3] of  Map
-)
 
 ([KB_887472_Class0] of  String
 
@@ -179,6 +176,9 @@
 
 	(name "classes_file_name")
 	(string_value "Ontologia.pont"))
+
+([KB_907981_Class3] of  Map
+)
 
 ([LAYOUT_PROPERTIES] of  Property_List
 

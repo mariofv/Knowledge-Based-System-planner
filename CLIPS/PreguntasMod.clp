@@ -98,7 +98,6 @@
 (defrule PreguntasMod::visitor-questions ""
 (declare (salience -9999))
    =>
-    (printout t "HOLA" crlf)
    (bind ?visitor_name
       (ask-question-string "What is your name? "))
    (bind ?number_of_people
@@ -163,14 +162,12 @@
         then(printout t "Meeeh, that was okay I guess..." crlf)
     else (printout t "I don't know why you are wasting your money in an art museum if you don't know anything, but hey, it's your money" crlf)))
    
-    (bind ?points 25)
     (bind ?visitor_instance (make-instance visitor of Visitor))
     (send ?visitor_instance put-Visitor+Name ?visitor_name)
     (send ?visitor_instance put-Days ?days)
     (send ?visitor_instance put-Duration ?time)
     (send ?visitor_instance put-Number+of+People ?number_of_people)
     (send ?visitor_instance put-Knowledge ?points)
-    (printout t (send ?visitor_instance get-Visitor+Name) crlf) 
 
     (bind ?count 1)
     (printout t "Alright, let's check your preferences now." crlf)
