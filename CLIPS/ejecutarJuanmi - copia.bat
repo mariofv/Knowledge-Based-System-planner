@@ -1,0 +1,8 @@
+(load "F:/IA/Practica2-IA/CLIPS/MAINMOD.CLP")
+(load "F:/IA/Practica2-IA/CLIPS/PreguntasMod.CLP")
+(load "F:/IA/Practica2-IA/CLIPS/HeuristicMod.CLP")
+(load "F:/IA/Practica2-IA/CLIPS/ObsTimeMod.CLP")
+(load "F:/IA/Practica2-IA/CLIPS/PaintIntMod.CLP")
+(load "F:/IA/Practica2-IA/CLIPS/CrearVisitaMod.CLP")
+(reset)
+(run)

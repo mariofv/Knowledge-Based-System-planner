@@ -72,8 +72,8 @@
 (deffunction ComputeObTimeH (?painting)
     (+ 
         120 
-        (mod 
-            50 
+        (min 
+            29 
             (+ 
                 (* 0.5 (send ?painting get-Number+of+People))
                 (* 0.1 (send ?painting get-Knowledge))
@@ -85,8 +85,8 @@
 (deffunction ComputeObTimeM (?painting)
     (+ 
         60 
-        (mod 
-            50 
+        (min 
+            29 
             (+ 
                 (* 0.5 (send ?painting get-Number+of+People))
                 (* 0.1 (send ?painting get-Knowledge))
@@ -98,8 +98,8 @@
 (deffunction ComputeObTimeL (?painting)
     (+ 
         30 
-        (mod 
-            50 
+        (min 
+            29 
             (+ 
                 (* 0.5 (send ?painting get-Number+of+People))
                 (* 0.1 (send ?painting get-Knowledge))
@@ -204,11 +204,12 @@
 (defrule ObsTimeMod::FinishModuleH
 (declare (salience 0))
 ?obsTime <- (ObservationTime(time High))
+(AnalyzePainting (painting ?painting))
 ?comp <- (Complexity)
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time 120)))
+(assert (FinalObservationTime (time (ComputeObTimeH ?painting))))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)
@@ -217,12 +218,13 @@
 
 (defrule ObsTimeMod::FinishModuleM
 (declare (salience 0))
+(AnalyzePainting (painting ?painting))
 ?obsTime <- (ObservationTime(time Medium))
 ?comp <- (Complexity)
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time 60)))
+(assert (FinalObservationTime (time (ComputeObTimeM ?painting))))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)
@@ -231,12 +233,13 @@
 
 (defrule ObsTimeMod::FinishModuleL
 (declare (salience 0))
+(AnalyzePainting (painting ?painting))
 ?obsTime <- (ObservationTime(time Low))
 ?comp <- (Complexity)
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time 30)))
+(assert (FinalObservationTime (time (ComputeObTimeL ?painting))))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)
