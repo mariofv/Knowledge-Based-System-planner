@@ -4,7 +4,7 @@
 (import HeuristicMod deftemplate ?ALL)
 )
 
-;hECHOS
+;HECHOS
 
 ;Output modulo ObsTime
 (deftemplate ObsTimeMod::ObservationTime

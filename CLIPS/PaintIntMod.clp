@@ -4,6 +4,20 @@
 (import HeuristicMod deftemplate ?ALL)
 )
 
+
+(deffunction ComputePaintInt (?painting ?preferenceLevel ?baseNumber ?superiorLimit)
+    (+ 
+        ?baseNumber 
+        (min 
+            ?superiorLimit 
+            (+ 
+                (* 0.5 ?preferenceLevel)
+                (* 0.5 (send ?painting get-Relevance))
+            )
+        )
+    )
+)
+
 ;Output modulo PaintInt
 (deftemplate PaintIntMod::Interest
 (slot level (type SYMBOL)
@@ -54,35 +68,42 @@
 (defrule PaintIntMod:::FinishModuleVH
 (declare (salience 0))
 ?f <- (Interest (level Very_High))
-
+(AnalyzePainting (painting ?painting))
+(NumPreferences (number ?numPreferences))
 =>
-(assert (FinalPaintingInterest (interest 100)))
+(assert (FinalPaintingInterest (interest (integer(ComputePaintInt ?painting ?numPreferences 75 25)))))
 (retract ?f)
 )
 
 (defrule PaintIntMod:::FinishModuleH
 (declare (salience 0))
 ?f <- (Interest (level High))
+(AnalyzePainting (painting ?painting))
+(NumPreferences (number ?numPreferences))
 
 =>
-(assert (FinalPaintingInterest (interest 66)))
+(assert (FinalPaintingInterest (interest (integer(ComputePaintInt ?painting ?numPreferences 50 24)))))
 (retract ?f)
 )
 
 (defrule PaintIntMod::FinishModuleL
 (declare (salience 0))
 ?f <- (Interest (level Low))
+(AnalyzePainting (painting ?painting))
+(NumPreferences (number ?numPreferences))
 
 =>
-(assert (FinalPaintingInterest (interest 33)))
+(assert (FinalPaintingInterest (interest (integer(ComputePaintInt ?painting ?numPreferences 25 24)))))
 (retract ?f)
 )
 
 (defrule PaintIntMod::FinishModuleVL
 (declare (salience 0))
 ?f <- (Interest (level Very_Low))
+(AnalyzePainting (painting ?painting))
+(NumPreferences (number ?numPreferences))
 
 =>
-(assert (FinalPaintingInterest (interest 0)))
+(assert (FinalPaintingInterest (interest (integer(ComputePaintInt ?painting ?numPreferences 0 24)))))
 (retract ?f)
 )
