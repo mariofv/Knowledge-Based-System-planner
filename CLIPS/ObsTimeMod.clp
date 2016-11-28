@@ -69,40 +69,17 @@
     )
 )
 
-(deffunction ComputeObTimeH (?painting)
-    (+ 
-        120 
-        (min 
-            29 
-            (+ 
-                (* 0.5 (send ?painting get-Number+of+People))
-                (* 0.1 (send ?painting get-Knowledge))
-            )
-        )
-    )
-)
 
-(deffunction ComputeObTimeM (?painting)
+(deffunction ComputeObTime (?visitor ?painting ?baseNumber ?superiorLimit)
     (+ 
-        60 
+        ?baseNumber 
         (min 
-            29 
+            ?superiorLimit 
             (+ 
-                (* 0.5 (send ?painting get-Number+of+People))
-                (* 0.1 (send ?painting get-Knowledge))
-            )
-        )
-    )
-)
-
-(deffunction ComputeObTimeL (?painting)
-    (+ 
-        30 
-        (min 
-            29 
-            (+ 
-                (* 0.5 (send ?painting get-Number+of+People))
-                (* 0.1 (send ?painting get-Knowledge))
+                (* 0.2 (send ?visitor get-Number+of+People))
+                (* 0.2 (send ?visitor get-Knowledge))
+                (* 0.2 (send ?painting get-Complexity))
+                (* 0.2 (send ?painting get-Relevance))
             )
         )
     )
@@ -204,12 +181,13 @@
 (defrule ObsTimeMod::FinishModuleH
 (declare (salience 0))
 ?obsTime <- (ObservationTime(time High))
+(AnalyzeVisitor (visitor ?visitor))
 (AnalyzePainting (painting ?painting))
 ?comp <- (Complexity)
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time (ComputeObTimeH ?painting))))
+(assert (FinalObservationTime (time (integer (ComputeObTime ?visitor ?painting 120 44)))))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)
@@ -218,13 +196,14 @@
 
 (defrule ObsTimeMod::FinishModuleM
 (declare (salience 0))
+(AnalyzeVisitor (visitor ?visitor))
 (AnalyzePainting (painting ?painting))
 ?obsTime <- (ObservationTime(time Medium))
 ?comp <- (Complexity)
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time (ComputeObTimeM ?painting))))
+(assert (FinalObservationTime (time (integer(ComputeObTime ?visitor ?painting 75 44)))))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)
@@ -233,13 +212,14 @@
 
 (defrule ObsTimeMod::FinishModuleL
 (declare (salience 0))
+(AnalyzeVisitor (visitor ?visitor))
 (AnalyzePainting (painting ?painting))
 ?obsTime <- (ObservationTime(time Low))
 ?comp <- (Complexity)
 ?knowledge <- (Knowledge)
 ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time (ComputeObTimeL ?painting))))
+(assert (FinalObservationTime (time (integer(ComputeObTime ?visitor ?painting 30 44)))))
 (retract ?obsTime)
 (retract ?comp)
 (retract ?knowledge)
