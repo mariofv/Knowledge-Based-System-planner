@@ -11,8 +11,8 @@
         (min 
             ?superiorLimit 
             (+ 
-                (* 0.5 ?preferenceLevel)
-                (* 0.5 (send ?painting get-Relevance))
+                (* 2 ?preferenceLevel)
+                (* 0.2 (send ?painting get-Relevance))
             )
         )
     )
