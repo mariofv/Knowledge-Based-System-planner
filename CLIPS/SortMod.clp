@@ -1,29 +1,31 @@
-(defmodule ResolMod 
-
+(defmodule SortMod 
+    (import MAIN defclass ?ALL)
+    (import MAIN deftemplate State)
 )
 
-
-
-(deffunction ResolMod::adjacentRooms (?room1 ?room2)
+(deffunction SortMod::adjacentRooms (?room1 ?room2)
 (bind $?adjacentsRooms (send ?room1 get-Adjacent+to))
 (member ?room2 ?adjacentsRooms))
 
+(deffunction SortMod::getInterest (?index $?paintings) 
+    (send  (nth$ ?index ?paintings) get-Interest)
+)
 
 
-(deffunction ResolMod::divide(?start ?end $?paintings) 
+(deffunction SortMod::divide(?start ?end $?paintings) 
 
  
-    (bind ?pivot (nth$ ?start ?paintings))
+    (bind ?pivot (getInterest ?start ?paintings))
     (bind ?left ?start)
     (bind ?right ?end)
  
     ; Mientras no se cruzen los índices
     (while (< ?left ?right) do
-        (while (> (nth$ ?right ?paintings) ?pivot) do
+        (while (> (getInterest ?right ?paintings) ?pivot) do
             (bind ?right (- ?right 1))
         )
  
-        (while (and (< ?left ?right) (<= (nth$ ?left ?paintings) ?pivot)) do
+        (while (and (< ?left ?right) (<= (getInterest ?left ?paintings) ?pivot)) do
             (bind ?left (+ ?left 1))
         )
  
@@ -36,7 +38,7 @@
     )
  
     ; Los índices ya se han cruzado, ponemos el pivot en el lugar que le corresponde
-    (bind ?temp (nth$ ?right ?paintings))
+     (bind ?temp (nth$ ?right ?paintings))
     (bind ?paintings (replace$ ?paintings ?right ?right (nth$ ?start ?paintings))) 
     (bind ?paintings (replace$ ?paintings ?start ?start ?temp))
     ; La nueva posición del pivot
@@ -44,7 +46,7 @@
 )
 
 
-(deffunction ResolMod::quickSort (?start ?end $?paintings)
+(deffunction SortMod::quickSort (?start ?end $?paintings)
     (if (< ?start ?end) then 
         (bind $?aux (divide ?start ?end $?paintings))
         (bind ?pivot (nth$ 1 (first$ ?aux)))
@@ -58,9 +60,11 @@
     $?paintings
 )
 
-(defrule HOLA 
+(defrule start
+    ?state <- (State (paintingsToAsign $?paintingsToAsign))
 =>
-(bind $?paintings (create$ 1 6 7 2 9 5 8))
-(bind ?paintings (quickSort 1 7 ?paintings))
-(printout t ?paintings  crlf)
+    (bind ?paintingsToAsiignSorted (quickSort 1 (length$ ?paintingsToAsign) ?paintingsToAsign))
+
+    (modify ?state (paintingsToAsign ?paintingsToAsiignSorted))
+    (printout t "He acabado, la lista es " ?paintingsToAsiignSorted crlf)
 )
