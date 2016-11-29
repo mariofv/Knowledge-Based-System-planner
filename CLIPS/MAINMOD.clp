@@ -320,8 +320,7 @@
 
 (defclass Period "A period in history."
 	(is-a USER)
-	(role concrete)
-	(multislot Paintings
+	(role lot Paintings
 ;+		(comment "Paintings painted in a period.")
 		(type INSTANCE)
 ;+		(allowed-classes Painting)
