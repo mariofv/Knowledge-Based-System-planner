@@ -1,7 +1,21 @@
-
 ;DEFFUNCTIONS
 (defmodule CrearVisitaMod (import MAIN defclass ?ALL))
 
+
+(deftemplate ActualState
+    (multislot asignedPaintings 
+        (type INSTANCE)
+        (allowed-classes Painting)
+    )
+    (multislot deletedPaintings
+        (type INSTANCE)
+        (allowed-classes Painting)
+    )
+)
+
+(defrule OperatorAsign
+    (ActualState (asignedPaintings $?paintings) (deletedPaintings $?delPaintings))
+)
 
 (defrule CrearVisitaMod::crear-visita ""
   (declare(salience -1000))
@@ -23,7 +37,8 @@
           (bind ?element (nth$ ?rand ?listaCuadros))
           (bind ?observationTime (send ?element get-Observation+Time))
           (bind ?possibleTime (+ ?observationTime ?minutesUsed))
-          (if (<= ?possibleTime ?minutes) then
+          (if (<= ?possibleTime ?minutes) 
+           then
               (bind ?minutesUsed ?possibleTime)
               (bind ?listaFinal (insert$ ?listaFinal 1 ?element))
               (bind ?listaCuadros (delete$ ?listaCuadros ?rand ?rand))
