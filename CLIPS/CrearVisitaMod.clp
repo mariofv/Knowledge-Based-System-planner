@@ -1,6 +1,9 @@
 ;DEFFUNCTIONS
 (defmodule CrearVisitaMod (import MAIN defclass ?ALL))
 
+(deffunction first ($?list)
+    (nth$ 1 ?list)
+)
 
 (deftemplate ActualState
     (multislot asignedPaintings 
@@ -13,8 +16,22 @@
     )
 )
 
+(deftemplate Day
+    (slot number
+        (type INTEGER)
+    )
+    (slot asignedTime
+        (type INTEGER)
+    )
+    (multislot asignedPaintings
+        (type INSTANCE)
+        (allowed-classes Painting)
+    )
+)
+
 (defrule OperatorAsign
-    (ActualState (asignedPaintings $?paintings) (deletedPaintings $?delPaintings))
+    (ActualState )
+    (forall (Day (asignedPaintings $?paintings) (asignedTime ?asignedTime)) (first ?paintings))
 )
 
 (defrule CrearVisitaMod::crear-visita ""
