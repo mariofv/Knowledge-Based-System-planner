@@ -3,8 +3,6 @@
 (export deftemplate ?ALL)
 )
 
-
-
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
@@ -821,24 +819,6 @@
 (deftemplate FinalPaintingInterest
 (slot interest (type INTEGER)))
 
-(deftemplate State
-    (multislot paintingsToAsign 
-        (type INSTANCE)
-        (allowed-classes Painting)
-    )
-    (multislot deletedPaintings
-        (type INSTANCE)
-        (allowed-classes Painting)
-    )
-)
-
-(deftemplate InitialState
-    (multislot paintingsToAsign 
-        (type INSTANCE)
-        (allowed-classes Painting)
-    )
-)
-
 (deftemplate Day
     (slot number
         (type INTEGER)
@@ -909,33 +889,18 @@
 
 (defrule FinishAnalyzing
 (declare (salience 1))
-?f1 <- (FinalObservationTime (time ?time))
-?f2 <- (FinalPaintingInterest (interest ?interest))
-?f3 <- (AnalyzePainting (painting ?painting))
-?f4 <- (AnalyzeVisitor)
+    ?f1 <- (FinalObservationTime (time ?time))
+    ?f2 <- (FinalPaintingInterest (interest ?interest))
+    ?f3 <- (AnalyzePainting (painting ?painting))
+    ?f4 <- (AnalyzeVisitor)
 =>
-(printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " ?interest " y un tiempo de observacion de " ?time " segundos." crlf)
-(send ?painting put-Visitor+Interest ?interest)
-(send ?painting put-Observation+Time ?time)
-(retract ?f1)
-(retract ?f2)
-(retract ?f3)
-(retract ?f4)
-)
-
-
-
-(defrule Insert
-(declare (salience -2))
-=>
-    (printout t "Hola :3" crlf)
-    (assert (InitialState (paintingsToAsign (find-all-instances ((?x Painting)) TRUE))))
-)
-
-(defrule Sort
-(declare (salience -3))
-=>
-(focus SortMod)
+    (printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " ?interest " y un tiempo de observacion de " ?time " segundos." crlf)
+    (send ?painting put-Visitor+Interest ?interest)
+    (send ?painting put-Observation+Time ?time)
+    (retract ?f1)
+    (retract ?f2)
+    (retract ?f3)
+    (retract ?f4)
 )
 
 (defrule FinishProgram
@@ -951,9 +916,17 @@
     (assert (Finish-Fact))
 )
 
+(defrule StartVisita
+(declare (salience -1))
+=>
+(printout t "eqlo´lgle" crlf)
+(focus VisitaMod)
+)
+
 (defrule END
 (declare (salience 9999))
 (Finish-Fact)
 =>
+(printout t "Acabé" crlf)
 (return)
 )

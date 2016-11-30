@@ -1,6 +1,6 @@
 (defmodule SortMod 
-    (import MAIN defclass ?ALL)
-    (import MAIN deftemplate InitialState State)
+    (import VisitaMod defclass ?ALL)
+    (import VisitaMod deftemplate ?ALL)
 )
 
 (deffunction SortMod::adjacentRooms (?room1 ?room2)
@@ -10,7 +10,6 @@
 (deffunction SortMod::getInterest (?index $?paintings) 
     (send  (nth$ ?index ?paintings) get-Visitor+Interest)
 )
-
 
 (deffunction SortMod::divide(?start ?end $?paintings) 
 
@@ -60,7 +59,7 @@
     $?paintings
 )
 
-(defrule start
+(defrule SortMod::Start
     ?state <- (InitialState (paintingsToAsign $?paintingsToAsign))
 =>
     (bind ?paintingsToAsignSorted (quickSort 1 (length$ ?paintingsToAsign) ?paintingsToAsign))
@@ -77,7 +76,7 @@
     ;(printout t "He acabado, la lista es " ?paintingsToAsignSorted crlf)
 )
 
-(defrule ENDd
+(defrule SortMod::EndMod
 (declare (salience 10000))
 (FinishSort)
 =>

@@ -4,5 +4,7 @@
 (load "F:/IA/Practica2-IA/CLIPS/ObsTimeMod.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/PaintIntMod.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/CrearVisitaMod.CLP")
+(load "F:/IA/Practica2-IA/CLIPS/VisitaMod.CLP")
+(load "F:/IA/Practica2-IA/CLIPS/SortMod.CLP")
 (reset)
 (run)

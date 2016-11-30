@@ -3,6 +3,8 @@
 (load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/HeuristicMod.CLP")
 (load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/ObsTimeMod.CLP")
 (load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/PaintIntMod.CLP")
+(load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/VisitaMod.CLP")
 (load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/CrearVisitaMod.CLP")
+(load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/SortMod.CLP")
 (reset)
 (run)

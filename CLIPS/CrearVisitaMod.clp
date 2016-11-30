@@ -1,7 +1,6 @@
-;DEFFUNCTIONS
 (defmodule CrearVisitaMod 
-    (import MAIN defclass ?ALL)
-    (import MAIN deftemplate State Day)
+    (import VisitaMod defclass ?ALL)
+    (import VisitaMod deftemplate ?ALL)
 )
 
 (deffunction CrearVisitaMod::first ($?list)
@@ -29,6 +28,7 @@
         )
     )
 =>
+    (printout t "holas" crlf)
     (bind ?maxPainting (first ?paintingsToAsign))
     (slot-insert$ ?day paintingsToAsign 1 ?maxPainting)
     (modify ?day (asignedTime (+ ?dayTime (send ?maxPainting get-Observation+Time))))
@@ -40,6 +40,7 @@
     ?state <- (State (paintingsToAsign $?paintingsToAsign) (deletedPaintings $?deletedPaintings))
     (object (is-a Visitor) (Duration ?duration))
 =>
+    (printout t "hola" crlf)
     (insert$ ?deletedPaintings (+ (length$ ?deletedPaintings) 1) (first ?paintingsToAsign))
     (delete$ ?paintingsToAsign 1 1)
     (modify ?state (deletedPaintings ?deletedPaintings) (paintingsToAsign ?paintingsToAsign))
