@@ -863,8 +863,10 @@
 
 (defrule changePreguntasModul
 (declare (salience 25))
+    ?fact <- (MaxMinPaintingArea)
 =>
-(focus PreguntasMod)
+    (retract ?fact)
+    (focus PreguntasMod)
 )
 
 (defrule StartRule
@@ -904,29 +906,31 @@
 )
 
 (defrule FinishProgram
-    (declare (salience 10000))
-    (Day (asignedPaintings $?asignedPaintings))
+(declare (salience 10000))
+    ?fact <- (Day (number ?number) (asignedPaintings $?asignedPaintings))
 =>
-    (printout "Los cuadros a visitar en un día son " crlf)
+    (printout t "Los cuadros a visitar en el día " ?number " son " crlf)
     (loop-for-count (?i 1 (length$ ?asignedPaintings) ) do
         (bind ?painting (nth$ ?i ?asignedPaintings))
         (printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " (send ?painting get-Visitor+Interest)  crlf)
     )
     (printout t crlf)
-    (assert (Finish-Fact))
+    (retract ?fact)
 )
 
 (defrule StartVisita
 (declare (salience -1))
 =>
-(printout t "eqlo´lgle" crlf)
-(focus VisitaMod)
+    (printout t "Empieza VisitaMod" crlf)
+    (focus VisitaMod)
+    (assert (Finish-Fact))
 )
 
 (defrule END
 (declare (salience 9999))
-(Finish-Fact)
+    ?fact <- (Finish-Fact)
 =>
-(printout t "Acabé" crlf)
-(return)
+    (printout t "Acabe" crlf)
+    (retract ?fact)
+    (return)
 )

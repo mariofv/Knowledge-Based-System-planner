@@ -78,8 +78,9 @@
 
 (defrule SortMod::EndMod
 (declare (salience 10000))
-(FinishSort)
+?fact <- (FinishSort)
 =>
 (printout t "He acabado SORTMOD" crlf)
+(retract ?Fact)
 (return)
 )

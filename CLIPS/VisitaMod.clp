@@ -12,7 +12,9 @@
     )
 )
 
-(deftemplate VisitaMod::State
+(defclass VisitaMod::State
+    (is-a USER)
+    (role concrete)
     (multislot paintingsToAsign 
         (type INSTANCE)
         (allowed-classes Painting)
@@ -27,6 +29,7 @@
 (object (is-a Visitor) (Days ?days))
 =>
     (printout t "Hola :3" crlf)
+    (make-instance STATE of State (paintingsToAsign (find-all-instances ((?x Painting)) TRUE)))
     (assert (InitialState (paintingsToAsign (find-all-instances ((?x Painting)) TRUE))))
     (loop-for-count (?i 1 ?days) do
         (assert (Day (number ?i) (asignedTime 0)))
