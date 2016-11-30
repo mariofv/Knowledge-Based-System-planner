@@ -832,6 +832,13 @@
     )
 )
 
+(deftemplate InitialState
+    (multislot paintingsToAsign 
+        (type INSTANCE)
+        (allowed-classes Painting)
+    )
+)
+
 (defrule FindMaxMinPaintingArea "Esta regla determina el area maxima y minima de los cuadros"
 (declare(salience 100))
 (object (is-a Painting) (Width ?width) (Height ?height)) ?limit <-(MaxMinPaintingArea (max ?max) (min ?min))
@@ -903,22 +910,17 @@
 (retract ?f4)
 )
 
-(defrule StartInsert
-    (declare (salience -1))
-=>
-    (assert (State))
-)
+
 
 (defrule Insert
-(declare (salience -1))
-?state <- (ActualState)
-?instance <- (object (is-a Painting))
+(declare (salience -2))
 =>
-(slot-insert$ ?state paintingsToAsign 1 ?instance)
+    (printout t "Hola :3" crlf)
+    (assert (InitialState (paintingsToAsign (find-all-instances ((?x Painting)) TRUE))))
 )
 
 (defrule Sort
-(declare (salience -2))
+(declare (salience -3))
 =>
 (focus SortMod)
 )

@@ -1,6 +1,6 @@
 (defmodule SortMod 
     (import MAIN defclass ?ALL)
-    (import MAIN deftemplate State)
+    (import MAIN deftemplate InitialState State)
 )
 
 (deffunction SortMod::adjacentRooms (?room1 ?room2)
@@ -8,7 +8,7 @@
 (member ?room2 ?adjacentsRooms))
 
 (deffunction SortMod::getInterest (?index $?paintings) 
-    (send  (nth$ ?index ?paintings) get-Interest)
+    (send  (nth$ ?index ?paintings) get-Visitor+Interest)
 )
 
 
@@ -61,10 +61,16 @@
 )
 
 (defrule start
-    ?state <- (State (paintingsToAsign $?paintingsToAsign))
+    ?state <- (InitialState (paintingsToAsign $?paintingsToAsign))
 =>
-    (bind ?paintingsToAsiignSorted (quickSort 1 (length$ ?paintingsToAsign) ?paintingsToAsign))
-
-    (modify ?state (paintingsToAsign ?paintingsToAsiignSorted))
-    (printout t "He acabado, la lista es " ?paintingsToAsiignSorted crlf)
+    (bind ?paintingsToAsignSorted (quickSort 1 (length$ ?paintingsToAsign) ?paintingsToAsign))
+     
+    (assert (State (paintingsToAsign ?paintingsToAsignSorted)))
+    (retract ?state)
+    (bind ?size (length$ ?paintingsToAsignSorted))
+    (loop-for-count (?i 0 (- ?size 1)) do
+        (bind ?painting (nth$ (- ?size ?i) ?paintingsToAsignSorted))
+        (printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " (send ?painting get-Visitor+Interest)  crlf)
+    )
+    (printout t "He acabado, la lista es " ?paintingsToAsignSorted crlf)
 )
