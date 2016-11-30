@@ -839,6 +839,19 @@
     )
 )
 
+(deftemplate Day
+    (slot number
+        (type INTEGER)
+    )
+    (slot asignedTime
+        (type INTEGER)
+    )
+    (multislot asignedPaintings
+        (type INSTANCE)
+        (allowed-classes Painting)
+    )
+)
+
 (defrule FindMaxMinPaintingArea "Esta regla determina el area maxima y minima de los cuadros"
 (declare(salience 100))
 (object (is-a Painting) (Width ?width) (Height ?height)) ?limit <-(MaxMinPaintingArea (max ?max) (min ?min))
@@ -923,4 +936,24 @@
 (declare (salience -3))
 =>
 (focus SortMod)
+)
+
+(defrule FinishProgram
+    (declare (salience 10000))
+    (Day (asignedPaintings $?asignedPaintings))
+=>
+    (printout "Los cuadros a visitar en un día son " crlf)
+    (loop-for-count (?i 1 (length$ ?asignedPaintings) ) do
+        (bind ?painting (nth$ ?i ?asignedPaintings))
+        (printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " (send ?painting get-Visitor+Interest)  crlf)
+    )
+    (printout t crlf)
+    (assert (Finish-Fact))
+)
+
+(defrule END
+(declare (salience 9999))
+(Finish-Fact)
+=>
+(return)
 )

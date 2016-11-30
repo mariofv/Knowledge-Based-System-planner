@@ -1,24 +1,11 @@
 ;DEFFUNCTIONS
 (defmodule CrearVisitaMod 
     (import MAIN defclass ?ALL)
-    (import MAIN deftemplate State)
+    (import MAIN deftemplate State Day)
 )
 
 (deffunction CrearVisitaMod::first ($?list)
     (nth$ 1 ?list)
-)
-
-(deftemplate CrearVisitaMod::Day
-    (slot number
-        (type INTEGER)
-    )
-    (slot asignedTime
-        (type INTEGER)
-    )
-    (multislot asignedPaintings
-        (type INSTANCE)
-        (allowed-classes Painting)
-    )
 )
 
 (defrule CrearVisitaMod::OperatorAsign
@@ -53,8 +40,9 @@
     ?state <- (State (paintingsToAsign $?paintingsToAsign) (deletedPaintings $?deletedPaintings))
     (object (is-a Visitor) (Duration ?duration))
 =>
-    (slot-insert$ ?state deletedPaintings (length$ ?deletedPaintings) (first ?paintingsToAsign))
-    (slot-delete$ ?state paintingsToAsign 1 1)
+    (insert$ ?deletedPaintings (+ (length$ ?deletedPaintings) 1) (first ?paintingsToAsign))
+    (delete$ ?paintingsToAsign 1 1)
+    (modify ?state (deletedPaintings ?deletedPaintings) (paintingsToAsign ?paintingsToAsign))
 )
 
 (defrule CrearVisitaMod::FinishAlgorithm
@@ -62,7 +50,8 @@
     (State (paintingsToAsign $?paintingsToAsign))
     (test (= (length$ ?paintingsToAsign) 0))
 =>
-(printout t "He acabado" crlf)
+    (printout t "He acabado" crlf)
+    (return)
 )
 
 ;(defrule CrearVisitaMod::crear-visita ""

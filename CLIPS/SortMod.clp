@@ -21,11 +21,11 @@
  
     ; Mientras no se cruzen los índices
     (while (< ?left ?right) do
-        (while (> (getInterest ?right ?paintings) ?pivot) do
+        (while (< (getInterest ?right ?paintings) ?pivot) do
             (bind ?right (- ?right 1))
         )
  
-        (while (and (< ?left ?right) (<= (getInterest ?left ?paintings) ?pivot)) do
+        (while (and (< ?left ?right) (>= (getInterest ?left ?paintings) ?pivot)) do
             (bind ?left (+ ?left 1))
         )
  
@@ -68,9 +68,19 @@
     (assert (State (paintingsToAsign ?paintingsToAsignSorted)))
     (retract ?state)
     (bind ?size (length$ ?paintingsToAsignSorted))
-    (loop-for-count (?i 0 (- ?size 1)) do
-        (bind ?painting (nth$ (- ?size ?i) ?paintingsToAsignSorted))
-        (printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " (send ?painting get-Visitor+Interest)  crlf)
-    )
-    (printout t "He acabado, la lista es " ?paintingsToAsignSorted crlf)
+    (focus CrearVisitaMod)
+    (assert (FinishSort))
+    ;(loop-for-count (?i 1 ?size ) do
+     ;   (bind ?painting (nth$ ?i ?paintingsToAsignSorted))
+      ;  (printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " (send ?painting get-Visitor+Interest)  crlf)
+    ;)
+    ;(printout t "He acabado, la lista es " ?paintingsToAsignSorted crlf)
+)
+
+(defrule ENDd
+(declare (salience 10000))
+(FinishSort)
+=>
+(printout t "He acabado SORTMOD" crlf)
+(return)
 )
