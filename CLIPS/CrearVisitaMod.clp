@@ -1,6 +1,5 @@
 (defmodule CrearVisitaMod 
     (import VisitaMod defclass ?ALL)
-    (import VisitaMod deftemplate ?ALL)
 )
 
 (deffunction CrearVisitaMod::first ($?list)
@@ -29,9 +28,12 @@
         )
     )
 =>
-    (printout t "holas" crlf)
+    (printout t "Ejecutando operador Asignar" crlf)
     (bind ?maxPainting (first ?paintingsToAsign))
-    (slot-insert$ ?day asignedPaintings 1 ?maxPainting)
+    (bind ?size (length$ ?asignedPaintings))
+    (if (= ?size 0) then (bind ?size 1))
+    (bind ?size (random 1 ?size))
+    (slot-insert$ ?day asignedPaintings ?size ?maxPainting)
     (send ?day put-asignedTime (+ ?dayTime (send ?maxPainting get-Observation+Time)))
     (slot-delete$ ?state paintingsToAsign 1 1)
 )
@@ -39,9 +41,10 @@
 (defrule CrearVisitaMod::OperatorErase
 (declare (salience 10))
     ?state <- (object (is-a State) (paintingsToAsign $?paintingsToAsign) (deletedPaintings $?deletedPaintings))
+    (test (> (length$ ?paintingsToAsign) 0))
     (object (is-a Visitor) (Duration ?duration))
 =>
-    (printout t "hola" crlf)
+    (printout t "Ejecutando operador eliminar" crlf)
     (slot-insert$ ?state deletedPaintings (+ (length$ ?deletedPaintings) 1) (first ?paintingsToAsign))
     (slot-delete$ ?state paintingsToAsign 1 1)
 )
@@ -51,7 +54,7 @@
     (object (is-a State) (paintingsToAsign $?paintingsToAsign))
     (test (= (length$ ?paintingsToAsign) 0))
 =>
-    (printout t "He acabado" crlf)
+    (printout t "CrearVisitaMod acabado" crlf)
     (return)
 )
 

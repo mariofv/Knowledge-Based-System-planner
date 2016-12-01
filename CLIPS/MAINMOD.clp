@@ -911,21 +911,20 @@
 
 (defrule FinishProgram
 (declare (salience 10000))
-    ?fact <- (Day (number ?number) (asignedPaintings $?asignedPaintings))
+    ?object <- (object (is-a Day) (number ?number) (asignedPaintings $?asignedPaintings))
 =>
-    (printout t "Los cuadros a visitar en el día " ?number " son " crlf)
+    (printout t "Los cuadros a visitar en el dia " ?number " son " crlf)
     (loop-for-count (?i 1 (length$ ?asignedPaintings) ) do
         (bind ?painting (nth$ ?i ?asignedPaintings))
         (printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " (send ?painting get-Visitor+Interest)  crlf)
     )
     (printout t crlf)
-    (retract ?fact)
 )
 
 (defrule StartVisita
 (declare (salience -1))
 =>
-    (printout t "Empieza VisitaMod" crlf)
+    (printout t "Focuseando VisitaMod" crlf)
     (focus VisitaMod)
     (assert (Finish-Fact))
 )
@@ -934,7 +933,7 @@
 (declare (salience 9999))
     ?fact <- (Finish-Fact)
 =>
-    (printout t "Acabe" crlf)
+    (printout t "Acaba MAIN" crlf)
     (retract ?fact)
     (return)
 )

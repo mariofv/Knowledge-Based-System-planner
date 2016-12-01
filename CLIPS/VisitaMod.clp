@@ -1,7 +1,5 @@
 (defmodule VisitaMod
     (import MAIN defclass ?ALL)
-    (import MAIN deftemplate ?ALL)
-    (export deftemplate ?ALL)
     (export defclass ?ALL)
 )
 
@@ -27,6 +25,7 @@
 )
 
 (defrule VisitaMod::CrearVisita
+(declare (salience 0))
     (object (is-a State) (paintingsToAsign $?paintingsToAsign))
     (object (is-a Visitor) (Days ?days))
 =>
@@ -46,6 +45,7 @@
 )
 
 (defrule VisitaMod::EndMod
+(declare (salience 1))
     ?fact <- (Finish-Fact)
 =>
     (printout t "Acabando VisitaMod, vuelvo a MAIN" crlf)
