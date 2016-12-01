@@ -10,8 +10,9 @@
 (defrule CrearVisitaMod::OperatorAsign
 (declare (salience 20))
     ?state <- (State (paintingsToAsign $?paintingsToAsign))
+    (test (> (length$ ?paintingsToAsign) 0))
     (object (is-a Visitor) (Duration ?duration))
-    ?day <- (Day (asignedTime ?dayTime))
+    ?day <- (Day (asignedPaintings ?asignedPaintings) (asignedTime ?dayTime))
     (test 
         (<=
             (+ ?dayTime (send (first ?paintingsToAsign) get-Observation+Time))
@@ -30,9 +31,10 @@
 =>
     (printout t "holas" crlf)
     (bind ?maxPainting (first ?paintingsToAsign))
-    (slot-insert$ ?day paintingsToAsign 1 ?maxPainting)
-    (modify ?day (asignedTime (+ ?dayTime (send ?maxPainting get-Observation+Time))))
-    (slot-delete$ ?state paintingsToAsign 1 1)
+    (bind ?aux (insert$ ?asignedPaintings 1 ?maxPainting))
+    (modify ?day (asignedPaintings ?aux) (asignedTime (+ ?dayTime (send ?maxPainting get-Observation+Time))))
+    (bind ?aux2 (delete$ ?paintingsToAsign 1 1))
+    (modify ?state (paintingsToAsign ?aux2))
 )
 
 (defrule CrearVisitaMod::OperatorErase
@@ -41,9 +43,9 @@
     (object (is-a Visitor) (Duration ?duration))
 =>
     (printout t "hola" crlf)
-    (insert$ ?deletedPaintings (+ (length$ ?deletedPaintings) 1) (first ?paintingsToAsign))
-    (delete$ ?paintingsToAsign 1 1)
-    (modify ?state (deletedPaintings ?deletedPaintings) (paintingsToAsign ?paintingsToAsign))
+    (bind ?aux (insert$ ?deletedPaintings (+ (length$ ?deletedPaintings) 1) (first ?paintingsToAsign)))
+    (bind ?aux1 (delete$ ?paintingsToAsign 1 1))
+    (modify ?state (deletedPaintings ?aux) (paintingsToAsign ?aux1))
 )
 
 (defrule CrearVisitaMod::FinishAlgorithm
