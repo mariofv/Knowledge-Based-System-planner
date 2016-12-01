@@ -800,6 +800,23 @@
 	(Nationality "Italiano"))
 
 )
+
+(defclass Day
+    (is-a USER)
+    (role concrete)
+    (slot number
+        (type INTEGER)
+    )
+    (slot asignedTime
+        (type INTEGER)
+        (default 0)
+    )
+    (multislot asignedPaintings
+        (type INSTANCE)
+        (allowed-classes Painting)
+    )
+)
+
 (deftemplate AnalyzePainting
 (slot painting (type INSTANCE) (allowed-classes Painting)))
 
@@ -818,19 +835,6 @@
 
 (deftemplate FinalPaintingInterest
 (slot interest (type INTEGER)))
-
-(deftemplate Day
-    (slot number
-        (type INTEGER)
-    )
-    (slot asignedTime
-        (type INTEGER)
-    )
-    (multislot asignedPaintings
-        (type INSTANCE)
-        (allowed-classes Painting)
-    )
-)
 
 (defrule FindMaxMinPaintingArea "Esta regla determina el area maxima y minima de los cuadros"
 (declare(salience 100))

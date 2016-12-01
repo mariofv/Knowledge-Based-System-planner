@@ -9,10 +9,10 @@
 
 (defrule CrearVisitaMod::OperatorAsign
 (declare (salience 20))
-    ?state <- (State (paintingsToAsign $?paintingsToAsign))
+    ?state <- (object (is-a State) (paintingsToAsign $?paintingsToAsign))
     (test (> (length$ ?paintingsToAsign) 0))
     (object (is-a Visitor) (Duration ?duration))
-    ?day <- (Day (asignedPaintings ?asignedPaintings) (asignedTime ?dayTime))
+    ?day <- (object (is-a Day) (asignedPaintings $?asignedPaintings) (asignedTime ?dayTime))
     (test 
         (<=
             (+ ?dayTime (send (first ?paintingsToAsign) get-Observation+Time))
@@ -20,7 +20,7 @@
         )
     )
     (forall 
-        (Day (asignedPaintings $?paintings)(asignedTime ?asignedTime)) 
+        (object (is-a Day) (asignedPaintings $?paintings)(asignedTime ?asignedTime)) 
         (test
             (<=
                 ?dayTime
@@ -31,26 +31,24 @@
 =>
     (printout t "holas" crlf)
     (bind ?maxPainting (first ?paintingsToAsign))
-    (bind ?aux (insert$ ?asignedPaintings 1 ?maxPainting))
-    (modify ?day (asignedPaintings ?aux) (asignedTime (+ ?dayTime (send ?maxPainting get-Observation+Time))))
-    (bind ?aux2 (delete$ ?paintingsToAsign 1 1))
-    (modify ?state (paintingsToAsign ?aux2))
+    (slot-insert$ ?day asignedPaintings 1 ?maxPainting)
+    (send ?day put-asignedTime (+ ?dayTime (send ?maxPainting get-Observation+Time)))
+    (slot-delete$ ?state paintingsToAsign 1 1)
 )
 
 (defrule CrearVisitaMod::OperatorErase
 (declare (salience 10))
-    ?state <- (State (paintingsToAsign $?paintingsToAsign) (deletedPaintings $?deletedPaintings))
+    ?state <- (object (is-a State) (paintingsToAsign $?paintingsToAsign) (deletedPaintings $?deletedPaintings))
     (object (is-a Visitor) (Duration ?duration))
 =>
     (printout t "hola" crlf)
-    (bind ?aux (insert$ ?deletedPaintings (+ (length$ ?deletedPaintings) 1) (first ?paintingsToAsign)))
-    (bind ?aux1 (delete$ ?paintingsToAsign 1 1))
-    (modify ?state (deletedPaintings ?aux) (paintingsToAsign ?aux1))
+    (slot-insert$ ?state deletedPaintings (+ (length$ ?deletedPaintings) 1) (first ?paintingsToAsign))
+    (slot-delete$ ?state paintingsToAsign 1 1)
 )
 
 (defrule CrearVisitaMod::FinishAlgorithm
 (declare (salience 30))
-    (State (paintingsToAsign $?paintingsToAsign))
+    (object (is-a State) (paintingsToAsign $?paintingsToAsign))
     (test (= (length$ ?paintingsToAsign) 0))
 =>
     (printout t "He acabado" crlf)

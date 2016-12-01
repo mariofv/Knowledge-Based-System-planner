@@ -5,13 +5,6 @@
     (export defclass ?ALL)
 )
 
-(deftemplate VisitaMod::InitialState
-    (multislot paintingsToAsign 
-        (type INSTANCE)
-        (allowed-classes Painting)
-    )
-)
-
 (defclass VisitaMod::State
     (is-a USER)
     (role concrete)
@@ -26,13 +19,36 @@
 )
 
 (defrule VisitaMod::StartMod
-(object (is-a Visitor) (Days ?days))
 =>
     (printout t "Hola :3" crlf)
     (make-instance STATE of State (paintingsToAsign (find-all-instances ((?x Painting)) TRUE)))
-    (assert (InitialState (paintingsToAsign (find-all-instances ((?x Painting)) TRUE))))
-    (loop-for-count (?i 1 ?days) do
-        (assert (Day (number ?i) (asignedTime 0)))
-    )
+    (printout t "focuseando SortMod" crlf)
     (focus SortMod)
+)
+
+(defrule VisitaMod::CrearVisita
+    (object (is-a State) (paintingsToAsign $?paintingsToAsign))
+    (object (is-a Visitor) (Days ?days))
+=>
+    (printout t "SortMod acabado, he vuelto a VisitaMod" crlf)
+    (bind ?size (length$ ?paintingsToAsign))
+    (loop-for-count (?i 1 ?size ) do
+        (bind ?painting (nth$ ?i ?paintingsToAsign))
+        (printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " (send ?painting get-Visitor+Interest)  crlf)
+    )
+    (printout t "He acabado, la lista es " $?paintingsToAsign crlf)
+    (printout t "Focuseando CrearVisitaMod" crlf)
+    (loop-for-count (?i 1 ?days) do
+        (make-instance (gensym) of Day (number ?i))
+    )
+    (focus CrearVisitaMod)
+    (assert (Finish-Fact))
+)
+
+(defrule VisitaMod::EndMod
+    ?fact <- (Finish-Fact)
+=>
+    (printout t "Acabando VisitaMod, vuelvo a MAIN" crlf)
+    (retract ?fact)
+    (return)
 )
