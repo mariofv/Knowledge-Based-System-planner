@@ -37,7 +37,7 @@
     )
  
     ; Los índices ya se han cruzado, ponemos el pivot en el lugar que le corresponde
-     (bind ?temp (nth$ ?right ?paintings))
+    (bind ?temp (nth$ ?right ?paintings))
     (bind ?paintings (replace$ ?paintings ?right ?right (nth$ ?start ?paintings))) 
     (bind ?paintings (replace$ ?paintings ?start ?start ?temp))
     ; La nueva posición del pivot
