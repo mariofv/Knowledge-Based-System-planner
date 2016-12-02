@@ -1,4 +1,4 @@
-; Fri Dec 02 15:33:24 CET 2016
+; Fri Dec 02 17:26:36 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -98,6 +98,11 @@
 	(Paintings+with+style [Ontologia_Class0])
 	(Starting+year 1400)
 	(Style+Name "Renacimiento"))
+
+([Ontologia_Class30000] of  Room
+
+	(Adjacent+to [Ontologia_Class10002])
+	(Room+Name "Room 2"))
 
 ([Ontologia_Class30002] of  Period
 

@@ -1,4 +1,4 @@
-; Fri Dec 02 15:33:24 CET 2016
+; Fri Dec 02 17:26:36 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -20,16 +20,16 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[Ontologia_ProjectKB_Class10073]
-		[Ontologia_ProjectKB_Class10074]
-		[Ontologia_ProjectKB_Class10075]
-		[Ontologia_ProjectKB_Class10076]
-		[Ontologia_ProjectKB_Class10077]
-		[Ontologia_ProjectKB_Class10078]
-		[Ontologia_ProjectKB_Class10079]
-		[Ontologia_ProjectKB_Class10080]
-		[Ontologia_ProjectKB_Class10081]
-		[Ontologia_ProjectKB_Class10082]))
+		[Ontologia_ProjectKB_Class10109]
+		[Ontologia_ProjectKB_Class10110]
+		[Ontologia_ProjectKB_Class10111]
+		[Ontologia_ProjectKB_Class10112]
+		[Ontologia_ProjectKB_Class10113]
+		[Ontologia_ProjectKB_Class10114]
+		[Ontologia_ProjectKB_Class10115]
+		[Ontologia_ProjectKB_Class10116]
+		[Ontologia_ProjectKB_Class10117]
+		[Ontologia_ProjectKB_Class10118]))
 
 ([CLSES_TAB] of  Widget
 
@@ -73,7 +73,7 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
-([KB_774198_Class3] of  Map
+([KB_786739_Class3] of  Map
 )
 
 ([KB_887472_Class0] of  String
@@ -84,9 +84,9 @@
 ([KB_887472_Class1] of  Map
 
 	(entries
-		[Ontologia_ProjectKB_Class10083]
-		[Ontologia_ProjectKB_Class10084]
-		[Ontologia_ProjectKB_Class10085]))
+		[Ontologia_ProjectKB_Class10119]
+		[Ontologia_ProjectKB_Class10120]
+		[Ontologia_ProjectKB_Class10121]))
 
 ([KB_887472_Class100] of  String
 
@@ -194,71 +194,71 @@
 ([Ontologia_ProjectKB_Class10] of  Property_List
 )
 
-([Ontologia_ProjectKB_Class10073] of  String
-
-	(name "Style")
-	(string_value "Style+Name"))
-
-([Ontologia_ProjectKB_Class10074] of  String
+([Ontologia_ProjectKB_Class10109] of  String
 
 	(name "Visitor")
 	(string_value "Visitor+Name"))
 
-([Ontologia_ProjectKB_Class10075] of  String
+([Ontologia_ProjectKB_Class10110] of  String
 
-	(name "Author")
-	(string_value "Author+Name"))
+	(name "Style")
+	(string_value "Style+Name"))
 
-([Ontologia_ProjectKB_Class10076] of  String
+([Ontologia_ProjectKB_Class10111] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([Ontologia_ProjectKB_Class10077] of  String
+([Ontologia_ProjectKB_Class10112] of  String
+
+	(name "Author")
+	(string_value "Author+Name"))
+
+([Ontologia_ProjectKB_Class10113] of  String
 
 	(name "Room")
 	(string_value "Room+Name"))
 
-([Ontologia_ProjectKB_Class10078] of  String
+([Ontologia_ProjectKB_Class10114] of  String
 
 	(name "Period")
 	(string_value "Period+Name"))
 
-([Ontologia_ProjectKB_Class10079] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([Ontologia_ProjectKB_Class10080] of  String
+([Ontologia_ProjectKB_Class10115] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([Ontologia_ProjectKB_Class10081] of  String
+([Ontologia_ProjectKB_Class10116] of  String
 
-	(name "Topic")
-	(string_value "Topic+Name"))
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
 
-([Ontologia_ProjectKB_Class10082] of  String
+([Ontologia_ProjectKB_Class10117] of  String
 
 	(name "Painting")
 	(string_value "Painting+Name"))
 
-([Ontologia_ProjectKB_Class10083] of  Map_Entry
+([Ontologia_ProjectKB_Class10118] of  String
+
+	(name "Topic")
+	(string_value "Topic+Name"))
+
+([Ontologia_ProjectKB_Class10119] of  Map_Entry
 
 	(key "add_name_on_instance_form")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([Ontologia_ProjectKB_Class10084] of  Map_Entry
+([Ontologia_ProjectKB_Class10120] of  Map_Entry
 
 	(key "change_tracking_active")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([Ontologia_ProjectKB_Class10085] of  Map_Entry
+([Ontologia_ProjectKB_Class10121] of  Map_Entry
 
 	(key "suppress_instance_counting")
 	(key_class "java.lang.String")
@@ -672,8 +672,8 @@
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
 		[INSTANCE_ANNOTATION_FORM_WIDGET]
-		[STANDARD_FACET_FORM_WIDGET]
 		[STANDARD_SLOT_FORM_WIDGET]
+		[STANDARD_FACET_FORM_WIDGET]
 		[PAL_FORM_WIDGET]
 		[STANDARD_CLASS_FORM_WIDGET])
 	(default_cls_metaclass ":STANDARD-CLASS")
