@@ -1,6 +1,11 @@
 (defmodule VisitaMod
     (import MAIN defclass ?ALL)
     (export defclass ?ALL)
+    (export deftemplate ?ALL)
+)
+
+(deftemplate VisitaMod::OrganizeDay
+    (slot day (type INSTANCE) (allowed-classes Day))
 )
 
 (defclass VisitaMod::State

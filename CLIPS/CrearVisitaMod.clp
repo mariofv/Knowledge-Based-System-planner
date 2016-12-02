@@ -30,10 +30,7 @@
 =>
     (printout t "Ejecutando operador Asignar" crlf)
     (bind ?maxPainting (first ?paintingsToAsign))
-    (bind ?size (length$ ?asignedPaintings))
-    (if (= ?size 0) then (bind ?size 1))
-    (bind ?size (random 1 ?size))
-    (slot-insert$ ?day asignedPaintings ?size ?maxPainting)
+    (slot-insert$ ?day asignedPaintings 1 ?maxPainting)
     (send ?day put-asignedTime (+ ?dayTime (send ?maxPainting get-Observation+Time)))
     (slot-delete$ ?state paintingsToAsign 1 1)
 )

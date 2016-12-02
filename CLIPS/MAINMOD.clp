@@ -856,6 +856,7 @@
 (MaxMinPaintingArea (max ?max) (min ?min))
 =>
 (bind ?area (* ?width ?height))
+(printout t "Painting " ?painting " has complexity " (*(/ (- ?area ?min) (- ?max ?min)) 100) crlf)
 (send ?painting put-Complexity (*(/ (- ?area ?min) (- ?max ?min)) 100))
 )
 
