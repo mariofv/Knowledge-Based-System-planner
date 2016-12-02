@@ -6,5 +6,6 @@
 (load "F:/IA/Practica2-IA/CLIPS/VisitaMod.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/SortMod.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/CrearVisitaMod.CLP")
+(load "F:/IA/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)

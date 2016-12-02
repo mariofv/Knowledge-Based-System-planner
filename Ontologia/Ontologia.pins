@@ -1,4 +1,4 @@
-; Sat Nov 26 01:25:52 CET 2016
+; Fri Dec 02 15:02:55 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -40,6 +40,7 @@
 		[Ontologia_Class0]
 		[Ontologia_Class30014]
 		[Ontologia_Class20000])
+	(Is+Initial+Room TRUE)
 	(Room+Name "Room 1"))
 
 ([Ontologia_Class10008] of  Topic

@@ -10,27 +10,15 @@
     (slot visited (type INTEGER) (default 0))
 )
 
-(deffunction visited(?room)
-    (bind ?aux (find-instance ((?a AuxClass)) (eq (send ?a get-room) ?room)))
-    (send ?aux get-visited)
-)
-
-(deffunction visit(?room)
-    (bind ?aux (find-instance ((?a AuxClass)) (eq (send ?a get-room) ?room)))
-    (send ?aux put-visited 1)
-)
 
 (deffunction DFS (?room ?day)
-    (visit ?room)
     (bind ?paintings (send ?room get-asignedPaintings))
     (loop-for-count (?i 1 (length$ ?paintings))
         (slot-insert$ ?day asignedPaintings 1 (nth$ ?i ?paintings))
     )
     (bind ?adjacents (send ?room get-Adjacent+To))
     (loop-for-count (?i 1 (length$ ?adjacents))
-        (if (= (visited ?room) 1)
-            then (DFS (nth ?i ?adjacents) ?day)
-        )
+        (DFS (nth ?i ?adjacents) ?day)
     )
 )
 
@@ -42,17 +30,24 @@
     (bind ?size (length$ ?paintings))
     (loop-for-count (?i 1 ?size)
         (bind ?painting (nth$ 1 ?paintings))
-        (bind ?room (send ?painting get-room))
-        (slot-insert$ ?room asignedPaintings 1 ?painting)
+        (bind ?room (send ?painting get-Exhibited+in))
+        (slot-insert$ ?room Asigned+Paintings 1 ?painting)
         (slot-delete$ ?day asignedPaintings 1 1)
         (make-instance (gensym) of AuxClass (room ?room))
     )
-    (DFS (find-instance ((?r Room)) (= (send ?r get-is+Initial+Room) 1)) ?day)
+    (DFS (find-instance ((?r Room)) (send ?r get-Is+Initial+Room)) ?day)
+)
+
+(defrule DeleteAuxClass
+(declare (salience 0))
+    ?auxClass <- (object (is-a AuxClass))
+=>
+    (send ?auxClass delete)
 )
 
 (defrule End
 (declare (salience 0))
-    ?room <- (object (is-a Room) (asignedPaintings ?paintings))
+    ?room <- (object (is-a Room) (Asigned+Paintings ?paintings))
     ?fact <- (OrganizeDay)
 =>
     (bind ?size (length$ ?paintings))
