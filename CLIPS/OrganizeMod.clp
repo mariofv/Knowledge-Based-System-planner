@@ -3,56 +3,43 @@
     (import VisitaMod deftemplate OrganizeDay)
 )
 
-(defclass OrganizeMod::AuxClass
-    (is-a USER)
-    (role concrete)
-    (slot room (type INSTANCE) (allowed-classes Room))
-    (slot visited (type INTEGER) (default 0))
+(defrule GroupByRoom
+(declare (salience 3))
+    (OrganizeDay (day ?day))
+=>
+    (printout t "Dia " (send ?day get-number) crlf)
+    (bind ?size (length$ (send ?day get-asignedPaintings)))
+    (loop-for-count (?i 1 ?size)
+        (bind ?painting (nth$ 1 (send ?day get-asignedPaintings)))
+        (bind ?room (send ?painting get-Exhibited+in))
+        (printout t ?i " " ?room " " (send ?painting get-Painting+Name) crlf)
+        (slot-insert$ ?room Asigned+Paintings 1 ?painting)
+        (slot-delete$ ?day asignedPaintings 1 1)
+    )
+    (printout t "Size del dia es " (length$ (send ?day get-asignedPaintings)) crlf)
 )
 
-
-(deffunction DFS (?room ?day)
-    (bind ?paintings (send ?room get-asignedPaintings))
+(defrule ReorderPaintings
+(declare (salience 2))
+    (object (is-a Room) (Asigned+Paintings $?paintings))
+    (OrganizeDay (day ?day))
+=>
     (loop-for-count (?i 1 (length$ ?paintings))
         (slot-insert$ ?day asignedPaintings 1 (nth$ ?i ?paintings))
     )
-    (bind ?adjacents (send ?room get-Adjacent+To))
-    (loop-for-count (?i 1 (length$ ?adjacents))
-        (DFS (nth ?i ?adjacents) ?day)
-    )
 )
 
-(defrule GroupByRoom
+(defrule FlushRoomsAndFinish
 (declare (salience 1))
-    (OrganizeDay (day ?day))
+    ?fact <- (OrganizeDay (day ?day))
 =>
-    (bind ?paintings (send ?day get-asignedPaintings))
-    (bind ?size (length$ ?paintings))
-    (loop-for-count (?i 1 ?size)
-        (bind ?painting (nth$ 1 ?paintings))
-        (bind ?room (send ?painting get-Exhibited+in))
-        (slot-insert$ ?room Asigned+Paintings 1 ?painting)
-        (slot-delete$ ?day asignedPaintings 1 1)
-        (make-instance (gensym) of AuxClass (room ?room))
-    )
-    (DFS (find-instance ((?r Room)) (send ?r get-Is+Initial+Room)) ?day)
-)
-
-(defrule DeleteAuxClass
-(declare (salience 0))
-    ?auxClass <- (object (is-a AuxClass))
-=>
-    (send ?auxClass delete)
-)
-
-(defrule End
-(declare (salience 0))
-    ?room <- (object (is-a Room) (Asigned+Paintings ?paintings))
-    ?fact <- (OrganizeDay)
-=>
-    (bind ?size (length$ ?paintings))
-    (loop-for-count (?i 1 ?size)
-        (slot-delete$ ?room asignedPaintings 1 1)
+    (do-for-all-instances ((?room Room)) TRUE
+        
+            (bind ?size (length$ (send ?room get-Asigned+Paintings)))
+            (loop-for-count (?i 1 ?size)
+                (slot-delete$ ?room Asigned+Paintings 1 1)
+            )        
     )
     (retract ?fact)
+    (return)
 )

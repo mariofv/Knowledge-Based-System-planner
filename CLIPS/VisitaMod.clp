@@ -31,7 +31,7 @@
 )
 
 (defrule VisitaMod::CrearVisita
-(declare (salience 2))
+(declare (salience 0))
     (object (is-a State) (paintingsToAsign $?paintingsToAsign))
     (object (is-a Visitor) (Days ?days))
 =>
@@ -47,17 +47,32 @@
         (make-instance (gensym) of Day (number ?i))
     )
     (focus CrearVisitaMod)
+    (assert (Organize))
+)
+
+(defrule StartOrganizing
+(declare (salience 3))
+    (Organize)
+    ?day <- (object (is-a Day))
+=>
+    (printout t "STARTORGANIZING" crlf)
+    (assert (DayFact ?day))
 )
 
 (defrule VisitaMod::Organize
-(declare (salience 1))
+(declare (salience 2))
+    (Organize)
+    ?f <- (DayFact ?day)
 =>
     (printout t "Focuseando OriganizeMod" crlf)
+    (assert (OrganizeDay (day ?day)))
     (focus OrganizeMod)
+    (retract ?f)
 )
 
 (defrule VisitaMod::EndMod
-(declare (salience 0))
+(declare (salience 1))
+    ?fact <- (Organize)
 =>
     (printout t "Acabando VisitaMod, vuelvo a MAIN" crlf)
     (retract ?fact)
