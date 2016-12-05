@@ -1,4 +1,4 @@
-; Mon Dec 05 16:46:58 CET 2016
+; Mon Dec 05 17:30:07 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -30,10 +30,7 @@
 
 ([Ontologia_Class10002] of  Room
 
-	(Adjacent+to
-		[Ontologia_Class30000]
-		[Ontologia_Class40003])
-	(Is+initial+room TRUE)
+	(Number 1)
 	(Room+name "Room 1"))
 
 ([Ontologia_Class10008] of  Topic
@@ -79,10 +76,7 @@
 
 ([Ontologia_Class30000] of  Room
 
-	(Adjacent+to
-		[Ontologia_Class10002]
-		[Ontologia_Class40004])
-	(Is+initial+room FALSE)
+	(Number 2)
 	(Room+name "Room 2"))
 
 ([Ontologia_Class30002] of  Period
@@ -316,18 +310,12 @@
 
 ([Ontologia_Class40003] of  Room
 
-	(Adjacent+to
-		[Ontologia_Class10002]
-		[Ontologia_Class40004])
-	(Is+initial+room FALSE)
+	(Number 3)
 	(Room+name "Room 3"))
 
 ([Ontologia_Class40004] of  Room
 
-	(Adjacent+to
-		[Ontologia_Class30000]
-		[Ontologia_Class40003])
-	(Is+initial+room FALSE)
+	(Number 4)
 	(Room+name "Room 4"))
 
 ([Ontologia_Class40005] of  Painting
