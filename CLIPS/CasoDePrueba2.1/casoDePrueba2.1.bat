@@ -10,7 +10,7 @@
 (load "F:/IA/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)
-MedioTonto
+UnaPreferencia
 1
 1
 600
@@ -27,7 +27,5 @@ MedioTonto
 Vincent Van Gogh
 done
 done
-Edad Contemporanea
 done
-Paisaje
 done

@@ -1,5 +1,5 @@
 (defmodule CrearVisitaMod 
-    (import VisitaMod defclass State Day)
+    (import VisitaMod defclass State Day Visitor)
 )
 
 (deffunction CrearVisitaMod::first ($?list)

@@ -30,15 +30,15 @@
         ; Si todavía no se cruzan los indices seguimos intercambiando
         (if (< ?left ?right) then
             (bind ?temp (getPainting ?left ?auxClass))
-            (slot-replace$ ?auxClass paintingsToAsign ?left ?left (getPainting ?right ?auxClass))
-            (slot-replace$ ?auxClass paintingsToAsign ?right ?right ?temp)
+            (slot-replace$ ?auxClass Paintings+to+asign ?left ?left (getPainting ?right ?auxClass))
+            (slot-replace$ ?auxClass Paintings+to+asign ?right ?right ?temp)
         )
     )
  
     ; Los índices ya se han cruzado, ponemos el pivot en el lugar que le corresponde
     (bind ?temp (getPainting ?right ?auxClass))
-    (slot-replace$ ?auxClass paintingsToAsign ?right ?right (getPainting ?start ?auxClass))
-    (slot-replace$ ?auxClass paintingsToAsign ?start ?start ?temp)
+    (slot-replace$ ?auxClass Paintings+to+asign ?right ?right (getPainting ?start ?auxClass))
+    (slot-replace$ ?auxClass Paintings+to+asign ?start ?start ?temp)
     ; La nueva posición del pivot
     ?right
 )

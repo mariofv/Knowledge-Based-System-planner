@@ -1,4 +1,5 @@
 
+
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
@@ -21,7 +22,6 @@
 	(single-slot Asigned+time
 ;+		(comment "The time asigned to a day.")
 		(type INTEGER)
-		(range 0 %3FVARIABLE)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot Room+name
@@ -125,7 +125,6 @@
 	(single-slot Number
 ;+		(comment "The number of a day.")
 		(type INTEGER)
-		(range 1 %3FVARIABLE)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Visitor+interest
@@ -280,7 +279,6 @@
 	(single-slot Number
 ;+		(comment "The number of a day.")
 		(type INTEGER)
-		(range 1 %3FVARIABLE)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot Asigned+paintings
@@ -347,13 +345,11 @@
 	(single-slot Number
 ;+		(comment "The number of a day.")
 		(type INTEGER)
-		(range 1 %3FVARIABLE)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Asigned+time
 ;+		(comment "The time asigned to a day.")
 		(type INTEGER)
-		(range 0 %3FVARIABLE)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(multislot Asigned+paintings

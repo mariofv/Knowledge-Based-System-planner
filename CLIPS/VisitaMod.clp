@@ -43,7 +43,7 @@
     (printout t "He acabado, la lista es " $?paintingsToAsign crlf)
     (printout t "Focuseando CrearVisitaMod" crlf)
     (loop-for-count (?i 1 ?days) do
-        (make-instance (gensym) of Day (number ?i))
+        (make-instance (gensym) of Day (Number ?i))
     )
     (focus CrearVisitaMod)
     (assert (Organize))

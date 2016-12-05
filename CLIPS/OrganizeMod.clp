@@ -44,7 +44,7 @@
     (do-for-all-instances ((?room Room)) TRUE
         (bind ?size (length$ (send ?room get-Asigned+paintings)))
         (loop-for-count (?i 1 ?size)
-            (slot-delete$ ?room Asigned+Paintings 1 1)
+            (slot-delete$ ?room Asigned+paintings 1 1)
         )
     )
     (retract ?fact)

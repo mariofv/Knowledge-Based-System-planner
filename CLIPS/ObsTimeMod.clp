@@ -117,7 +117,7 @@
 (defrule ObsTimeMod::AbstractComplexity
     (AnalyzePainting (painting ?painting))
 =>
-    (assert (Complexity(complexity (fAbstractComplexity (send ?painting get-Complexity)))))
+    (assert (Complexity(complexity (AbstractComplexity (send ?painting get-Complexity)))))
 )
 
 ;AQUI EMPEIZAN LAS REGLAS DE ASOCIACION HEURÍSTICA

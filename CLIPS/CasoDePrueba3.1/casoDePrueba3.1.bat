@@ -10,24 +10,21 @@
 (load "F:/IA/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)
-MuchasPreferencias
-1
+Grupo
+4
 1
 600
-1
-3
-3
+2
 1
 1
 1
+2
 1
 1
 1
 1
-Vincent Van Gogh
+1
 done
 done
-Edad Contemporanea
 done
-Paisaje
 done
