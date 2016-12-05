@@ -1,4 +1,4 @@
-; Mon Dec 05 11:23:21 CET 2016
+; Mon Dec 05 17:30:07 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -20,16 +20,16 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[Ontologia_ProjectKB_Class10071]
-		[Ontologia_ProjectKB_Class10072]
-		[Ontologia_ProjectKB_Class10073]
-		[Ontologia_ProjectKB_Class10074]
-		[Ontologia_ProjectKB_Class10075]
-		[Ontologia_ProjectKB_Class10076]
-		[Ontologia_ProjectKB_Class10077]
-		[Ontologia_ProjectKB_Class10078]
-		[Ontologia_ProjectKB_Class10079]
-		[Ontologia_ProjectKB_Class10080]))
+		[Ontologia_ProjectKB_Class20041]
+		[Ontologia_ProjectKB_Class20042]
+		[Ontologia_ProjectKB_Class20043]
+		[Ontologia_ProjectKB_Class20044]
+		[Ontologia_ProjectKB_Class20045]
+		[Ontologia_ProjectKB_Class20046]
+		[Ontologia_ProjectKB_Class20047]
+		[Ontologia_ProjectKB_Class20048]
+		[Ontologia_ProjectKB_Class20049]
+		[Ontologia_ProjectKB_Class20050]))
 
 ([CLSES_TAB] of  Widget
 
@@ -73,7 +73,7 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
-([KB_010229_Class3] of  Map
+([KB_556749_Class3] of  Map
 )
 
 ([KB_887472_Class0] of  String
@@ -84,9 +84,9 @@
 ([KB_887472_Class1] of  Map
 
 	(entries
-		[Ontologia_ProjectKB_Class10081]
-		[Ontologia_ProjectKB_Class10082]
-		[Ontologia_ProjectKB_Class10083]))
+		[Ontologia_ProjectKB_Class20051]
+		[Ontologia_ProjectKB_Class20052]
+		[Ontologia_ProjectKB_Class20053]))
 
 ([KB_887472_Class100] of  String
 
@@ -194,77 +194,6 @@
 ([Ontologia_ProjectKB_Class10] of  Property_List
 )
 
-([Ontologia_ProjectKB_Class10071] of  String
-
-	(name "Style")
-	(string_value "Style+Name"))
-
-([Ontologia_ProjectKB_Class10072] of  String
-
-	(name "Visitor")
-	(string_value "Visitor+Name"))
-
-([Ontologia_ProjectKB_Class10073] of  String
-
-	(name "Author")
-	(string_value "Author+Name"))
-
-([Ontologia_ProjectKB_Class10074] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([Ontologia_ProjectKB_Class10075] of  String
-
-	(name "Room")
-	(string_value "Room+Name"))
-
-([Ontologia_ProjectKB_Class10076] of  String
-
-	(name "Period")
-	(string_value "Period+Name"))
-
-([Ontologia_ProjectKB_Class10077] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([Ontologia_ProjectKB_Class10078] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([Ontologia_ProjectKB_Class10079] of  String
-
-	(name "Topic")
-	(string_value "Topic+Name"))
-
-([Ontologia_ProjectKB_Class10080] of  String
-
-	(name "Painting")
-	(string_value "Painting+Name"))
-
-([Ontologia_ProjectKB_Class10081] of  Map_Entry
-
-	(key "add_name_on_instance_form")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
-([Ontologia_ProjectKB_Class10082] of  Map_Entry
-
-	(key "change_tracking_active")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
-([Ontologia_ProjectKB_Class10083] of  Map_Entry
-
-	(key "suppress_instance_counting")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
 ([Ontologia_ProjectKB_Class11] of  Widget
 
 	(is_hidden TRUE)
@@ -312,6 +241,77 @@
 
 ([Ontologia_ProjectKB_Class20] of  Property_List
 )
+
+([Ontologia_ProjectKB_Class20041] of  String
+
+	(name "Style")
+	(string_value "Style+name"))
+
+([Ontologia_ProjectKB_Class20042] of  String
+
+	(name "Visitor")
+	(string_value "Visitor+name"))
+
+([Ontologia_ProjectKB_Class20043] of  String
+
+	(name "Author")
+	(string_value "Author+name"))
+
+([Ontologia_ProjectKB_Class20044] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([Ontologia_ProjectKB_Class20045] of  String
+
+	(name "Room")
+	(string_value "Room+name"))
+
+([Ontologia_ProjectKB_Class20046] of  String
+
+	(name "Period")
+	(string_value "Period+name"))
+
+([Ontologia_ProjectKB_Class20047] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([Ontologia_ProjectKB_Class20048] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([Ontologia_ProjectKB_Class20049] of  String
+
+	(name "Topic")
+	(string_value "Topic+name"))
+
+([Ontologia_ProjectKB_Class20050] of  String
+
+	(name "Painting")
+	(string_value "Painting+name"))
+
+([Ontologia_ProjectKB_Class20051] of  Map_Entry
+
+	(key "add_name_on_instance_form")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([Ontologia_ProjectKB_Class20052] of  Map_Entry
+
+	(key "change_tracking_active")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([Ontologia_ProjectKB_Class20053] of  Map_Entry
+
+	(key "suppress_instance_counting")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
 
 ([Ontologia_ProjectKB_Class21] of  Widget
 
