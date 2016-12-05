@@ -11,11 +11,11 @@
 (defclass VisitaMod::State
     (is-a USER)
     (role concrete)
-    (multislot paintingsToAsign 
+    (multislot Paintings+to+asign 
         (type INSTANCE)
         (allowed-classes Painting)
     )
-    (multislot deletedPaintings
+    (multislot Deleted+paintings
         (type INSTANCE)
         (allowed-classes Painting)
     )
@@ -24,21 +24,21 @@
 (defrule VisitaMod::StartMod
 (declare (salience 3))
 =>
-    (make-instance STATE of State (paintingsToAsign (find-all-instances ((?x Painting)) TRUE)))
+    (make-instance STATE of State (Paintings+to+asign (find-all-instances ((?x Painting)) TRUE)))
     (printout t "focuseando SortMod" crlf)
     (focus SortMod)
 )
 
 (defrule VisitaMod::CrearVisita
 (declare (salience 0))
-    (object (is-a State) (paintingsToAsign $?paintingsToAsign))
+    (object (is-a State) (Paintings+to+asign $?paintingsToAsign))
     (object (is-a Visitor) (Days ?days))
 =>
     (printout t "SortMod acabado, he vuelto a VisitaMod" crlf)
     (bind ?size (length$ ?paintingsToAsign))
     (loop-for-count (?i 1 ?size ) do
         (bind ?painting (nth$ ?i ?paintingsToAsign))
-        (printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " (send ?painting get-Visitor+Interest)  crlf)
+        (printout t "El cuadro " (send ?painting get-Painting+name) " tiene un interes de " (send ?painting get-Visitor+interest)  crlf)
     )
     (printout t "He acabado, la lista es " $?paintingsToAsign crlf)
     (printout t "Focuseando CrearVisitaMod" crlf)

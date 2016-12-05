@@ -3,46 +3,54 @@
     (export deftemplate ?ALL)
 )
 
-(defclass Day
-    (is-a USER)
-    (role concrete)
-    (slot number
-        (type INTEGER)
-    )
-    (slot asignedTime
-        (type INTEGER)
-        (default 0)
-    )
-    (multislot asignedPaintings
+(deftemplate AnalyzePainting
+    (slot painting 
         (type INSTANCE)
         (allowed-classes Painting)
     )
 )
 
-(deftemplate AnalyzePainting
-(slot painting (type INSTANCE) (allowed-classes Painting)))
-
 (deftemplate AnalyzeVisitor
-(slot visitor (type INSTANCE) (allowed-classes Visitor)))
+    (slot visitor 
+        (type INSTANCE)
+        (allowed-classes Visitor)
+    )
+)
 
 (deftemplate PaintingFact
-(slot paintingFact (type INSTANCE) (allowed-classes Painting)))
+    (slot paintingFact 
+        (type INSTANCE)
+        (allowed-classes Painting)
+    )
+)
 
 (deftemplate MaxMinPaintingArea
-(slot max (type INTEGER))
-(slot min (type INTEGER)))
+    (slot max 
+        (type INTEGER)
+    )
+    (slot min
+        (type INTEGER)
+    )
+)
 
 (deftemplate FinalObservationTime
-(slot time (type INTEGER)))
+    (slot time
+        (type INTEGER)
+    )
+)
 
 (deftemplate FinalPaintingInterest
-(slot interest (type INTEGER)))
+    (slot interest
+        (type INTEGER)
+    )
+)
 
 (defrule FindMaxMinPaintingArea "Esta regla determina el area maxima y minima de los cuadros"
 (declare(salience 100))
-(object (is-a Painting) (Width ?width) (Height ?height)) ?limit <-(MaxMinPaintingArea (max ?max) (min ?min))
+    (object (is-a Painting) (Width ?width) (Height ?height)) 
+    ?limit <-(MaxMinPaintingArea (max ?max) (min ?min))
 =>
-(bind ?area (* ?width ?height))
+    (bind ?area (* ?width ?height))
     (if (< ?max ?area) then
 	    (modify ?limit (max ?area))
     else
@@ -102,9 +110,9 @@
     ?f3 <- (AnalyzePainting (painting ?painting))
     ?f4 <- (AnalyzeVisitor)
 =>
-    (printout t "El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " ?interest " y un tiempo de observacion de " ?time " segundos." crlf)
-    (send ?painting put-Visitor+Interest ?interest)
-    (send ?painting put-Observation+Time ?time)
+    (printout t "El cuadro " (send ?painting get-Painting+name) " tiene un interes de " ?interest " y un tiempo de observacion de " ?time " segundos." crlf)
+    (send ?painting put-Visitor+interest ?interest)
+    (send ?painting put-Observation+time ?time)
     (retract ?f1)
     (retract ?f2)
     (retract ?f3)
@@ -113,12 +121,12 @@
 
 (defrule FinishProgram
 (declare (salience 10000))
-    ?object <- (object (is-a Day) (number ?number) (asignedPaintings $?asignedPaintings) (asignedTime ?asignedTime))
+    ?object <- (object (is-a Day) (Number ?number) (Asigned+paintings $?asignedPaintings) (Asigned+time ?asignedTime))
 =>
     (printout t "Los cuadros a visitar en el dia " ?number " con tiempo asignado " ?asignedTime " son" crlf)
     (loop-for-count (?i 1 (length$ ?asignedPaintings) ) do
         (bind ?painting (nth$ ?i ?asignedPaintings))
-        (printout t "Sala " (send (send ?painting get-Exhibited+in) get-Room+Name) " El cuadro " (send ?painting get-Painting+Name) " tiene un interes de " (send ?painting get-Visitor+Interest) " y un tiempo de observacion de " (send ?painting get-Observation+Time) " segundos." crlf)
+        (printout t "Sala " (send (send ?painting get-Exhibited+in) get-Room+name) " El cuadro " (send ?painting get-Painting+name) " tiene un interes de " (send ?painting get-Visitor+interest) " y un tiempo de observacion de " (send ?painting get-Observation+time) " segundos." crlf)
     )
     (printout t crlf)
 )

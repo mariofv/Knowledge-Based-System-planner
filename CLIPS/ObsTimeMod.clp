@@ -1,32 +1,42 @@
 (defmodule ObsTimeMod 
-(import HeuristicMod deffunction ?ALL)
-(import HeuristicMod defclass ?ALL)
-(import HeuristicMod deftemplate ?ALL)
+    (import HeuristicMod deffunction ?ALL)
+    (import HeuristicMod defclass ?ALL)
+    (import HeuristicMod deftemplate ?ALL)
 )
 
 ;HECHOS
 
 ;Output modulo ObsTime
 (deftemplate ObsTimeMod::ObservationTime
-(slot time (type SYMBOL)
-(allowed-values High Medium Low)))
+    (slot time (type SYMBOL)
+    (allowed-values High Medium Low)
+    )
+)
 
 (deftemplate ObsTimeMod::Knowledge
-(slot knowledge (type SYMBOL)
-(allowed-values Very_High High Medium Low Very_Low)))
+    (slot knowledge
+        (type SYMBOL)
+        (allowed-values Very_High High Medium Low Very_Low)
+    )
+)
 
 (deftemplate ObsTimeMod::GroupSize
-(slot size (type SYMBOL)
-(allowed-values High Medium Low)))
+    (slot size 
+        (type SYMBOL)
+        (allowed-values High Medium Low)
+    )
+)
 
 (deftemplate ObsTimeMod::Complexity
-(slot complexity (type SYMBOL)
-(allowed-values High Medium Low)))
+    (slot complexity
+        (type SYMBOL)
+        (allowed-values High Medium Low)
+    )
+)
 
 ;AQUI EMPIEZAN LAS FUNCIONES
 
-
-(deffunction ObsTimeMod::fAbstractComplexity (?complexity)
+(deffunction ObsTimeMod::AbstractComplexity (?complexity)
     (if (>= ?complexity 66) then High
         else (if (>= ?complexity 33) then Medium
             else Low
@@ -85,11 +95,11 @@
         (min 
             ?superiorLimit 
             (+ 
-                (* 0.2 (send ?visitor get-Number+of+People))
+                (* 0.2 (send ?visitor get-Number+of+people))
                 (* 0.2 (send ?visitor get-Knowledge))
                 (* 0.2 (send ?painting get-Complexity))
                 (* 0.2 (send ?painting get-Relevance))
-                (* 2 ?numPreferences)
+                (* 10 ?numPreferences)
             )
         )
     )
@@ -101,11 +111,11 @@
     (AnalyzeVisitor (visitor ?visitor))
 =>
     (assert (Knowledge(knowledge (abstractNumber (send ?visitor get-Knowledge)))))
-    (assert (GroupSize(size (defineGroupSize (send ?visitor get-Number+of+People)))))
+    (assert (GroupSize(size (defineGroupSize (send ?visitor get-Number+of+people)))))
 )
  
 (defrule ObsTimeMod::AbstractComplexity
-(AnalyzePainting (painting ?painting))
+    (AnalyzePainting (painting ?painting))
 =>
     (assert (Complexity(complexity (fAbstractComplexity (send ?painting get-Complexity)))))
 )
@@ -145,13 +155,6 @@
     (assert (ObservationTime (time Low)))
 )
 
-(defrule ObsTimeMod::AuxRule
-(declare (salience -1))
-    ?f <- (ObservationTime(time ?t))
-=>
-    (assert (FinishMod))
-)
-
 (defrule ObsTimeMod::SecondFilter1
 (declare (salience 0))
     ?f <- (ObservationTime(time ?t))
@@ -181,72 +184,78 @@
 
 (defrule ObsTimeMod::SecondFilter2
 (declare (salience 1))
-?f <- (ObservationTime(time Low))
-(GroupSize (size High))
-(Complexity (complexity High))
-(Preference (level High))
+    ?f <- (ObservationTime(time Low))
+    (GroupSize (size High))
+    (Complexity (complexity High))
+    (Preference (level High))
 =>
-(printout t "Entro aqui 1" crlf)
-(modify ?f (time High))
-(assert (FinishMod))
+    (modify ?f (time High))
+    (assert (FinishMod))
+)
+
+(defrule ObsTimeMod::AuxRule
+(declare (salience -1))
+    (ObservationTime)
+=>
+    (assert (FinishMod))
 )
 
 (defrule ObsTimeMod::FinishModuleH
 (declare (salience 10))
-?fact <- (FinishMod)
-?obsTime <- (ObservationTime(time High))
-(AnalyzeVisitor (visitor ?visitor))
-(AnalyzePainting (painting ?painting))
-(NumPreferences (number ?numPreferences))
-?comp <- (Complexity)
-?knowledge <- (Knowledge)
-?gs <- (GroupSize)
+    ?fact <- (FinishMod)
+    ?obsTime <- (ObservationTime(time High))
+    (AnalyzeVisitor (visitor ?visitor))
+    (AnalyzePainting (painting ?painting))
+    (NumPreferences (number ?numPreferences))
+    ?comp <- (Complexity)
+    ?knowledge <- (Knowledge)
+    ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time (integer (ComputeObTime ?numPreferences ?visitor ?painting 120 44)))))
-(retract ?obsTime)
-(retract ?comp)
-(retract ?knowledge)
-(retract ?gs)
-(retract ?fact)
-(return)
+    (assert (FinalObservationTime (time (integer (ComputeObTime ?numPreferences ?visitor ?painting 120 44)))))
+    (retract ?obsTime)
+    (retract ?comp)
+    (retract ?knowledge)
+    (retract ?gs)
+    (retract ?fact)
+    (return)
 )
 
 (defrule ObsTimeMod::FinishModuleM
 (declare (salience 10))
-?fact <- (FinishMod)
-?obsTime <- (ObservationTime(time Medium))
-(AnalyzeVisitor (visitor ?visitor))
-(AnalyzePainting (painting ?painting))
-(NumPreferences (number ?numPreferences))
-?comp <- (Complexity)
-?knowledge <- (Knowledge)
-?gs <- (GroupSize)
+    ?fact <- (FinishMod)
+    ?obsTime <- (ObservationTime(time Medium))
+    (AnalyzeVisitor (visitor ?visitor))
+    (AnalyzePainting (painting ?painting))
+    (NumPreferences (number ?numPreferences))
+    ?comp <- (Complexity)
+    ?knowledge <- (Knowledge)
+    ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time (integer(ComputeObTime ?numPreferences ?visitor ?painting 75 44)))))
-(retract ?obsTime)
-(retract ?comp)
-(retract ?knowledge)
-(retract ?gs)
-(retract ?fact)
-(return)
+    (assert (FinalObservationTime (time (integer(ComputeObTime ?numPreferences ?visitor ?painting 75 44)))))
+    (retract ?obsTime)
+    (retract ?comp)
+    (retract ?knowledge)
+    (retract ?gs)
+    (retract ?fact)
+    (return)
 )
 
 (defrule ObsTimeMod::FinishModuleL
 (declare (salience 10))
-?fact <- (FinishMod)
-?obsTime <- (ObservationTime(time Low))
-(AnalyzeVisitor (visitor ?visitor))
-(AnalyzePainting (painting ?painting))
-(NumPreferences (number ?numPreferences))
-?comp <- (Complexity)
-?knowledge <- (Knowledge)
-?gs <- (GroupSize)
+    ?fact <- (FinishMod)
+    ?obsTime <- (ObservationTime(time Low))
+    (AnalyzeVisitor (visitor ?visitor))
+    (AnalyzePainting (painting ?painting))
+    (NumPreferences (number ?numPreferences))
+    ?comp <- (Complexity)
+    ?knowledge <- (Knowledge)
+    ?gs <- (GroupSize)
 =>
-(assert (FinalObservationTime (time (integer(ComputeObTime ?numPreferences ?visitor ?painting 30 44)))))
-(retract ?obsTime)
-(retract ?comp)
-(retract ?knowledge)
-(retract ?gs)
-(retract ?fact)
-(return)
+    (assert (FinalObservationTime (time (integer(ComputeObTime ?numPreferences ?visitor ?painting 30 44)))))
+    (retract ?obsTime)
+    (retract ?comp)
+    (retract ?knowledge)
+    (retract ?gs)
+    (retract ?fact)
+    (return)
 )

@@ -3,11 +3,11 @@
 )
 
 (deffunction SortMod::getPainting (?index ?auxClass)
-    (nth$ ?index (send ?auxClass get-paintingsToAsign))
+    (nth$ ?index (send ?auxClass get-Paintings+to+asign))
 )
 
 (deffunction SortMod::getInterest (?index ?auxClass) 
-    (send  (getPainting ?index ?auxClass) get-Visitor+Interest)
+    (send  (getPainting ?index ?auxClass) get-Visitor+interest)
 )
 
 ;(deffunction SortMod::divide(?start ?end $?paintings) 
@@ -56,7 +56,7 @@
 )
 
 (defrule SortMod::Sort
-?state <- (object (is-a State) (paintingsToAsign $?paintingsToAsign))
+    ?state <- (object (is-a State) (Paintings+to+asign $?paintingsToAsign))
 =>
     (printout t "Empezando quicksort" crlf)
     (quickSort 1 (length$ ?paintingsToAsign) ?state)
