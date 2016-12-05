@@ -79,7 +79,7 @@
 )
 
 
-(deffunction ComputeObTime (?numPreferences ?visitor ?painting ?baseNumber ?superiorLimit)
+(deffunction ObsTimeMod::ComputeObTime (?numPreferences ?visitor ?painting ?baseNumber ?superiorLimit)
     (+ 
         ?baseNumber 
         (min 

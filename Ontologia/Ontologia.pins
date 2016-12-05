@@ -1,4 +1,4 @@
-; Fri Dec 02 17:26:36 CET 2016
+; Mon Dec 05 10:38:57 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -23,8 +23,7 @@
 	(Active+Interval "1452-1519")
 	(Author+Name "Leonardo da Vinci")
 	(Authors+Style [Ontologia_Class3])
-	(Nationality "Italiano")
-	(Painted [Ontologia_Class0]))
+	(Nationality "Italiano"))
 
 ([Ontologia_Class10000] of  Period
 
@@ -35,17 +34,11 @@
 
 ([Ontologia_Class10002] of  Room
 
-	(Exhibits
-		[Ontologia_Class30013]
-		[Ontologia_Class0]
-		[Ontologia_Class30014]
-		[Ontologia_Class20000])
 	(Is+Initial+Room TRUE)
 	(Room+Name "Room 1"))
 
 ([Ontologia_Class10008] of  Topic
 
-	(Paintings+with+topic [Ontologia_Class0])
 	(Topic+Name "Retrato"))
 
 ([Ontologia_Class20000] of  Painting
@@ -68,19 +61,15 @@
 	(Active+Interval "1774-1840")
 	(Author+Name "Caspar David Friedrich")
 	(Authors+Style [Ontologia_Class20003])
-	(Nationality "Alemana")
-	(Painted [Ontologia_Class20000]))
+	(Nationality "Alemana"))
 
 ([Ontologia_Class20002] of  Topic
 
-	(Paintings+with+topic [Ontologia_Class20000])
 	(Topic+Name "Paisaje"))
 
 ([Ontologia_Class20003] of  Style
 
-	(Authors+with+style [Ontologia_Class20001])
 	(Finishing+year 1870)
-	(Paintings+with+style [Ontologia_Class20000])
 	(Starting+year 1770)
 	(Style+Name "Romanticismo"))
 
@@ -93,15 +82,14 @@
 
 ([Ontologia_Class3] of  Style
 
-	(Authors+with+style [Ontologia_Class1])
 	(Finishing+year 1660)
-	(Paintings+with+style [Ontologia_Class0])
 	(Starting+year 1400)
 	(Style+Name "Renacimiento"))
 
 ([Ontologia_Class30000] of  Room
 
 	(Adjacent+to [Ontologia_Class10002])
+	(Is+Initial+Room FALSE)
 	(Room+Name "Room 2"))
 
 ([Ontologia_Class30002] of  Period
@@ -112,15 +100,12 @@
 
 ([Ontologia_Class30003] of  Style
 
-	(Authors+with+style [Ontologia_Class30012])
 	(Finishing+year 1905)
-	(Paintings+with+style [Ontologia_Class30013])
 	(Starting+year 1880)
 	(Style+Name "PostImpresionismo"))
 
 ([Ontologia_Class30004] of  Style
 
-	(Authors+with+style [Ontologia_Class30012])
 	(Finishing+year 1925)
 	(Starting+year 1905)
 	(Style+Name "Expresionismo"))
@@ -165,8 +150,7 @@
 	(Authors+Style
 		[Ontologia_Class30003]
 		[Ontologia_Class30004])
-	(Nationality "Neerlandés")
-	(Painted [Ontologia_Class30013]))
+	(Nationality "Neerlandés"))
 
 ([Ontologia_Class30013] of  Painting
 
@@ -203,16 +187,14 @@
 	(Active+Interval "1863-1944")
 	(Author+Name "Edvard Munch")
 	(Authors+Style [Ontologia_Class30004])
-	(Nationality "Noruego")
-	(Painted [Ontologia_Class30014]))
+	(Nationality "Noruego"))
 
 ([Ontologia_Class30017] of  Author
 
 	(Active+Interval "1862-1918")
 	(Author+Name "Gustav Klimt")
 	(Authors+Style [Ontologia_Class30005])
-	(Nationality "Austohungaro")
-	(Painted [Ontologia_Class30018]))
+	(Nationality "Austohungaro"))
 
 ([Ontologia_Class30018] of  Painting
 
@@ -234,8 +216,7 @@
 	(Active+Interval "1904-1989")
 	(Author+Name "Salvador Dali")
 	(Authors+Style [Ontologia_Class30006])
-	(Nationality "Española")
-	(Painted [Ontologia_Class30020]))
+	(Nationality "Española"))
 
 ([Ontologia_Class30020] of  Painting
 
@@ -257,8 +238,7 @@
 	(Active+Interval "1445-1510")
 	(Author+Name "Sandro Botticelli")
 	(Authors+Style [Ontologia_Class3])
-	(Nationality "Itailiana")
-	(Painted [Ontologia_Class30022]))
+	(Nationality "Itailiana"))
 
 ([Ontologia_Class30022] of  Painting
 
@@ -280,8 +260,7 @@
 	(Active+Interval "1430-1479")
 	(Author+Name "Antonello da Messina")
 	(Authors+Style [Ontologia_Class3])
-	(Nationality "Italiana")
-	(Painted [Ontologia_Class30024]))
+	(Nationality "Italiana"))
 
 ([Ontologia_Class30024] of  Painting
 
@@ -303,8 +282,7 @@
 	(Active+Interval "1791-1824")
 	(Author+Name "Theodore Gericault")
 	(Authors+Style [Ontologia_Class20003])
-	(Nationality "Francesa")
-	(Painted [Ontologia_Class30026]))
+	(Nationality "Francesa"))
 
 ([Ontologia_Class30026] of  Painting
 
@@ -326,8 +304,7 @@
 	(Active+Interval "1748-1825")
 	(Author+Name "Jacques-Louis David")
 	(Authors+Style [Ontologia_Class30007])
-	(Nationality "Francesa")
-	(Painted [Ontologia_Class30028]))
+	(Nationality "Francesa"))
 
 ([Ontologia_Class30028] of  Painting
 
@@ -343,9 +320,3 @@
 	(Visitor+Interest -1)
 	(Width 425)
 	(Year+of+creation 1784))
-
-([Ontologia_Class36] of  Author
-
-	(Active+Interval "1423-1429")
-	(Author+Name "Fra Giovanni de Fiesole")
-	(Nationality "Italiano"))

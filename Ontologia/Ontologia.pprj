@@ -1,4 +1,4 @@
-; Fri Dec 02 17:26:36 CET 2016
+; Mon Dec 05 10:38:32 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -72,9 +72,6 @@
 
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
-
-([KB_786739_Class3] of  Map
-)
 
 ([KB_887472_Class0] of  String
 
@@ -180,6 +177,9 @@
 	(name "classes_file_name")
 	(string_value "Ontologia.pont"))
 
+([KB_995298_Class3] of  Map
+)
+
 ([LAYOUT_PROPERTIES] of  Property_List
 
 	(name "layout properties")
@@ -194,25 +194,106 @@
 ([Ontologia_ProjectKB_Class10] of  Property_List
 )
 
+([Ontologia_ProjectKB_Class10017] of  Widget
+
+	(height 120)
+	(is_hidden FALSE)
+	(name "Exhibits")
+	(property_list [Ontologia_ProjectKB_Class10018])
+	(widget_class_name "edu.stanford.smi.protege.widget.InstanceListWidget")
+	(width 200)
+	(x 200)
+	(y 120))
+
+([Ontologia_ProjectKB_Class10018] of  Property_List
+
+	(properties
+		[Ontologia_ProjectKB_Class10019]
+		[Ontologia_ProjectKB_Class10020]))
+
+([Ontologia_ProjectKB_Class10019] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([Ontologia_ProjectKB_Class10020] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Delete Instance"))
+
+([Ontologia_ProjectKB_Class10032] of  Widget
+
+	(height 120)
+	(is_hidden FALSE)
+	(name "Painted")
+	(property_list [Ontologia_ProjectKB_Class10033])
+	(widget_class_name "edu.stanford.smi.protege.widget.InstanceListWidget")
+	(width 200)
+	(x 200)
+	(y 120))
+
+([Ontologia_ProjectKB_Class10033] of  Property_List
+
+	(properties
+		[Ontologia_ProjectKB_Class10034]
+		[Ontologia_ProjectKB_Class10035]))
+
+([Ontologia_ProjectKB_Class10034] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([Ontologia_ProjectKB_Class10035] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Delete Instance"))
+
+([Ontologia_ProjectKB_Class10038] of  Widget
+
+	(height 240)
+	(is_hidden FALSE)
+	(name "Prefered by")
+	(property_list [Ontologia_ProjectKB_Class10039])
+	(widget_class_name "edu.stanford.smi.protege.widget.InstanceListWidget")
+	(width 200)
+	(x 400)
+	(y 0))
+
+([Ontologia_ProjectKB_Class10039] of  Property_List
+
+	(properties
+		[Ontologia_ProjectKB_Class10040]
+		[Ontologia_ProjectKB_Class10041]))
+
+([Ontologia_ProjectKB_Class10040] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([Ontologia_ProjectKB_Class10041] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Delete Instance"))
+
 ([Ontologia_ProjectKB_Class10109] of  String
-
-	(name "Visitor")
-	(string_value "Visitor+Name"))
-
-([Ontologia_ProjectKB_Class10110] of  String
 
 	(name "Style")
 	(string_value "Style+Name"))
 
+([Ontologia_ProjectKB_Class10110] of  String
+
+	(name "Visitor")
+	(string_value "Visitor+Name"))
+
 ([Ontologia_ProjectKB_Class10111] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([Ontologia_ProjectKB_Class10112] of  String
 
 	(name "Author")
 	(string_value "Author+Name"))
+
+([Ontologia_ProjectKB_Class10112] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
 
 ([Ontologia_ProjectKB_Class10113] of  String
 
@@ -226,23 +307,23 @@
 
 ([Ontologia_ProjectKB_Class10115] of  String
 
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([Ontologia_ProjectKB_Class10116] of  String
-
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
+([Ontologia_ProjectKB_Class10116] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
 ([Ontologia_ProjectKB_Class10117] of  String
-
-	(name "Painting")
-	(string_value "Painting+Name"))
-
-([Ontologia_ProjectKB_Class10118] of  String
 
 	(name "Topic")
 	(string_value "Topic+Name"))
+
+([Ontologia_ProjectKB_Class10118] of  String
+
+	(name "Painting")
+	(string_value "Painting+Name"))
 
 ([Ontologia_ProjectKB_Class10119] of  Map_Entry
 
@@ -672,8 +753,8 @@
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
 		[INSTANCE_ANNOTATION_FORM_WIDGET]
-		[STANDARD_SLOT_FORM_WIDGET]
 		[STANDARD_FACET_FORM_WIDGET]
+		[STANDARD_SLOT_FORM_WIDGET]
 		[PAL_FORM_WIDGET]
 		[STANDARD_CLASS_FORM_WIDGET])
 	(default_cls_metaclass ":STANDARD-CLASS")
