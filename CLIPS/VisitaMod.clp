@@ -24,7 +24,6 @@
 (defrule VisitaMod::StartMod
 (declare (salience 3))
 =>
-    (printout t "Hola :3" crlf)
     (make-instance STATE of State (paintingsToAsign (find-all-instances ((?x Painting)) TRUE)))
     (printout t "focuseando SortMod" crlf)
     (focus SortMod)
@@ -50,7 +49,7 @@
     (assert (Organize))
 )
 
-(defrule StartOrganizing
+(defrule VisitaMod::StartOrganizing
 (declare (salience 3))
     (Organize)
     ?day <- (object (is-a Day))

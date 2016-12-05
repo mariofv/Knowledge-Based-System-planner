@@ -1,3 +1,4 @@
+(load "F:/IA/Practica2-IA/CLIPS/Ontologia.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/MAINMOD.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/PreguntasMod.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/HeuristicMod.CLP")
