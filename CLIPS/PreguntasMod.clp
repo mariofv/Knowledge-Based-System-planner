@@ -24,45 +24,48 @@
         (bind ?answer (question-instance))
     )
 )
-;
-;(deffunction PreguntasMod::add-question-with-values-int-extra ($?aux)
-;   ;(printout t "Possible values: [" 1 "," (length$ ?aux)"]")
-;   ;(printout t $?allowed-values crlf)
-;   (bind ?answer (read))
-;   (bind ?out FALSE)
-;   (if (lexemep ?answer) then
-;        (if (eq ?answer "done") then 
-;            (bind ?out TRUE)))
-;   (if (integerp ?answer) 
-;       then (bind ?answer ?answer))
-;   (while (and (or (< ?answer 1) (> ?answer (length$ ?aux))) (eq ?out FALSE)) do 
-;      (bind ?answer (read))
-;      (if (lexemep ?answer) then
-;          (if (eq ?answer "done") then 
-;            (bind ?out TRUE)))
-;      (if (integerp ?answer) 
-;          then (bind ?answer ?answer)))
-;   (if (eq ?out TRUE) then
-;        (bind ?answer -1))
-;   ?answer
-;)
 
-;(deffunction PreguntasMod::add-preference-number (?classtype ?slot ?count ?visitor_instance $?array)
-;    (bind ?answer (add-question-with-values-int-extra $?array)
-;    (while (not(= ?answer -1)) do
-;        (bind ?aux (nth$ ?answer ?array))
-;        (bind ?mslot (send ?visitor_instance get-Preferences))
-;        (bind ?already (member$ ?aux ?mslot))
-;
-;        (printout t ?aux crlf)
-;        (if (not ?already) then    
-;        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
-;        (bind ?count (+ ?count 1)))
-;        (bind ?answer (question-instance))
-;    )
-;)
-;
-;
+(deffunction PreguntasMod::add-question-with-values-int-extra ($?aux)
+   ;(printout t "Possible values: [" 1 "," (length$ ?aux)"]")
+   ;(printout t $?allowed-values crlf)
+   (bind ?answer (read))
+   (bind ?out 0)
+   (if (lexemep ?answer) then
+        (if (eq ?answer "done") then 
+            (bind ?out -1)
+            (bind ?answer -1)))
+   (if (integerp ?answer) 
+       then (bind ?answer ?answer)
+       else (bind ?answer 0))
+   (while (and (not(= ?out -1)) (or (< ?answer 1) (> ?answer (length$ ?aux))) ) do 
+      (bind ?answer (read))
+      (if (lexemep ?answer) then
+          (if (eq ?answer "done") then 
+            (bind ?out -1))
+            (bind ?answer -1))
+      (if (integerp ?answer) 
+          then (bind ?answer ?answer)
+          else (bind ?answer 0)))
+   (if (eq ?out -1) then
+        (bind ?answer -1))
+   ?answer
+)
+
+(deffunction PreguntasMod::add-preference-number (?classtype ?slot ?count ?visitor_instance $?array)
+    (bind ?answer (add-question-with-values-int-extra $?array))
+    (while (not(= ?answer -1)) do
+        (bind ?aux (nth$ ?answer ?array))
+        (bind ?mslot (send ?visitor_instance get-Preferences))
+        (bind ?already (member$ ?aux ?mslot))
+
+        (printout t ?aux crlf)
+        (if (not ?already) then    
+        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
+        (bind ?count (+ ?count 1)))
+        (bind ?answer (add-question-with-values-int-extra $?array))
+    )
+)
+
 
 (deffunction PreguntasMod::ask-question-with-values-int (?question $?allowed-values)
    (printout t ?question crlf)
@@ -219,7 +222,7 @@
         (printout t ?i ". ")
         (printout t (send (nth$ ?i ?aux) get-Author+name) crlf)
     )
-    (add-preference Author Author+name ?count ?visitor_instance)
+    (add-preference-number Author Author+name ?count ?visitor_instance $?aux)
     
     (printout t "Good. Now same thing for the styles. For each style you like, type its name and press ENTER. Type 'done' when you are done" crlf);
     (printout t "Here are all the styles available:" crlf)
