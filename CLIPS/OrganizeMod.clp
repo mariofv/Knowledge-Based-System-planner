@@ -4,7 +4,7 @@
 )
 
 (defrule OrganizeMod::GroupByRoom
-(declare (salience 3))
+(declare (salience 4))
     (OrganizeDay (day ?day))
 =>
     (bind ?size (length$ (send ?day get-asignedPaintings)))
@@ -16,13 +16,23 @@
     )
 )
 
+(defrule OrganizeMod::ReorderPaintingsInitial
+(declare (salience 3))
+    ?room <- (object (is-a Room) (Asigned+Paintings $?paintings) (Is+Initial+Room TRUE))
+    (OrganizeDay (day ?day))
+=>    
+    (loop-for-count (?i 1 (length$ ?paintings))
+        (slot-insert$ ?day asignedPaintings (+ 1 (length$ (send ?day get-asignedPaintings))) (nth$ ?i ?paintings))
+    )
+)
+
 (defrule OrganizeMod::ReorderPaintings
 (declare (salience 2))
-    (object (is-a Room) (Asigned+Paintings $?paintings))
+    ?room <- (object (is-a Room) (Asigned+Paintings $?paintings) (Is+Initial+Room FALSE))
     (OrganizeDay (day ?day))
 =>
     (loop-for-count (?i 1 (length$ ?paintings))
-        (slot-insert$ ?day asignedPaintings 1 (nth$ ?i ?paintings))
+        (slot-insert$ ?day asignedPaintings (+ 1 (length$ (send ?day get-asignedPaintings))) (nth$ ?i ?paintings))
     )
 )
 

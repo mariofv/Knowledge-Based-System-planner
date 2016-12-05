@@ -1,4 +1,4 @@
-; Mon Dec 05 10:38:57 CET 2016
+; Mon Dec 05 11:23:29 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -6,7 +6,7 @@
 ([Ontologia_Class0] of  Painting
 
 	(Created+by [Ontologia_Class1])
-	(Exhibited+in [Ontologia_Class10002])
+	(Exhibited+in [Ontologia_Class40004])
 	(Height 77)
 	(Observation+Time 20)
 	(Painted+in [Ontologia_Class10000])
@@ -34,6 +34,9 @@
 
 ([Ontologia_Class10002] of  Room
 
+	(Adjacent+to
+		[Ontologia_Class30000]
+		[Ontologia_Class40003])
 	(Is+Initial+Room TRUE)
 	(Room+Name "Room 1"))
 
@@ -44,7 +47,7 @@
 ([Ontologia_Class20000] of  Painting
 
 	(Created+by [Ontologia_Class20001])
-	(Exhibited+in [Ontologia_Class10002])
+	(Exhibited+in [Ontologia_Class40003])
 	(Height 95)
 	(Observation+Time 8)
 	(Painted+in [Ontologia_Class20004])
@@ -69,7 +72,6 @@
 
 ([Ontologia_Class20003] of  Style
 
-	(Finishing+year 1870)
 	(Starting+year 1770)
 	(Style+Name "Romanticismo"))
 
@@ -82,13 +84,14 @@
 
 ([Ontologia_Class3] of  Style
 
-	(Finishing+year 1660)
 	(Starting+year 1400)
 	(Style+Name "Renacimiento"))
 
 ([Ontologia_Class30000] of  Room
 
-	(Adjacent+to [Ontologia_Class10002])
+	(Adjacent+to
+		[Ontologia_Class10002]
+		[Ontologia_Class40004])
 	(Is+Initial+Room FALSE)
 	(Room+Name "Room 2"))
 
@@ -100,13 +103,11 @@
 
 ([Ontologia_Class30003] of  Style
 
-	(Finishing+year 1905)
 	(Starting+year 1880)
 	(Style+Name "PostImpresionismo"))
 
 ([Ontologia_Class30004] of  Style
 
-	(Finishing+year 1925)
 	(Starting+year 1905)
 	(Style+Name "Expresionismo"))
 
@@ -117,13 +118,11 @@
 
 ([Ontologia_Class30006] of  Style
 
-	(Finishing+year 1942)
 	(Starting+year 1924)
 	(Style+Name "Surrealismo"))
 
 ([Ontologia_Class30007] of  Style
 
-	(Finishing+year 1830)
 	(Starting+year 1760)
 	(Style+Name "Neoclasicismo"))
 
@@ -155,7 +154,7 @@
 ([Ontologia_Class30013] of  Painting
 
 	(Created+by [Ontologia_Class30012])
-	(Exhibited+in [Ontologia_Class10002])
+	(Exhibited+in [Ontologia_Class40003])
 	(Height 92)
 	(Observation+Time 66)
 	(Painted+in [Ontologia_Class30002])
@@ -221,7 +220,7 @@
 ([Ontologia_Class30020] of  Painting
 
 	(Created+by [Ontologia_Class30019])
-	(Exhibited+in [Ontologia_Class10002])
+	(Exhibited+in [Ontologia_Class30000])
 	(Height 33)
 	(Observation+Time 69)
 	(Painted+in [Ontologia_Class30002])
@@ -243,7 +242,7 @@
 ([Ontologia_Class30022] of  Painting
 
 	(Created+by [Ontologia_Class30021])
-	(Exhibited+in [Ontologia_Class10002])
+	(Exhibited+in [Ontologia_Class40003])
 	(Height 173)
 	(Observation+Time 90)
 	(Painted+in [Ontologia_Class20004])
@@ -320,3 +319,214 @@
 	(Visitor+Interest -1)
 	(Width 425)
 	(Year+of+creation 1784))
+
+([Ontologia_Class40000] of  Painting
+
+	(Created+by [Ontologia_Class30012])
+	(Exhibited+in [Ontologia_Class30000])
+	(Height 71)
+	(Observation+Time -1)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "Lirios de agua")
+	(Painting+Style [Ontologia_Class30003])
+	(Painting+Topic [Ontologia_Class40002])
+	(Relevance 80)
+	(Visitor+Interest -1)
+	(Width 93)
+	(Year+of+creation 1889))
+
+([Ontologia_Class40002] of  Topic
+
+	(Topic+Name "Flores"))
+
+([Ontologia_Class40003] of  Room
+
+	(Adjacent+to
+		[Ontologia_Class10002]
+		[Ontologia_Class40004])
+	(Is+Initial+Room FALSE)
+	(Room+Name "Room 3"))
+
+([Ontologia_Class40004] of  Room
+
+	(Adjacent+to
+		[Ontologia_Class30000]
+		[Ontologia_Class40003])
+	(Is+Initial+Room FALSE)
+	(Room+Name "Room 4"))
+
+([Ontologia_Class40005] of  Painting
+
+	(Created+by [Ontologia_Class40006])
+	(Exhibited+in [Ontologia_Class40003])
+	(Height 121)
+	(Observation+Time -1)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "El portador de flores")
+	(Painting+Style [Ontologia_Class40007])
+	(Painting+Topic [Ontologia_Class40002])
+	(Relevance 40)
+	(Visitor+Interest -1)
+	(Width 121)
+	(Year+of+creation 1935))
+
+([Ontologia_Class40006] of  Author
+
+	(Active+Interval "1886-1957")
+	(Author+Name "Diego Rivera")
+	(Authors+Style [Ontologia_Class40007])
+	(Nationality "Mejicano"))
+
+([Ontologia_Class40007] of  Style
+
+	(Starting+year 1855)
+	(Style+Name "Realismo"))
+
+([Ontologia_Class40008] of  Painting
+
+	(Created+by [Ontologia_Class40009])
+	(Exhibited+in [Ontologia_Class40004])
+	(Height 74)
+	(Observation+Time -1)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "Gotico estadounidense")
+	(Painting+Style [Ontologia_Class40010])
+	(Painting+Topic [Ontologia_Class10008])
+	(Relevance 52)
+	(Visitor+Interest -1)
+	(Width 62)
+	(Year+of+creation 1930))
+
+([Ontologia_Class40009] of  Author
+
+	(Active+Interval "1891-1942")
+	(Author+Name "Grant Wood")
+	(Authors+Style [Ontologia_Class40010])
+	(Nationality "Estadounidense"))
+
+([Ontologia_Class40010] of  Style
+
+	(Starting+year 1930)
+	(Style+Name "Regionalismo"))
+
+([Ontologia_Class40011] of  Painting
+
+	(Created+by [Ontologia_Class30012])
+	(Exhibited+in [Ontologia_Class40004])
+	(Height 81)
+	(Observation+Time -1)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "Terraza de cafe por la noche")
+	(Painting+Style [Ontologia_Class30003])
+	(Painting+Topic [Ontologia_Class20002])
+	(Relevance 90)
+	(Visitor+Interest -1)
+	(Width 65)
+	(Year+of+creation 1888))
+
+([Ontologia_Class40012] of  Painting
+
+	(Created+by [Ontologia_Class40013])
+	(Exhibited+in [Ontologia_Class30000])
+	(Height 116)
+	(Observation+Time -1)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "El hijo del hombre")
+	(Painting+Style [Ontologia_Class30006])
+	(Painting+Topic [Ontologia_Class10008])
+	(Relevance 60)
+	(Visitor+Interest -1)
+	(Width 89)
+	(Year+of+creation 1964))
+
+([Ontologia_Class40013] of  Author
+
+	(Active+Interval "1898-1967")
+	(Author+Name "Rene Magritte")
+	(Authors+Style [Ontologia_Class30006])
+	(Nationality "Belga"))
+
+([Ontologia_Class40014] of  Painting
+
+	(Created+by [Ontologia_Class40015])
+	(Exhibited+in [Ontologia_Class40003])
+	(Height 240)
+	(Observation+Time -1)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "No. 5, 1948")
+	(Painting+Style [Ontologia_Class30004])
+	(Painting+Topic [Ontologia_Class40017])
+	(Relevance 50)
+	(Visitor+Interest -1)
+	(Width 120)
+	(Year+of+creation 1948))
+
+([Ontologia_Class40015] of  Author
+
+	(Active+Interval "1912-1956")
+	(Author+Name "Jackson Pollock")
+	(Authors+Style [Ontologia_Class30004])
+	(Nationality "Estadounidense"))
+
+([Ontologia_Class40016] of  Style
+
+	(Starting+year 1940)
+	(Style+Name "Abstracto"))
+
+([Ontologia_Class40017] of  Topic
+
+	(Topic+Name "Abstracto"))
+
+([Ontologia_Class40018] of  Painting
+
+	(Created+by [Ontologia_Class40020])
+	(Exhibited+in [Ontologia_Class30000])
+	(Height 131)
+	(Observation+Time -1)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "Baile en el Moulin de la Galette")
+	(Painting+Style [Ontologia_Class40019])
+	(Painting+Topic [Ontologia_Class20002])
+	(Relevance 40)
+	(Visitor+Interest -1)
+	(Width 174)
+	(Year+of+creation 1876))
+
+([Ontologia_Class40019] of  Style
+
+	(Starting+year 1874)
+	(Style+Name "Impresionismo"))
+
+([Ontologia_Class40020] of  Author
+
+	(Active+Interval "1841-1919")
+	(Author+Name "Pierre-August Renoir")
+	(Authors+Style [Ontologia_Class40019])
+	(Nationality "Francés"))
+
+([Ontologia_Class40021] of  Painting
+
+	(Created+by [Ontologia_Class40022])
+	(Exhibited+in [Ontologia_Class40004])
+	(Height 80)
+	(Observation+Time -1)
+	(Painted+in [Ontologia_Class30002])
+	(Painting+Name "Blanco sobre Blanco")
+	(Painting+Style [Ontologia_Class40023])
+	(Painting+Topic [Ontologia_Class40017])
+	(Relevance 0)
+	(Visitor+Interest -1)
+	(Width 80)
+	(Year+of+creation 1918))
+
+([Ontologia_Class40022] of  Author
+
+	(Active+Interval "1878-1935")
+	(Author+Name "Kasimir Malevich")
+	(Authors+Style [Ontologia_Class40023])
+	(Nationality "Ruso"))
+
+([Ontologia_Class40023] of  Style
+
+	(Starting+year 1915)
+	(Style+Name "Supermatismo"))
