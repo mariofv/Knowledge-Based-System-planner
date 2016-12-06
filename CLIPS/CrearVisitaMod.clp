@@ -27,6 +27,7 @@
             )
         )
     )
+    ;lel
 =>
     (printout t "Ejecutando operador Asignar" crlf)
     (bind ?maxPainting (first ?paintingsToAsign))
