@@ -36,18 +36,26 @@
     (modify ?f (order (+ ?order 1)))
 )
 
+(defrule OrganizeMod::FlushRooms
+(declare (salience 1))
+    ?room <- (object (is-a Room) (Asigned+paintings $?asignedPaintings))
+=>
+    (loop-for-count (?i 1 (length$ ?asignedPaintings))
+        (slot-delete$ ?room Asigned+paintings 1 1)
+    )
+)
+
 (defrule OrganizeMod::FlushRoomsAndFinish
 (declare (salience 1))
     ?fact <- (OrganizeDay (day ?day))
     ?fact2 <- (RoomOrder)
 =>
-    (do-for-all-instances ((?room Room)) TRUE
-        (bind ?size (length$ (send ?room get-Asigned+paintings)))
-        (loop-for-count (?i 1 ?size)
-            (slot-delete$ ?room Asigned+paintings 1 1)
-        )
-    )
+;    (do-for-all-instances ((?room Room)) TRUE
+;        (bind ?size (length$ (send ?room get-Asigned+paintings)))
+;        (loop-for-count (?i 1 ?size)
+;            (slot-delete$ ?room Asigned+paintings 1 1)
+;        )
+;    )
     (retract ?fact)
     (retract ?fact2)
-    (return)
 )

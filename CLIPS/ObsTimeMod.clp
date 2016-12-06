@@ -8,8 +8,9 @@
 
 ;Output modulo ObsTime
 (deftemplate ObsTimeMod::ObservationTime
-    (slot time (type SYMBOL)
-    (allowed-values High Medium Low)
+    (slot time 
+        (type SYMBOL)
+        (allowed-values High Medium Low)
     )
 )
 
@@ -37,22 +38,34 @@
 ;AQUI EMPIEZAN LAS FUNCIONES
 
 (deffunction ObsTimeMod::AbstractComplexity (?complexity)
-    (if (>= ?complexity 66) then High
-        else (if (>= ?complexity 33) then Medium
-            else Low
-        )
+    (if (>= ?complexity 66) 
+        then 
+            High
+        else 
+            (if (>= ?complexity 33)
+                then
+                    Medium
+                else
+                    Low
+            )
     )
 )
 
 (deffunction ObsTimeMod::defineGroupSize(?size)
-	(if (<= ?size 5) then Low
-		else (if (<= ?size 10) then Medium
-				else High
-        )
+	(if (<= ?size 5)
+            then
+                Low
+		else 
+            (if (<= ?size 10)
+                then
+                    Medium
+				else
+                    High
+            )
 	)
 )
 
-(deffunction ObsTimeMod::timeKnowledge(?knowledge)
+(deffunction ObsTimeMod::timeKnowledge1(?knowledge)
 	(if (or (eq ?knowledge Very_High) (eq ?knowledge High) (eq ?knowledge Medium)) then High
 		else Medium
 	)
@@ -88,7 +101,6 @@
     )
 )
 
-
 (deffunction ObsTimeMod::ComputeObTime (?numPreferences ?visitor ?painting ?baseNumber ?superiorLimit)
     (+ 
         ?baseNumber 
@@ -122,41 +134,52 @@
 
 ;AQUI EMPEIZAN LAS REGLAS DE ASOCIACION HEURÍSTICA
  
-(defrule ObsTimeMod::FirstFilter1 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(defrule ObsTimeMod::FirstPhase1
     (PaintingRelevance(relevance Very_High))
 =>
     (assert (ObservationTime (time High)))
 )
 
-(defrule ObsTimeMod::FirstFilter2 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(defrule ObsTimeMod::FirstPhase2
     (PaintingRelevance(relevance High))
     (Knowledge (knowledge ?knowledge))
 =>
-    (assert (ObservationTime (time (timeKnowledge ?knowledge))))
+    (assert (ObservationTime (time (timeKnowledge1 ?knowledge))))
 )
 
-(defrule ObsTimeMod::FirstFilter3 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(defrule ObsTimeMod::FirstPhase3
     (PaintingRelevance(relevance Medium))
     (Knowledge (knowledge ?knowledge))
 =>
     (assert (ObservationTime (time (timeKnowledge2 ?knowledge))))
 )
 
-(defrule ObsTimeMod::FirstFilter4 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(defrule ObsTimeMod::FirstPhase4
     (PaintingRelevance(relevance Low))
     (Knowledge (knowledge ?knowledge))
 =>
     (assert (ObservationTime (time (timeKnowledge3 ?knowledge))))
 )
 
-(defrule ObsTimeMod::FirstFilter5 "Este filtro es el que te dice cuanto tiempo miras un cuadro dependiendo de su importancia y tu conocimiento"
+(defrule ObsTimeMod::FirstPhase5
     (PaintingRelevance(relevance Very_Low))
 =>
     (assert (ObservationTime (time Low)))
 )
 
-(defrule ObsTimeMod::SecondFilter1
-(declare (salience 0))
+(defrule ObsTimeMod::SecondPhase1
+(declare (salience 2))
+    ?f <- (ObservationTime(time Low))
+    (GroupSize (size High))
+    (Complexity (complexity High))
+    (Preference (level High))
+=>
+    (modify ?f (time High))
+    (assert (PhasesFinished))
+)
+
+(defrule ObsTimeMod::SecondPhase2
+(declare (salience 1))
     ?f <- (ObservationTime(time ?t))
     (GroupSize (size ?size))
     (Complexity (complexity ?complexity))
@@ -179,83 +202,80 @@
     )
 =>
     (modify ?f (time (upgradeObsTime ?t)))
-    (assert (FinishMod))
+    (assert (PhasesFinished))
 )
 
-(defrule ObsTimeMod::SecondFilter2
-(declare (salience 1))
-    ?f <- (ObservationTime(time Low))
-    (GroupSize (size High))
-    (Complexity (complexity High))
-    (Preference (level High))
-=>
-    (modify ?f (time High))
-    (assert (FinishMod))
-)
-
-(defrule ObsTimeMod::AuxRule
-(declare (salience -1))
+(defrule ObsTimeMod::SecondPhase3
+(declare (salience 0))
     (ObservationTime)
 =>
+    (assert (PhasesFinished))
+)
+
+(defrule ObsTimeMod::PreFinishModuleH
+(declare (salience 10))
+    (PhasesFinished)
+    (ObservationTime(time High))
+    (AnalyzeVisitor (visitor ?visitor))
+    (AnalyzePainting (painting ?painting))
+    (NumPreferences (number ?numPreferences))
+=>
+    (assert (FinalObservationTime (time (integer (ComputeObTime ?numPreferences ?visitor ?painting 120 44)))))
+
+)
+
+(defrule ObsTimeMod::PreFinishModuleM
+(declare (salience 10))
+    (PhasesFinished)
+    (ObservationTime(time Medium))
+    (AnalyzeVisitor (visitor ?visitor))
+    (AnalyzePainting (painting ?painting))
+    (NumPreferences (number ?numPreferences))
+=>
+    (assert (FinalObservationTime (time (integer(ComputeObTime ?numPreferences ?visitor ?painting 75 44)))))
+)
+
+(defrule ObsTimeMod::PreFinishModuleL
+(declare (salience 10))
+    (PhasesFinished)
+    (ObservationTime(time Low))
+    (AnalyzeVisitor (visitor ?visitor))
+    (AnalyzePainting (painting ?painting))
+    (NumPreferences (number ?numPreferences))
+=>
+    (assert (FinalObservationTime (time (integer(ComputeObTime ?numPreferences ?visitor ?painting 30 44)))))
+)
+
+(defrule ObsTimeMod::GroupWithoutChildren1
+(declare (salience 21))
+    ?f <- (FinalObservationTime (time ?t))
+    (object (is-a Visitor) (Children TRUE))
+=>
+    (modify ?f (time (integer (* 0.8 ?t))))
     (assert (FinishMod))
 )
 
-(defrule ObsTimeMod::FinishModuleH
-(declare (salience 10))
-    ?fact <- (FinishMod)
-    ?obsTime <- (ObservationTime(time High))
-    (AnalyzeVisitor (visitor ?visitor))
-    (AnalyzePainting (painting ?painting))
-    (NumPreferences (number ?numPreferences))
-    ?comp <- (Complexity)
-    ?knowledge <- (Knowledge)
-    ?gs <- (GroupSize)
+(defrule ObsTimeMod::GroupWithChildren2
+(declare (salience 20))
+    (FinalObservationTime (time ?t))
 =>
-    (assert (FinalObservationTime (time (integer (ComputeObTime ?numPreferences ?visitor ?painting 120 44)))))
-    (retract ?obsTime)
-    (retract ?comp)
-    (retract ?knowledge)
-    (retract ?gs)
-    (retract ?fact)
-    (return)
+    (assert (FinishMod))  
 )
 
-(defrule ObsTimeMod::FinishModuleM
-(declare (salience 10))
+(defrule ObsTimeMod::FinishModule
+(declare (salience 30))
     ?fact <- (FinishMod)
-    ?obsTime <- (ObservationTime(time Medium))
-    (AnalyzeVisitor (visitor ?visitor))
-    (AnalyzePainting (painting ?painting))
-    (NumPreferences (number ?numPreferences))
+    ?phase <- (PhasesFinished)
+    ?obsTime <- (ObservationTime)
     ?comp <- (Complexity)
     ?knowledge <- (Knowledge)
-    ?gs <- (GroupSize)
+    ?groupSize <- (GroupSize)
 =>
-    (assert (FinalObservationTime (time (integer(ComputeObTime ?numPreferences ?visitor ?painting 75 44)))))
+    (retract ?phase)
     (retract ?obsTime)
     (retract ?comp)
     (retract ?knowledge)
-    (retract ?gs)
-    (retract ?fact)
-    (return)
-)
-
-(defrule ObsTimeMod::FinishModuleL
-(declare (salience 10))
-    ?fact <- (FinishMod)
-    ?obsTime <- (ObservationTime(time Low))
-    (AnalyzeVisitor (visitor ?visitor))
-    (AnalyzePainting (painting ?painting))
-    (NumPreferences (number ?numPreferences))
-    ?comp <- (Complexity)
-    ?knowledge <- (Knowledge)
-    ?gs <- (GroupSize)
-=>
-    (assert (FinalObservationTime (time (integer(ComputeObTime ?numPreferences ?visitor ?painting 30 44)))))
-    (retract ?obsTime)
-    (retract ?comp)
-    (retract ?knowledge)
-    (retract ?gs)
+    (retract ?groupSize)
     (retract ?fact)
     (return)
 )

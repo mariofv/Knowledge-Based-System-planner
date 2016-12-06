@@ -24,15 +24,6 @@
     )
 )
 
-(deftemplate MaxMinPaintingArea
-    (slot max 
-        (type INTEGER)
-    )
-    (slot min
-        (type INTEGER)
-    )
-)
-
 (deftemplate FinalObservationTime
     (slot time
         (type INTEGER)
@@ -45,55 +36,50 @@
     )
 )
 
-(defrule FindMaxMinPaintingArea "Esta regla determina el area maxima y minima de los cuadros"
-(declare(salience 100))
-    (object (is-a Painting) (Width ?width) (Height ?height)) 
-    ?limit <-(MaxMinPaintingArea (max ?max) (min ?min))
-=>
-    (bind ?area (* ?width ?height))
-    (if (< ?max ?area) then
-	    (modify ?limit (max ?area))
-    else
-        (if (> ?min ?area) then
-	        (modify ?limit (min ?area))
-        )
+(deftemplate YearFilters
+    (slot firstYear
+        (type INTEGER)
+    )
+    (slot lastYear
+        (type INTEGER)
     )
 )
 
-(defrule NormalizeComplexity "Esta regla normaliza la complejidad de los cuadros"
-(declare(salience 50))
-    ?painting<-(object (is-a Painting) (Width ?width) (Height ?height))
-    (MaxMinPaintingArea (max ?max) (min ?min))
-=>
-    (bind ?area (* ?width ?height))
-    (printout t "Painting " ?painting " has complexity " (*(/ (- ?area ?min) (- ?max ?min)) 100) crlf)
-    (send ?painting put-Complexity (*(/ (- ?area ?min) (- ?max ?min)) 100))
-)
-
 (defrule InitializeMaxMinPaintingArea "Inicializa MaxMinPaintingArea"
-(declare (salience 150))
+(declare (salience 200))
 =>
-    (assert (MaxMinPaintingArea(max 0) (min 999999)))
+    (assert (YearFilters (firstYear -1) (lastYear 9999999)))
+    ;(assert (MaxMinPaintingArea(max 0) (min 999999)))
+    (focus ComplexityMod)
 )
 
 (defrule changePreguntasModul
 (declare (salience 25))
-    ?fact <- (MaxMinPaintingArea)
 =>
-    (retract ?fact)
     (focus PreguntasMod)
 )
 
 (defrule StartRule
-(declare (salience 0))
+(declare (salience 1))
+    (YearFilters (firstYear ?fy) (lastYear ?ly))
+    ?painting <- (object (is-a Painting) (Year+of+creation ?year))
+    
+    (test (>= ?year ?fy))
+    (test (<= ?year ?ly))
 =>
-    (bind ?paintings (find-all-instances ((?inst Painting)) TRUE))
-    (loop-for-count (?i 1 (length$ ?paintings)) do
-        (assert (PaintingFact (paintingFact (nth$ ?i ?paintings))))
-    )
+    (assert (PaintingFact (paintingFact ?painting)))
 )
 
-(defrule AnalyzePainting ""
+;(defrule StartRule
+;(declare (salience 0))
+;=>
+;    (bind ?paintings (find-all-instances ((?inst Painting)) TRUE))
+;    (loop-for-count (?i 1 (length$ ?paintings)) do
+;        (assert (PaintingFact (paintingFact (nth$ ?i ?paintings))))
+;    )
+;)
+
+(defrule AnalyzePainting
 (declare (salience 0))
     ?f <- (PaintingFact (paintingFact ?painting))
 =>
@@ -141,9 +127,11 @@
 
 (defrule END
 (declare (salience 9999))
-    ?fact <- (Finish-Fact)
+    ?f1 <- (Finish-Fact)
+    ?f2 <- (YearFilters)
 =>
     (printout t "Acaba MAIN" crlf)
-    (retract ?fact)
+    (retract ?f1)
+    (retract ?f2)
     (return)
 )
