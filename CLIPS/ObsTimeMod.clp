@@ -124,10 +124,14 @@
     )
 )
 
+<<<<<<< HEAD
 ;/////////////////////////
 ;REGLAS DE ABSTRACCIÓN //
 ;///////////////////////
 
+=======
+;Reglas de abstracción
+>>>>>>> 2fbdd10daf15011ad2451ca6995e0b057d4c457d
 (defrule ObsTimeMod::AbstractKnowledgeAndGroupSize "Abstrae el conocimiento sobre un cuadro"
     (AnalyzeVisitor (visitor ?visitor))
 =>
