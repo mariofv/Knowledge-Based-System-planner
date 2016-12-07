@@ -150,7 +150,7 @@
 
 (deffunction PreguntasMod::yes-or-no-p (?question)
    (bind ?response (ask-question-with-values ?question "yes" "no" "y" "n"))
-   (if (or (eq ?response yes) (eq ?response y))
+   (if (or (eq ?response "yes") (eq ?response "y"))
        then TRUE 
        else FALSE))
 
@@ -172,10 +172,8 @@
    (bind ?yearfilter
       (yes-or-no-p "Do you wanna filter the paintings by year?"))
    (if(eq ?yearfilter TRUE) then
-       (printout t "Introduce the initial year of the range" crlf)
-       (bind ?year1 (read))
-       (printout t "Introduce the final year of the range" crlf)
-       (bind ?year2 (read))
+       (bind ?year1 (ask-question-integer "Introduce the first year of the range: "))
+       (bind ?year2 (ask-question-integer "Introduce the final year of the range: "))
        (assert (YearFilters (firstYear ?year1) (lastYear ?year2)))
    else 
        (assert (YearFilters (firstYear -1) (lastYear 9999)))
@@ -280,5 +278,6 @@
         (printout t (send (nth$ ?i ?aux) get-Topic+name) crlf)
     ) 
     (add-preference-number Topic Topic+name ?count ?visitor_instance $?aux)
+    (printout t "I'm out bitches" crlf)
 
 )
