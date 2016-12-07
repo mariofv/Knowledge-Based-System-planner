@@ -25,34 +25,35 @@
     )
 )
 
-(deffunction PreguntasMod::add-question-with-values-int-extra ($?aux)
+(deffunction PreguntasMod::add-question-with-values-int-extra (?maxindex)
    ;(printout t "Possible values: [" 1 "," (length$ ?aux)"]")
    ;(printout t $?allowed-values crlf)
    (bind ?answer (read))
    (bind ?out 0)
    (if (lexemep ?answer) then
-        (if (eq ?answer "done") then 
+        (if (eq ?answer done) then
             (bind ?out -1)
             (bind ?answer -1)))
    (if (integerp ?answer) 
        then (bind ?answer ?answer)
        else (bind ?answer 0))
-   (while (and (not(= ?out -1)) (or (< ?answer 1) (> ?answer (length$ ?aux))) ) do 
+   (while (and (not(= ?out -1)) (or (< ?answer 1) (> ?answer ?maxindex)) ) do 
+      (printout t "Possible values: [" 1 "," ?maxindex "]" crlf)
       (bind ?answer (read))
       (if (lexemep ?answer) then
-          (if (eq ?answer "done") then 
-            (bind ?out -1))
+          (if (eq ?answer done) then 
+            (bind ?out -1)
             (bind ?answer -1))
       (if (integerp ?answer) 
           then (bind ?answer ?answer)
-          else (bind ?answer 0)))
+          else (bind ?answer 0))))
    (if (eq ?out -1) then
         (bind ?answer -1))
    ?answer
 )
 
 (deffunction PreguntasMod::add-preference-number (?classtype ?slot ?count ?visitor_instance $?array)
-    (bind ?answer (add-question-with-values-int-extra $?array))
+    (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     (while (not(= ?answer -1)) do
         (bind ?aux (nth$ ?answer ?array))
         (bind ?mslot (send ?visitor_instance get-Preferences))
@@ -62,7 +63,7 @@
         (if (not ?already) then    
         (slot-insert$ ?visitor_instance Preferences ?count ?aux)
         (bind ?count (+ ?count 1)))
-        (bind ?answer (add-question-with-values-int-extra $?array))
+        (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     )
 )
 
@@ -72,6 +73,8 @@
    (printout t "Possible values: [" 1 "," (length$ ?allowed-values)"]")
    (printout t $?allowed-values crlf)
    (bind ?answer (read))
+   (if (lexemep ?answer) then
+       (bind ?answer -1))
    (if (integerp ?answer) 
        then (bind ?answer ?answer))
    (while (or (< ?answer 1) (> ?answer (length$ ?allowed-values))) do
@@ -79,6 +82,8 @@
       (printout t "Possible values: [" 1 "," (length$ ?allowed-values)"]")
       (printout t $?allowed-values crlf)    
       (bind ?answer (read))
+      (if (lexemep ?answer) then
+       (bind ?answer -1))
       (if (integerp ?answer) 
           then (bind ?answer ?answer)))
    ?answer)
@@ -213,42 +218,41 @@
     (send ?visitor_instance put-Number+of+people ?number_of_people)
     (send ?visitor_instance put-Knowledge ?points)
 
-;    (bind ?count 1)
-;    (printout t "Alright, let's check your preferences now." crlf)
-;    (printout t "We'll start with the authors. For each author you like, type his number and press ENTER. Type 'done' when you are done" crlf);
-;    (printout t "Here are all the authors available:" crlf)
-;    (bind $?aux (find-all-instances((?m Author)) TRUE))
-;    (loop-for-count (?i 1 (length$ ?aux)) do
-;        (printout t ?i ". ")
-;        (printout t (send (nth$ ?i ?aux) get-Author+name) crlf)
-;    )
-;    (add-preference-number Author Author+name ?count ?visitor_instance $?aux)
-;    
-;    (printout t "Good. Now same thing for the styles. For each style you like, type its name and press ENTER. Type 'done' when you are done" crlf);
-;    (printout t "Here are all the styles available:" crlf)
-;    (bind $?aux (find-all-instances((?m Style)) TRUE))
-;    (loop-for-count (?i 1 (length$ ?aux)) do
-;        (printout t ?i ". ")
-;        (printout t (send (nth$ ?i ?aux) get-Style+name) crlf)
-;    )    
-;    (add-preference Style Style+name ?count ?visitor_instance)
-;
-;    (printout t "Almost done. We also need to know which periods you prefer. For each period you like, type its name and press ENTER. Type 'done' when you are done" crlf);
-;    (printout t "Here are all the periods available:" crlf)
-;    (bind $?aux (find-all-instances((?m Period)) TRUE))
-;    (loop-for-count (?i 1 (length$ ?aux)) do
-;        (printout t ?i ". ")
-;        (printout t (send (nth$ ?i ?aux) get-Period+name) crlf)
-;    )
-;    (add-preference Period Period+name ?count ?visitor_instance)
-;
-;    (printout t "Last step! Tell us about the topics you like the most. For each topic you like, type its name and press ENTER. Type 'done' when you are done" crlf);
-;    (printout t "Here are all the authors available:" crlf)
-;    (bind $?aux (find-all-instances((?m Topic)) TRUE))
-;    (loop-for-count (?i 1 (length$ ?aux)) do
-;        (printout t ?i ". ")
-;        (printout t (send (nth$ ?i ?aux) get-Topic+name) crlf)
-;    ) 
-;    (add-preference Topic Topic+name ?count ?visitor_instance)
+    (bind ?count 1)
+    (printout t "Alright, let's check your preferences now." crlf)
+    (printout t "We'll start with the authors. For each author you like, type his number and press ENTER. Type 'done' when you are done" crlf);
+    (printout t "Here are all the authors available:" crlf)
+    (bind $?aux (find-all-instances((?m Author)) TRUE))
+    (loop-for-count (?i 1 (length$ ?aux)) do
+        (printout t ?i ". ")
+        (printout t (send (nth$ ?i ?aux) get-Author+name) crlf)
+    )
+    (add-preference-number Author Author+name ?count ?visitor_instance $?aux)
+    (printout t "Good. Now same thing for the styles. For each style you like, type its name and press ENTER. Type 'done' when you are done" crlf);
+    (printout t "Here are all the styles available:" crlf)
+    (bind $?aux (find-all-instances((?m Style)) TRUE))
+    (loop-for-count (?i 1 (length$ ?aux)) do
+        (printout t ?i ". ")
+        (printout t (send (nth$ ?i ?aux) get-Style+name) crlf)
+    )    
+    (add-preference-number Style Style+name ?count ?visitor_instance $?aux)
+
+    (printout t "Almost done. We also need to know which periods you prefer. For each period you like, type its name and press ENTER. Type 'done' when you are done" crlf);
+    (printout t "Here are all the periods available:" crlf)
+    (bind $?aux (find-all-instances((?m Period)) TRUE))
+    (loop-for-count (?i 1 (length$ ?aux)) do
+        (printout t ?i ". ")
+        (printout t (send (nth$ ?i ?aux) get-Period+name) crlf)
+    )
+    (add-preference-number Period Period+name ?count ?visitor_instance $?aux)
+
+    (printout t "Last step! Tell us about the topics you like the most. For each topic you like, type its name and press ENTER. Type 'done' when you are done" crlf);
+    (printout t "Here are all the authors available:" crlf)
+    (bind $?aux (find-all-instances((?m Topic)) TRUE))
+    (loop-for-count (?i 1 (length$ ?aux)) do
+        (printout t ?i ". ")
+        (printout t (send (nth$ ?i ?aux) get-Topic+name) crlf)
+    ) 
+    (add-preference-number Topic Topic+name ?count ?visitor_instance $?aux)
 
 )
