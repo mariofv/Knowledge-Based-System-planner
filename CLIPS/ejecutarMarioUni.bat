@@ -1,5 +1,6 @@
 (load "F:/Assignaturas/IA/Practica2-IA/CLIPS/ontologia.CLP")
 (load "F:/Assignaturas/IA/Practica2-IA/CLIPS/MAINMOD.CLP")
+(load "F:/Assignaturas/IA/Practica2-IA/CLIPS/ComplexityMod.CLP")
 (load "F:/Assignaturas/IA/Practica2-IA/CLIPS/PreguntasMod.CLP")
 (load "F:/Assignaturas/IA/Practica2-IA/CLIPS/HeuristicMod.CLP")
 (load "F:/Assignaturas/IA/Practica2-IA/CLIPS/ObsTimeMod.CLP")

@@ -1,73 +1,80 @@
-(defmodule ObsTimeMod 
+(defmodule ObsTimeMod "Este modulo calcula el tiempo de observacion de cada cuadro."
     (import HeuristicMod deffunction ?ALL)
     (import HeuristicMod defclass ?ALL)
     (import HeuristicMod deftemplate ?ALL)
 )
 
-;HECHOS
+;///////////
+;HECHOS ///
+;/////////
 
-;Output modulo ObsTime
-(deftemplate ObsTimeMod::ObservationTime
+(deftemplate ObsTimeMod::ObservationTime "Este hecho contiene el tiempo de observacion de un cuadro abstraido."
     (slot time 
         (type SYMBOL)
         (allowed-values High Medium Low)
     )
 )
 
-(deftemplate ObsTimeMod::Knowledge
+(deftemplate ObsTimeMod::Knowledge "Este hecho contiene el conocimiento del visitante abstraido."
     (slot knowledge
         (type SYMBOL)
         (allowed-values Very_High High Medium Low Very_Low)
     )
 )
 
-(deftemplate ObsTimeMod::GroupSize
+(deftemplate ObsTimeMod::GroupSize "Este hecho contiene el tamaño de un grupo del visitante abstraido."
     (slot size 
         (type SYMBOL)
         (allowed-values High Medium Low)
     )
 )
 
-(deftemplate ObsTimeMod::Complexity
+(deftemplate ObsTimeMod::Complexity "Este hecho contiene la complejidad de un cuadro abstraida."
     (slot complexity
         (type SYMBOL)
         (allowed-values High Medium Low)
     )
 )
 
-;AQUI EMPIEZAN LAS FUNCIONES
+;//////////////
+;FUNCIONES ///
+;////////////
 
-(deffunction ObsTimeMod::AbstractComplexity (?complexity)
+
+(deffunction ObsTimeMod::AbstractComplexity (?complexity) "Esta funcion complementa la regla de abstraccion AbstractComplexity"
     (if (>= ?complexity 66) 
-        then 
-            High
-        else 
-            (if (>= ?complexity 33)
-                then
-                    Medium
-                else
-                    Low
-            )
+    then 
+        High
+    else 
+        (if (>= ?complexity 33)
+        then
+            Medium
+        else
+            Low
+        )
     )
 )
 
-(deffunction ObsTimeMod::defineGroupSize(?size)
+(deffunction ObsTimeMod::defineGroupSize(?size) "Esta funcion complementa la regla de abstraccion AbstractKnowledgeAndGroupSize"
 	(if (<= ?size 5)
-            then
-                Low
-		else 
-            (if (<= ?size 10)
-                then
-                    Medium
-				else
-                    High
-            )
+    then
+        Low
+	else 
+        (if (<= ?size 10)
+        then
+            Medium
+		else
+            High
+        )
 	)
 )
 
-(deffunction ObsTimeMod::timeKnowledge1(?knowledge)
-	(if (or (eq ?knowledge Very_High) (eq ?knowledge High) (eq ?knowledge Medium)) then High
-		else Medium
+(deffunction ObsTimeMod::timeKnowledge1(?knowledge) "Esta funcion complementa la regla de abstraccion ."
+	(if (or (eq ?knowledge Very_High) (eq ?knowledge High) (eq ?knowledge Medium))
+    then 
+        High
+	else 
+        Medium
 	)
 )
 
@@ -117,7 +124,9 @@
     )
 )
 
-;Reglas de abstracción
+;/////////////////////////
+;REGLAS DE ABSTRACCIÓN //
+;///////////////////////
 
 (defrule ObsTimeMod::AbstractKnowledgeAndGroupSize "Abstrae el conocimiento sobre un cuadro"
     (AnalyzeVisitor (visitor ?visitor))
@@ -132,7 +141,9 @@
     (assert (Complexity(complexity (AbstractComplexity (send ?painting get-Complexity)))))
 )
 
-;AQUI EMPEIZAN LAS REGLAS DE ASOCIACION HEURÍSTICA
+;///////////////////////////////////
+;REGLAS DE ABSTRACCIÓN HEURISTICA//
+;/////////////////////////////////
  
 (defrule ObsTimeMod::FirstPhase1
     (PaintingRelevance(relevance Very_High))

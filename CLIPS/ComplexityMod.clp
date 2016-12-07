@@ -1,55 +1,29 @@
-(defmodule ComplexityMod
+(defmodule ComplexityMod "Este modulo calcula la complejidad de cada cuadro"
     (import MAIN defclass Painting)
 )
 
-(deftemplate ComplexityMod::MaxPaintingArea
+;///////////
+;HECHOS ///
+;/////////
+
+(deftemplate ComplexityMod::MaxPaintingArea "Este hecho sirve para guardar el area maxima de todos los cuadros"
     (slot max 
         (type INTEGER)
     )
 )
 
-(deftemplate ComplexityMod::MinPaintingArea
+(deftemplate ComplexityMod::MinPaintingArea "Este hecho sirve para guardar el area minima de todos los cuadros"
     (slot min
         (type INTEGER)
     )
 )
 
-;(deftemplate MaxMinPaintingArea
-;    (slot max 
-;        (type INTEGER)
-;    )
-;    (slot min
-;        (type INTEGER)
-;    )
-;)
+;/////////////////////////
+;REGLAS DE ABSTRACCIÓN //
+;///////////////////////
 
-;(defrule FindMaxMinPaintingArea "Esta regla determina el area maxima y minima de los cuadros"
-;(declare(salience 100))
-;    (object (is-a Painting) (Width ?width) (Height ?height)) 
-;    ?limit <-(MaxMinPaintingArea (max ?max) (min ?min))
-;=>
-;    (bind ?area (* ?width ?height))
-;    (if (< ?max ?area) then
-;	    (modify ?limit (max ?area))
-;    else
-;        (if (> ?min ?area) then
-;	        (modify ?limit (min ?area))
-;        )
-;    )
-;)
-
-
-;(defrule NormalizeComplexity "Esta regla normaliza la complejidad de los cuadros"
-;(declare(salience 50))
-;    ?painting <- (object (is-a Painting) (Width ?width) (Height ?height))
-;    (MaxMinPaintingArea (max ?max) (min ?min))
-;=>
-;    (bind ?area (* ?width ?height))
-;    (printout t "Painting " ?painting " has complexity " (*(/ (- ?area ?min) (- ?max ?min)) 100) crlf)
-;    (send ?painting put-Complexity (*(/ (- ?area ?min) (- ?max ?min)) 100))
-;)
-
-(defrule ComplexityMod::FindMinPaintingArea
+(defrule ComplexityMod::FindMinPaintingArea "Esta regla sirve para encontrar el area minima de todos los cuadros
+                                             y crea el hecho conveniente."
     (not (exists (MinPaintingArea)))
     (object (is-a Painting) (Width ?width1) (Height ?height1))
     (forall
@@ -60,7 +34,8 @@
     (assert (MinPaintingArea (min (* ?width1 ?height1))))
 )
 
-(defrule ComplexityMod::FindMaxPaintingArea
+(defrule ComplexityMod::FindMaxPaintingArea "Esta regla sirve para encontrar el area maxima de todos los cuadros
+                                             y crea el hecho conveniente."
     (not (exists (MaxPaintingArea)))
     (object (is-a Painting) (Width ?width1) (Height ?height1))
     (forall
@@ -82,7 +57,7 @@
     (send ?painting put-Complexity (*(/ (- ?area ?min) (- ?max ?min)) 100))
 )
 
-(defrule ComplexityMod::EndMod
+(defrule ComplexityMod::EndMod "Esta regla sirve para acabar la ejecucion del modulo"
     (declare (salience 0))
     ?f1 <- (MaxPaintingArea)
     ?f2 <- (MinPaintingArea)

@@ -1,8 +1,8 @@
-(defmodule CrearVisitaMod 
+(defmodule CrearVisitaMod "Este modulo sirve para crear la visita del visitante."
     (import VisitaMod defclass State Day Visitor)
 )
 
-(deffunction CrearVisitaMod::first ($?list)
+(deffunction CrearVisitaMod::first ($?list) "Esta funcion nos devuelve el primer elemento de una lista"
     (nth$ 1 ?list)
 )
 

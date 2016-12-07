@@ -1,5 +1,6 @@
 (load "F:/IA/Practica2-IA/CLIPS/Ontologia.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/MAINMOD.CLP")
+(load "F:/IA/Practica2-IA/CLIPS/ComplexityMod.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/PreguntasMod.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/HeuristicMod.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/ObsTimeMod.CLP")
@@ -24,10 +25,10 @@ MuchasPreferencias
 1
 1
 1
-Vincent Van Gogh
+3
 done
 done
-Edad Contemporanea
+3
 done
-Paisaje
+2
 done

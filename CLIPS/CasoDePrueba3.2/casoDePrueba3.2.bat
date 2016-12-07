@@ -12,7 +12,7 @@
 (reset)
 (run)
 Grupo
-5
+11
 1
 600
 2
