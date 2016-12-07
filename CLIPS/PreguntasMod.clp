@@ -19,7 +19,6 @@
         (bind ?aux (find-instance ((?inst ?classtype)) (eq (lowcase ?inst:?slot) (lowcase ?answer))))
         (bind ?mslot (send ?visitor_instance get-Preferences))
         (bind ?already (member$ ?aux ?mslot))
-
         (printout t ?aux crlf)
         (if (not ?already) then    
         (slot-insert$ ?visitor_instance Preferences ?count ?aux)
@@ -29,27 +28,32 @@
 )
 
 (deffunction PreguntasMod::add-question-with-values-int-extra (?maxindex)
-   ;(printout t "Possible values: [" 1 "," (length$ ?aux)"]")
-   ;(printout t $?allowed-values crlf)
+
    (bind ?answer (read))
    (bind ?out 0)
    (if (lexemep ?answer) then
-        (if (eq ?answer done) then
+       (if (eq ?answer done) then
             (bind ?out -1)
-            (bind ?answer -1)))
+            (bind ?answer -1)
+       )
+   )
    (if (integerp ?answer) 
        then (bind ?answer ?answer)
-       else (bind ?answer 0))
+       else (bind ?answer 0)
+   )
    (while (and (not(= ?out -1)) (or (< ?answer 1) (> ?answer ?maxindex)) ) do 
       (printout t "Possible values: [" 1 "," ?maxindex "]" crlf)
       (bind ?answer (read))
       (if (lexemep ?answer) then
           (if (eq ?answer done) then 
             (bind ?out -1)
-            (bind ?answer -1))
+            (bind ?answer -1)
+          )
       (if (integerp ?answer) 
           then (bind ?answer ?answer)
-          else (bind ?answer 0))))
+          else (bind ?answer 0))
+      )
+   )
    (if (eq ?out -1) then
         (bind ?answer -1))
    ?answer
@@ -64,8 +68,9 @@
 
         (printout t ?aux crlf)
         (if (not ?already) then    
-        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
-        (bind ?count (+ ?count 1)))
+            (slot-insert$ ?visitor_instance Preferences ?count ?aux)
+            (bind ?count (+ ?count 1))
+        )
         (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     )
 )
@@ -77,18 +82,22 @@
    (printout t $?allowed-values crlf)
    (bind ?answer (read))
    (if (lexemep ?answer) then
-       (bind ?answer -1))
+       (bind ?answer -1)
+   )
    (if (integerp ?answer) 
-       then (bind ?answer ?answer))
+       then (bind ?answer ?answer)
+   )
    (while (or (< ?answer 1) (> ?answer (length$ ?allowed-values))) do
       (printout t ?question crlf)
       (printout t "Possible values: [" 1 "," (length$ ?allowed-values)"]")
       (printout t $?allowed-values crlf)    
       (bind ?answer (read))
       (if (lexemep ?answer) then
-       (bind ?answer -1))
+          (bind ?answer -1)
+      )
       (if (integerp ?answer) 
-          then (bind ?answer ?answer)))
+          then (bind ?answer ?answer))
+   )
    ?answer)
 
 
@@ -167,7 +176,10 @@
        (bind ?year1 (read))
        (printout t "Introduce the final year of the range" crlf)
        (bind ?year2 (read))
-       (assert (YearFilters (firstYear ?year1) (lastYear ?year2)))) 
+       (assert (YearFilters (firstYear ?year1) (lastYear ?year2)))
+   else 
+       (assert (YearFilters (firstYear -1) (lastYear 9999)))
+   ) 
    ;//////////////
    ;BEGIN TEST
    ;//////////////
