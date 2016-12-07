@@ -50,7 +50,7 @@
 ;)
 
 (defrule ComplexityMod::FindMinPaintingArea
-    (not (exists (MinPaintingArea)))
+(declare (salience -1))
     (object (is-a Painting) (Width ?width1) (Height ?height1))
     (forall
         (object (is-a Painting) (Width ?width2) (Height ?height2))
@@ -61,7 +61,7 @@
 )
 
 (defrule ComplexityMod::FindMaxPaintingArea
-    (not (exists (MaxPaintingArea)))
+(declare (salience -1))
     (object (is-a Painting) (Width ?width1) (Height ?height1))
     (forall
         (object (is-a Painting) (Width ?width2) (Height ?height2))

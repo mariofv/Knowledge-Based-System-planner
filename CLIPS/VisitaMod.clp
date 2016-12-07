@@ -49,24 +49,14 @@
     (assert (Organize))
 )
 
-(defrule VisitaMod::StartOrganizing
-(declare (salience 3))
-    (Organize)
-    ?day <- (object (is-a Day))
-=>
-    (printout t "STARTORGANIZING" crlf)
-    (assert (DayFact ?day))
-)
-
 (defrule VisitaMod::Organize
 (declare (salience 2))
     (Organize)
-    ?f <- (DayFact ?day)
+    ?day <- (object (is-a Day))
 =>
     (printout t "Focuseando OriganizeMod" crlf)
     (assert (OrganizeDay (day ?day)))
     (focus OrganizeMod)
-    (retract ?f)
 )
 
 (defrule VisitaMod::EndMod
