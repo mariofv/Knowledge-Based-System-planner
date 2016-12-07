@@ -118,7 +118,6 @@
 )
 
 ;Reglas de abstracción
-
 (defrule ObsTimeMod::AbstractKnowledgeAndGroupSize "Abstrae el conocimiento sobre un cuadro"
     (AnalyzeVisitor (visitor ?visitor))
 =>
