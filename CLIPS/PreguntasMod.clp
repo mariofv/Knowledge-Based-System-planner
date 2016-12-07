@@ -1,5 +1,8 @@
 ;DEFFUNCTIONS
-(defmodule PreguntasMod (import MAIN defclass ?ALL))
+(defmodule PreguntasMod 
+    (import MAIN defclass ?ALL)
+    (import MAIN deftemplate YearFilters)
+)
 
 (deffunction PreguntasMod::question-instance ()
    (bind ?answer (readline))
@@ -16,7 +19,6 @@
         (bind ?aux (find-instance ((?inst ?classtype)) (eq (lowcase ?inst:?slot) (lowcase ?answer))))
         (bind ?mslot (send ?visitor_instance get-Preferences))
         (bind ?already (member$ ?aux ?mslot))
-
         (printout t ?aux crlf)
         (if (not ?already) then    
         (slot-insert$ ?visitor_instance Preferences ?count ?aux)
@@ -26,27 +28,32 @@
 )
 
 (deffunction PreguntasMod::add-question-with-values-int-extra (?maxindex)
-   ;(printout t "Possible values: [" 1 "," (length$ ?aux)"]")
-   ;(printout t $?allowed-values crlf)
+
    (bind ?answer (read))
    (bind ?out 0)
    (if (lexemep ?answer) then
-        (if (eq ?answer done) then
+       (if (eq ?answer done) then
             (bind ?out -1)
-            (bind ?answer -1)))
+            (bind ?answer -1)
+       )
+   )
    (if (integerp ?answer) 
        then (bind ?answer ?answer)
-       else (bind ?answer 0))
+       else (bind ?answer 0)
+   )
    (while (and (not(= ?out -1)) (or (< ?answer 1) (> ?answer ?maxindex)) ) do 
       (printout t "Possible values: [" 1 "," ?maxindex "]" crlf)
       (bind ?answer (read))
       (if (lexemep ?answer) then
           (if (eq ?answer done) then 
             (bind ?out -1)
-            (bind ?answer -1))
+            (bind ?answer -1)
+          )
       (if (integerp ?answer) 
           then (bind ?answer ?answer)
-          else (bind ?answer 0))))
+          else (bind ?answer 0))
+      )
+   )
    (if (eq ?out -1) then
         (bind ?answer -1))
    ?answer
@@ -61,8 +68,9 @@
 
         (printout t ?aux crlf)
         (if (not ?already) then    
-        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
-        (bind ?count (+ ?count 1)))
+            (slot-insert$ ?visitor_instance Preferences ?count ?aux)
+            (bind ?count (+ ?count 1))
+        )
         (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     )
 )
@@ -74,18 +82,22 @@
    (printout t $?allowed-values crlf)
    (bind ?answer (read))
    (if (lexemep ?answer) then
-       (bind ?answer -1))
+       (bind ?answer -1)
+   )
    (if (integerp ?answer) 
-       then (bind ?answer ?answer))
+       then (bind ?answer ?answer)
+   )
    (while (or (< ?answer 1) (> ?answer (length$ ?allowed-values))) do
       (printout t ?question crlf)
       (printout t "Possible values: [" 1 "," (length$ ?allowed-values)"]")
       (printout t $?allowed-values crlf)    
       (bind ?answer (read))
       (if (lexemep ?answer) then
-       (bind ?answer -1))
+          (bind ?answer -1)
+      )
       (if (integerp ?answer) 
-          then (bind ?answer ?answer)))
+          then (bind ?answer ?answer))
+   )
    ?answer)
 
 
@@ -137,8 +149,8 @@
    ?answer)
 
 (deffunction PreguntasMod::yes-or-no-p (?question)
-   (bind ?response (ask-question-with-values ?question yes no y n))
-   (if (or (eq ?response yes) (eq ?response y))
+   (bind ?response (ask-question-with-values ?question "yes" "no" "y" "n"))
+   (if (or (eq ?response "yes") (eq ?response "y"))
        then TRUE 
        else FALSE))
 
@@ -151,10 +163,21 @@
       (ask-question-string "What is your name? "))
    (bind ?number_of_people
       (ask-question-integer "How many people is your group composed of? "))
+   (bind ?children
+      (yes-or-no-p "Do you have children with you?"))
    (bind ?days
       (ask-question-integer "How many days are you going to stay? "))
    (bind ?time
-      (ask-question-integer "How long are you going to stay each day (in minutes)? "))
+      (ask-question-integer "How long are you going to stay each day (in seconds)? "))
+   (bind ?yearfilter
+      (yes-or-no-p "Do you wanna filter the paintings by year?"))
+   (if(eq ?yearfilter TRUE) then
+       (bind ?year1 (ask-question-integer "Introduce the first year of the range: "))
+       (bind ?year2 (ask-question-integer "Introduce the final year of the range: "))
+       (assert (YearFilters (firstYear ?year1) (lastYear ?year2)))
+   else 
+       (assert (YearFilters (firstYear -1) (lastYear 9999)))
+   ) 
    ;//////////////
    ;BEGIN TEST
    ;//////////////
@@ -217,6 +240,7 @@
     (send ?visitor_instance put-Duration ?time)
     (send ?visitor_instance put-Number+of+people ?number_of_people)
     (send ?visitor_instance put-Knowledge ?points)
+    (send ?visitor_instance put-Children ?children)
 
     (bind ?count 1)
     (printout t "Alright, let's check your preferences now." crlf)
@@ -254,5 +278,6 @@
         (printout t (send (nth$ ?i ?aux) get-Topic+name) crlf)
     ) 
     (add-preference-number Topic Topic+name ?count ?visitor_instance $?aux)
+    (printout t "I'm out bitches" crlf)
 
 )

@@ -90,7 +90,7 @@
 
 
 
-(defrule PaintIntMod:::FinishModuleVH
+(defrule PaintIntMod::FinishModuleVH
 (declare (salience 0))
     ?f <- (Interest (level Very_High))
     (AnalyzePainting (painting ?painting))
@@ -100,7 +100,7 @@
     (retract ?f)
 )
 
-(defrule PaintIntMod:::FinishModuleH
+(defrule PaintIntMod::FinishModuleH
 (declare (salience 0))
     ?f <- (Interest (level High))
     (AnalyzePainting (painting ?painting))
