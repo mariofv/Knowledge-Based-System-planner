@@ -22,14 +22,9 @@
 ;REGLAS DE ABSTRACCIÓN //
 ;///////////////////////
 
-<<<<<<< HEAD
 (defrule ComplexityMod::FindMinPaintingArea "Esta regla sirve para encontrar el area minima de todos los cuadros
                                              y crea el hecho conveniente."
-    (not (exists (MinPaintingArea)))
-=======
-(defrule ComplexityMod::FindMinPaintingArea
 (declare (salience -1))
->>>>>>> 6afb8901fe495b9225591f24972a889f71b6c77a
     (object (is-a Painting) (Width ?width1) (Height ?height1))
     (forall
         (object (is-a Painting) (Width ?width2) (Height ?height2))
@@ -39,14 +34,9 @@
     (assert (MinPaintingArea (min (* ?width1 ?height1))))
 )
 
-<<<<<<< HEAD
 (defrule ComplexityMod::FindMaxPaintingArea "Esta regla sirve para encontrar el area maxima de todos los cuadros
                                              y crea el hecho conveniente."
-    (not (exists (MaxPaintingArea)))
-=======
-(defrule ComplexityMod::FindMaxPaintingArea
 (declare (salience -1))
->>>>>>> 6afb8901fe495b9225591f24972a889f71b6c77a
     (object (is-a Painting) (Width ?width1) (Height ?height1))
     (forall
         (object (is-a Painting) (Width ?width2) (Height ?height2))

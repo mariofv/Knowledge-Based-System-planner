@@ -124,15 +124,12 @@
     )
 )
 
-<<<<<<< HEAD
 ;/////////////////////////
 ;REGLAS DE ABSTRACCIÓN //
 ;///////////////////////
 
-=======
-;Reglas de abstracción
->>>>>>> 2fbdd10daf15011ad2451ca6995e0b057d4c457d
 (defrule ObsTimeMod::AbstractKnowledgeAndGroupSize "Abstrae el conocimiento sobre un cuadro"
+(declare (salience 100))
     (AnalyzeVisitor (visitor ?visitor))
 =>
     (assert (Knowledge(knowledge (abstractNumber (send ?visitor get-Knowledge)))))
@@ -140,44 +137,120 @@
 )
  
 (defrule ObsTimeMod::AbstractComplexity
+(declare (salience 100))
     (AnalyzePainting (painting ?painting))
 =>
     (assert (Complexity(complexity (AbstractComplexity (send ?painting get-Complexity)))))
 )
 
 ;///////////////////////////////////
-;REGLAS DE ABSTRACCIÓN HEURISTICA//
+;REGLAS DE ASOCIACIÓN HEURÍSTICA //
 ;/////////////////////////////////
- 
-(defrule ObsTimeMod::FirstPhase1
-    (PaintingRelevance(relevance Very_High))
+
+;(defrule ObsTimeMod::FirstPhase1
+;    (PaintingRelevance(relevance Very_High))
+;=>
+;    (assert (ObservationTime (time High)))
+;)
+;
+;(defrule ObsTimeMod::FirstPhase2
+;    (PaintingRelevance(relevance High))
+;    (Knowledge (knowledge ?knowledge))
+;=>
+;    (assert (ObservationTime (time (timeKnowledge1 ?knowledge))))
+;)
+;
+;(defrule ObsTimeMod::FirstPhase3
+;    (PaintingRelevance(relevance Medium))
+;    (Knowledge (knowledge ?knowledge))
+;=>
+;    (assert (ObservationTime (time (timeKnowledge2 ?knowledge))))
+;)
+;
+;(defrule ObsTimeMod::FirstPhase4
+;    (PaintingRelevance(relevance Low))
+;    (Knowledge (knowledge ?knowledge))
+;=>
+;    (assert (ObservationTime (time (timeKnowledge3 ?knowledge))))
+;)
+;
+;(defrule ObsTimeMod::FirstPhase5
+;    (PaintingRelevance(relevance Very_Low))
+;=>
+;    (assert (ObservationTime (time Low)))
+;)
+
+(defrule ObsTimeMod::FirstFaseH
+    (PaintingRelevance (relevance ?relevance))
+    (Knowledge (knowledge ?knowledge))
+    (or
+        (test (eq ?relevance Very_High))
+        (and
+            (test (eq ?relevance High))
+            (or 
+                (test (eq ?knowledge Very_High))
+                (test (eq ?knowledge High))
+                (test (eq ?knowledge Medium))
+            )
+        )
+        (and
+            (test (eq ?relevance Medium))
+            (or
+                (test (eq ?knowledge Very_High))
+                (test (eq ?knowledge High))
+            )
+        )
+    )
 =>
     (assert (ObservationTime (time High)))
 )
 
-(defrule ObsTimeMod::FirstPhase2
-    (PaintingRelevance(relevance High))
+(defrule ObsTimeMod::FirstPhaseM
+    (PaintingRelevance (relevance ?relevance))
     (Knowledge (knowledge ?knowledge))
+    (or
+        (and
+            (test (eq ?relevance High))
+            (or
+                (test (eq ?knowledge Low))
+                (test (eq ?knowledge Very_Low))
+            )
+        )
+        (and
+            (test (eq ?relevance Medium))
+            (test (eq ?knowledge Medium))
+        )
+        (and
+            (test (eq ?relevance Low))
+            (test (eq ?knowledge Very_High))
+        )
+    )
 =>
-    (assert (ObservationTime (time (timeKnowledge1 ?knowledge))))
+    (assert (ObservationTime (time Medium)))
 )
 
-(defrule ObsTimeMod::FirstPhase3
-    (PaintingRelevance(relevance Medium))
+(defrule ObsTimeMod::FirstPhaseL
+    (PaintingRelevance (relevance ?relevance))
     (Knowledge (knowledge ?knowledge))
-=>
-    (assert (ObservationTime (time (timeKnowledge2 ?knowledge))))
-)
-
-(defrule ObsTimeMod::FirstPhase4
-    (PaintingRelevance(relevance Low))
-    (Knowledge (knowledge ?knowledge))
-=>
-    (assert (ObservationTime (time (timeKnowledge3 ?knowledge))))
-)
-
-(defrule ObsTimeMod::FirstPhase5
-    (PaintingRelevance(relevance Very_Low))
+    (or
+        (test (eq ?relevance Very_Low))
+        (and
+            (test (eq ?relevance Medium))
+            (or
+                (test (eq ?knowledge Low))
+                (test (eq ?knowledge Very_Low))
+            )
+        )
+        (and
+            (test (eq ?relevance Low))
+            (or
+                (test (eq ?knowledge High))
+                (test (eq ?knowledge Medium))
+                (test (eq ?knowledge Low))
+                (test (eq ?knowledge Very_Low))
+            )
+        )
+    )
 =>
     (assert (ObservationTime (time Low)))
 )
