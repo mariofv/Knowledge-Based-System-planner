@@ -1,5 +1,8 @@
 ;DEFFUNCTIONS
-(defmodule PreguntasMod (import MAIN defclass ?ALL))
+(defmodule PreguntasMod 
+    (import MAIN defclass ?ALL)
+    (import MAIN deftemplate YearFilters)
+)
 
 (deffunction PreguntasMod::question-instance ()
    (bind ?answer (readline))
@@ -137,7 +140,7 @@
    ?answer)
 
 (deffunction PreguntasMod::yes-or-no-p (?question)
-   (bind ?response (ask-question-with-values ?question yes no y n))
+   (bind ?response (ask-question-with-values ?question "yes" "no" "y" "n"))
    (if (or (eq ?response yes) (eq ?response y))
        then TRUE 
        else FALSE))
@@ -151,10 +154,20 @@
       (ask-question-string "What is your name? "))
    (bind ?number_of_people
       (ask-question-integer "How many people is your group composed of? "))
+   (bind ?children
+      (yes-or-no-p "Do you have children with you?"))
    (bind ?days
       (ask-question-integer "How many days are you going to stay? "))
    (bind ?time
-      (ask-question-integer "How long are you going to stay each day (in minutes)? "))
+      (ask-question-integer "How long are you going to stay each day (in seconds)? "))
+   (bind ?yearfilter
+      (yes-or-no-p "Do you wanna filter the paintings by year?"))
+   (if(eq ?yearfilter TRUE) then
+       (printout t "Introduce the initial year of the range" crlf)
+       (bind ?year1 (read))
+       (printout t "Introduce the final year of the range" crlf)
+       (bind ?year2 (read))
+       (assert (YearFilters (firstYear ?year1) (lastYear ?year2)))) 
    ;//////////////
    ;BEGIN TEST
    ;//////////////
@@ -217,6 +230,7 @@
     (send ?visitor_instance put-Duration ?time)
     (send ?visitor_instance put-Number+of+people ?number_of_people)
     (send ?visitor_instance put-Knowledge ?points)
+    (send ?visitor_instance put-Children ?children)
 
     (bind ?count 1)
     (printout t "Alright, let's check your preferences now." crlf)
