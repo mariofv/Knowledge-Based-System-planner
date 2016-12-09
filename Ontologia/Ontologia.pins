@@ -1,4 +1,4 @@
-; Mon Dec 05 17:49:08 CET 2016
+; Fri Dec 09 11:07:18 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -21,8 +21,7 @@
 ([Ontologia_Class1] of  Author
 
 	(Author+name "Leonardo da Vinci")
-	(Authors+style [Ontologia_Class3])
-	(Nationality "Italiano"))
+	(Nationality [Ontologia_Class50003]))
 
 ([Ontologia_Class10000] of  Period
 
@@ -30,8 +29,7 @@
 
 ([Ontologia_Class10002] of  Room
 
-	(Number 1)
-	(Room+name "Room 1"))
+	(Number 1))
 
 ([Ontologia_Class10008] of  Topic
 
@@ -55,8 +53,7 @@
 ([Ontologia_Class20001] of  Author
 
 	(Author+name "Caspar David Friedrich")
-	(Authors+style [Ontologia_Class20003])
-	(Nationality "Alemana"))
+	(Nationality [Ontologia_Class50004]))
 
 ([Ontologia_Class20002] of  Topic
 
@@ -76,8 +73,7 @@
 
 ([Ontologia_Class30000] of  Room
 
-	(Number 2)
-	(Room+name "Room 2"))
+	(Number 2))
 
 ([Ontologia_Class30002] of  Period
 
@@ -122,10 +118,7 @@
 ([Ontologia_Class30012] of  Author
 
 	(Author+name "Vincent van Gogh")
-	(Authors+style
-		[Ontologia_Class30003]
-		[Ontologia_Class30004])
-	(Nationality "Neerlandés"))
+	(Nationality [Ontologia_Class50014]))
 
 ([Ontologia_Class30013] of  Painting
 
@@ -160,14 +153,12 @@
 ([Ontologia_Class30015] of  Author
 
 	(Author+name "Edvard Munch")
-	(Authors+style [Ontologia_Class30004])
-	(Nationality "Noruego"))
+	(Nationality [Ontologia_Class50006]))
 
 ([Ontologia_Class30017] of  Author
 
 	(Author+name "Gustav Klimt")
-	(Authors+style [Ontologia_Class30005])
-	(Nationality "Austohungaro"))
+	(Nationality [Ontologia_Class50008]))
 
 ([Ontologia_Class30018] of  Painting
 
@@ -187,8 +178,7 @@
 ([Ontologia_Class30019] of  Author
 
 	(Author+name "Salvador Dali")
-	(Authors+style [Ontologia_Class30006])
-	(Nationality "Española"))
+	(Nationality [Ontologia_Class50009]))
 
 ([Ontologia_Class30020] of  Painting
 
@@ -208,8 +198,7 @@
 ([Ontologia_Class30021] of  Author
 
 	(Author+name "Sandro Botticelli")
-	(Authors+style [Ontologia_Class3])
-	(Nationality "Itailiana"))
+	(Nationality [Ontologia_Class50003]))
 
 ([Ontologia_Class30022] of  Painting
 
@@ -229,8 +218,7 @@
 ([Ontologia_Class30023] of  Author
 
 	(Author+name "Antonello da Messina")
-	(Authors+style [Ontologia_Class3])
-	(Nationality "Italiana"))
+	(Nationality [Ontologia_Class50003]))
 
 ([Ontologia_Class30024] of  Painting
 
@@ -250,8 +238,7 @@
 ([Ontologia_Class30025] of  Author
 
 	(Author+name "Theodore Gericault")
-	(Authors+style [Ontologia_Class20003])
-	(Nationality "Francesa"))
+	(Nationality [Ontologia_Class50010]))
 
 ([Ontologia_Class30026] of  Painting
 
@@ -271,8 +258,7 @@
 ([Ontologia_Class30027] of  Author
 
 	(Author+name "Jacques-Louis David")
-	(Authors+style [Ontologia_Class30007])
-	(Nationality "Francesa"))
+	(Nationality [Ontologia_Class50010]))
 
 ([Ontologia_Class30028] of  Painting
 
@@ -310,13 +296,11 @@
 
 ([Ontologia_Class40003] of  Room
 
-	(Number 3)
-	(Room+name "Room 3"))
+	(Number 3))
 
 ([Ontologia_Class40004] of  Room
 
-	(Number 4)
-	(Room+name "Room 4"))
+	(Number 4))
 
 ([Ontologia_Class40005] of  Painting
 
@@ -336,8 +320,7 @@
 ([Ontologia_Class40006] of  Author
 
 	(Author+name "Diego Rivera")
-	(Authors+style [Ontologia_Class40007])
-	(Nationality "Mejicano"))
+	(Nationality [Ontologia_Class50005]))
 
 ([Ontologia_Class40007] of  Style
 
@@ -361,8 +344,7 @@
 ([Ontologia_Class40009] of  Author
 
 	(Author+name "Grant Wood")
-	(Authors+style [Ontologia_Class40010])
-	(Nationality "Estadounidense"))
+	(Nationality [Ontologia_Class50007]))
 
 ([Ontologia_Class40010] of  Style
 
@@ -401,8 +383,7 @@
 ([Ontologia_Class40013] of  Author
 
 	(Author+name "Rene Magritte")
-	(Authors+style [Ontologia_Class30006])
-	(Nationality "Belga"))
+	(Nationality [Ontologia_Class50013]))
 
 ([Ontologia_Class40014] of  Painting
 
@@ -422,8 +403,7 @@
 ([Ontologia_Class40015] of  Author
 
 	(Author+name "Jackson Pollock")
-	(Authors+style [Ontologia_Class30004])
-	(Nationality "Estadounidense"))
+	(Nationality [Ontologia_Class50007]))
 
 ([Ontologia_Class40016] of  Style
 
@@ -455,8 +435,7 @@
 ([Ontologia_Class40020] of  Author
 
 	(Author+name "Pierre-August Renoir")
-	(Authors+style [Ontologia_Class40019])
-	(Nationality "Francés"))
+	(Nationality [Ontologia_Class50010]))
 
 ([Ontologia_Class40021] of  Painting
 
@@ -476,9 +455,52 @@
 ([Ontologia_Class40022] of  Author
 
 	(Author+name "Kasimir Malevich")
-	(Authors+style [Ontologia_Class40023])
-	(Nationality "Ruso"))
+	(Nationality [Ontologia_Class50011]))
 
 ([Ontologia_Class40023] of  Style
 
 	(Style+name "Supermatismo"))
+
+([Ontologia_Class50003] of  Country
+
+	(Country+name "Italy"))
+
+([Ontologia_Class50004] of  Country
+
+	(Country+name "German"))
+
+([Ontologia_Class50005] of  Country
+
+	(Country+name "Mexico"))
+
+([Ontologia_Class50006] of  Country
+
+	(Country+name "Norway"))
+
+([Ontologia_Class50007] of  Country
+
+	(Country+name "United States of America"))
+
+([Ontologia_Class50008] of  Country
+
+	(Country+name "Hungary"))
+
+([Ontologia_Class50009] of  Country
+
+	(Country+name "Spain"))
+
+([Ontologia_Class50010] of  Country
+
+	(Country+name "France"))
+
+([Ontologia_Class50011] of  Country
+
+	(Country+name "Russia"))
+
+([Ontologia_Class50013] of  Country
+
+	(Country+name "Belgium"))
+
+([Ontologia_Class50014] of  Country
+
+	(Country+name "Netherlands"))

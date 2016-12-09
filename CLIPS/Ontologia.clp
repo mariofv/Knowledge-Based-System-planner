@@ -1,5 +1,4 @@
 
-
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
@@ -9,24 +8,20 @@
 ;+		(allowed-classes Author)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot Year+of+creation
-;+		(comment "The year in wich the painting was created.")
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot Days
 ;+		(comment "The number of days in which the visitor visits the museum.")
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
+	(single-slot Year+of+creation
+;+		(comment "The year in wich the painting was created.")
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(single-slot Asigned+time
 ;+		(comment "The time asigned to a day.")
 		(type INTEGER)
 ;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Room+name
-		(type STRING)
-;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot Asigned+paintings
 		(type INSTANCE)
@@ -75,18 +70,17 @@
 		(range 1 100)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(multislot Authors+style
-;+		(comment "The styles of an author.")
-		(type INSTANCE)
-;+		(allowed-classes Style)
-		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write))
 	(single-slot Period+name
 ;+		(comment "The name of the historical period.")
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Visitor+name
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Country+name
+;+		(comment "The name of a country.")
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
@@ -116,15 +110,15 @@
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
+	(single-slot Number
+;+		(comment "The number of a day.")
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(single-slot Painting+topic
 ;+		(comment "The topic of a painting.")
 		(type INSTANCE)
 ;+		(allowed-classes Topic)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Number
-;+		(comment "The number of a day.")
-		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Visitor+interest
@@ -144,8 +138,8 @@
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Nationality
-;+		(comment "The nationality of an author.")
-		(type STRING)
+		(type INSTANCE)
+;+		(allowed-classes Country)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Knowledge
@@ -174,10 +168,11 @@
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot Complexity
-;+		(comment "The complexity of a painting.")
+	(single-slot Relevance
+;+		(comment "The relevance of a painting.")
 		(type INTEGER)
-;+		(cardinality 0 1)
+		(range 0 100)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Painted+in
 ;+		(comment "The period in which a painting was painted.")
@@ -185,11 +180,10 @@
 ;+		(allowed-classes Period)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot Relevance
-;+		(comment "The relevance of a painting.")
+	(single-slot Complexity
+;+		(comment "The complexity of a painting.")
 		(type INTEGER)
-		(range 0 100)
-;+		(cardinality 1 1)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot Width
 ;+		(comment "The width of a painting.")
@@ -201,16 +195,16 @@
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
+	(single-slot Observation+time
+		(type INTEGER)
+		(default -1)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(single-slot Painting+topic
 ;+		(comment "The topic of a painting.")
 		(type INSTANCE)
 ;+		(allowed-classes Topic)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Observation+time
-		(type INTEGER)
-		(default -1)
-;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot Visitor+interest
 		(type INTEGER)
@@ -239,20 +233,14 @@
 	(is-a USER)
 	(role concrete)
 	(single-slot Nationality
-;+		(comment "The nationality of an author.")
-		(type STRING)
+		(type INSTANCE)
+;+		(allowed-classes Country)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Author+name
 ;+		(comment "The name of an author.")
 		(type STRING)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Authors+style
-;+		(comment "The styles of an author.")
-		(type INSTANCE)
-;+		(allowed-classes Style)
-		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write)))
 
 (defclass Period "A period in history."
@@ -284,10 +272,6 @@
 	(multislot Asigned+paintings
 		(type INSTANCE)
 ;+		(allowed-classes Painting)
-		(create-accessor read-write))
-	(single-slot Room+name
-		(type STRING)
-;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
 (defclass Visitor "A visitor of a museum."
@@ -357,6 +341,15 @@
 ;+		(allowed-classes Painting)
 		(create-accessor read-write)))
 
+(defclass Country "A country of the world."
+	(is-a USER)
+	(role concrete)
+	(single-slot Country+name
+;+		(comment "The name of a country.")
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write)))
+
 (definstances Instances
 
 ([Ontologia_Class0] of  Painting
@@ -377,8 +370,7 @@
 ([Ontologia_Class1] of  Author
 
 	(Author+name "Leonardo da Vinci")
-	(Authors+style [Ontologia_Class3])
-	(Nationality "Italiano"))
+	(Nationality [Ontologia_Class50003]))
 
 ([Ontologia_Class10000] of  Period
 
@@ -386,8 +378,7 @@
 
 ([Ontologia_Class10002] of  Room
 
-	(Number 1)
-	(Room+name "Room 1"))
+	(Number 1))
 
 ([Ontologia_Class10008] of  Topic
 
@@ -411,8 +402,7 @@
 ([Ontologia_Class20001] of  Author
 
 	(Author+name "Caspar David Friedrich")
-	(Authors+style [Ontologia_Class20003])
-	(Nationality "Alemana"))
+	(Nationality [Ontologia_Class50004]))
 
 ([Ontologia_Class20002] of  Topic
 
@@ -432,8 +422,7 @@
 
 ([Ontologia_Class30000] of  Room
 
-	(Number 2)
-	(Room+name "Room 2"))
+	(Number 2))
 
 ([Ontologia_Class30002] of  Period
 
@@ -478,10 +467,7 @@
 ([Ontologia_Class30012] of  Author
 
 	(Author+name "Vincent van Gogh")
-	(Authors+style
-		[Ontologia_Class30003]
-		[Ontologia_Class30004])
-	(Nationality "Neerlandés"))
+	(Nationality [Ontologia_Class50014]))
 
 ([Ontologia_Class30013] of  Painting
 
@@ -516,14 +502,12 @@
 ([Ontologia_Class30015] of  Author
 
 	(Author+name "Edvard Munch")
-	(Authors+style [Ontologia_Class30004])
-	(Nationality "Noruego"))
+	(Nationality [Ontologia_Class50006]))
 
 ([Ontologia_Class30017] of  Author
 
 	(Author+name "Gustav Klimt")
-	(Authors+style [Ontologia_Class30005])
-	(Nationality "Austohungaro"))
+	(Nationality [Ontologia_Class50008]))
 
 ([Ontologia_Class30018] of  Painting
 
@@ -543,8 +527,7 @@
 ([Ontologia_Class30019] of  Author
 
 	(Author+name "Salvador Dali")
-	(Authors+style [Ontologia_Class30006])
-	(Nationality "Española"))
+	(Nationality [Ontologia_Class50009]))
 
 ([Ontologia_Class30020] of  Painting
 
@@ -564,8 +547,7 @@
 ([Ontologia_Class30021] of  Author
 
 	(Author+name "Sandro Botticelli")
-	(Authors+style [Ontologia_Class3])
-	(Nationality "Itailiana"))
+	(Nationality [Ontologia_Class50003]))
 
 ([Ontologia_Class30022] of  Painting
 
@@ -585,8 +567,7 @@
 ([Ontologia_Class30023] of  Author
 
 	(Author+name "Antonello da Messina")
-	(Authors+style [Ontologia_Class3])
-	(Nationality "Italiana"))
+	(Nationality [Ontologia_Class50003]))
 
 ([Ontologia_Class30024] of  Painting
 
@@ -606,8 +587,7 @@
 ([Ontologia_Class30025] of  Author
 
 	(Author+name "Theodore Gericault")
-	(Authors+style [Ontologia_Class20003])
-	(Nationality "Francesa"))
+	(Nationality [Ontologia_Class50010]))
 
 ([Ontologia_Class30026] of  Painting
 
@@ -627,8 +607,7 @@
 ([Ontologia_Class30027] of  Author
 
 	(Author+name "Jacques-Louis David")
-	(Authors+style [Ontologia_Class30007])
-	(Nationality "Francesa"))
+	(Nationality [Ontologia_Class50010]))
 
 ([Ontologia_Class30028] of  Painting
 
@@ -666,13 +645,11 @@
 
 ([Ontologia_Class40003] of  Room
 
-	(Number 3)
-	(Room+name "Room 3"))
+	(Number 3))
 
 ([Ontologia_Class40004] of  Room
 
-	(Number 4)
-	(Room+name "Room 4"))
+	(Number 4))
 
 ([Ontologia_Class40005] of  Painting
 
@@ -692,8 +669,7 @@
 ([Ontologia_Class40006] of  Author
 
 	(Author+name "Diego Rivera")
-	(Authors+style [Ontologia_Class40007])
-	(Nationality "Mejicano"))
+	(Nationality [Ontologia_Class50005]))
 
 ([Ontologia_Class40007] of  Style
 
@@ -717,8 +693,7 @@
 ([Ontologia_Class40009] of  Author
 
 	(Author+name "Grant Wood")
-	(Authors+style [Ontologia_Class40010])
-	(Nationality "Estadounidense"))
+	(Nationality [Ontologia_Class50007]))
 
 ([Ontologia_Class40010] of  Style
 
@@ -757,8 +732,7 @@
 ([Ontologia_Class40013] of  Author
 
 	(Author+name "Rene Magritte")
-	(Authors+style [Ontologia_Class30006])
-	(Nationality "Belga"))
+	(Nationality [Ontologia_Class50013]))
 
 ([Ontologia_Class40014] of  Painting
 
@@ -778,8 +752,7 @@
 ([Ontologia_Class40015] of  Author
 
 	(Author+name "Jackson Pollock")
-	(Authors+style [Ontologia_Class30004])
-	(Nationality "Estadounidense"))
+	(Nationality [Ontologia_Class50007]))
 
 ([Ontologia_Class40016] of  Style
 
@@ -811,8 +784,7 @@
 ([Ontologia_Class40020] of  Author
 
 	(Author+name "Pierre-August Renoir")
-	(Authors+style [Ontologia_Class40019])
-	(Nationality "Francés"))
+	(Nationality [Ontologia_Class50010]))
 
 ([Ontologia_Class40021] of  Painting
 
@@ -832,11 +804,54 @@
 ([Ontologia_Class40022] of  Author
 
 	(Author+name "Kasimir Malevich")
-	(Authors+style [Ontologia_Class40023])
-	(Nationality "Ruso"))
+	(Nationality [Ontologia_Class50011]))
 
 ([Ontologia_Class40023] of  Style
 
 	(Style+name "Supermatismo"))
+
+([Ontologia_Class50003] of  Country
+
+	(Country+name "Italy"))
+
+([Ontologia_Class50004] of  Country
+
+	(Country+name "German"))
+
+([Ontologia_Class50005] of  Country
+
+	(Country+name "Mexico"))
+
+([Ontologia_Class50006] of  Country
+
+	(Country+name "Norway"))
+
+([Ontologia_Class50007] of  Country
+
+	(Country+name "United States of America"))
+
+([Ontologia_Class50008] of  Country
+
+	(Country+name "Hungary"))
+
+([Ontologia_Class50009] of  Country
+
+	(Country+name "Spain"))
+
+([Ontologia_Class50010] of  Country
+
+	(Country+name "France"))
+
+([Ontologia_Class50011] of  Country
+
+	(Country+name "Russia"))
+
+([Ontologia_Class50013] of  Country
+
+	(Country+name "Belgium"))
+
+([Ontologia_Class50014] of  Country
+
+	(Country+name "Netherlands"))
 
 )
