@@ -3,7 +3,7 @@
     (import MAIN defclass ?ALL)
     (import MAIN deftemplate YearFilters NationalityFilters)
 )
-
+;Función para una pregunta que se responde con string
 (deffunction PreguntasMod::question-instance ()
    (bind ?answer (readline))
    (if (lexemep ?answer) 
@@ -13,20 +13,22 @@
         bind ?answer (readline))
 ?answer)
 
-(deffunction PreguntasMod::add-preference (?classtype ?slot ?count ?visitor_instance)
-    (bind ?answer (question-instance))
-    (while (not(eq ?answer "done")) do
-        (bind ?aux (find-instance ((?inst ?classtype)) (eq (lowcase ?inst:?slot) (lowcase ?answer))))
-        (bind ?mslot (send ?visitor_instance get-Preferences))
-        (bind ?already (member$ ?aux ?mslot))
-        (printout t ?aux crlf)
-        (if (not ?already) then    
-        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
-        (bind ?count (+ ?count 1)))
-        (bind ?answer (question-instance))
-    )
-)
+;Añade preferencias de un tipo a la clase visitante
+;(deffunction PreguntasMod::add-preference (?classtype ?slot ?count ?visitor_instance)
+;    (bind ?answer (question-instance))
+;    (while (not(eq ?answer "done")) do
+;        (bind ?aux (find-instance ((?inst ?classtype)) (eq (lowcase ?inst:?slot) (lowcase ?answer))))
+;        (bind ?mslot (send ?visitor_instance get-Preferences))
+;        (bind ?already (member$ ?aux ?mslot))
+;        (printout t ?aux crlf)
+;        (if (not ?already) then    
+;        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
+;        (bind ?count (+ ?count 1)))
+;        (bind ?answer (question-instance))
+;    )
+;)
 
+;Función para las preguntas con multiples opciones que se responden por enteros
 (deffunction PreguntasMod::add-question-with-values-int-extra (?maxindex)
 
    (bind ?answer (read))
@@ -59,6 +61,7 @@
    ?answer
 )
 
+;Añade preferencias de un tipo a la instancia de visitante. La pregunta se responde con numeros
 (deffunction PreguntasMod::add-preference-number (?classtype ?slot ?count ?visitor_instance $?array)
     (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     (while (not(= ?answer -1)) do
@@ -75,6 +78,7 @@
     )
 )
 
+;Filtro de nacionalidades de autor
 (deffunction PreguntasMod::nationality-filter($?array)
     (printout t "Possible values:" crlf)
     (printout t "------------------------------------" crlf)
@@ -109,7 +113,7 @@
     )
 )
 
-
+;Funcion para preguntas que se responden con un entero de entre una lista de valores posibles
 (deffunction PreguntasMod::ask-question-with-values-int (?question $?allowed-values)
    (printout t ?question crlf)
    (printout t "Possible values: [" 1 "," (length$ ?allowed-values)"]")
@@ -135,7 +139,7 @@
    ?answer)
 
 
-
+;Función para preguntas que se responden con string y con una serie de valores posibles
 (deffunction PreguntasMod::ask-question-with-values (?question $?allowed-values)
    (printout t ?question crlf)
    (printout t "Possible values: ")
@@ -152,20 +156,24 @@
           then (bind ?answer ?answer)))
    ?answer)
 
-
+;Función para preguntas que se responden con una string
 (deffunction PreguntasMod::ask-question-string (?question)
    (printout t ?question)
    (bind ?answer (readline))
    (if (lexemep ?answer) 
-       then (bind ?answer ?answer))
+       then (bind ?answer ?answer)
+   )
    (while (not (lexemep ?answer)) do
       (printout t "Introduce a string" crlf)
       (printout t ?question)
       (bind ?answer (readline))
       (if (lexemep ?answer) 
-          then (bind ?answer ?answer)))
+          then (bind ?answer ?answer)
+      )
+   )
    ?answer)
 
+;Función para preguntas que se responden con un entero
 (deffunction PreguntasMod::ask-question-integer (?question)
    (printout t ?question)
    (bind ?answer (read))
@@ -179,14 +187,18 @@
       (printout t ?question)
       (bind ?answer (read))
       (if (integerp ?answer) 
-          then (bind ?answer ?answer)))
+          then (bind ?answer ?answer)
+      )
+   )
    ?answer)
 
+;Función para preguntas que se responden con sí o no
 (deffunction PreguntasMod::yes-or-no-p (?question)
    (bind ?response (ask-question-with-values ?question "yes" "no" "y" "n"))
    (if (or (eq ?response "yes") (eq ?response "y"))
        then TRUE 
-       else FALSE))
+       else FALSE)
+)
 
 ;//DEFRULES
 
@@ -225,13 +237,13 @@
         (nationality-filter $?nationalities)
    )
    ;//////////////
-   ;BEGIN TEST
+   ;Empieza el test para determinar el conocimiento del visitante
    ;//////////////
    (bind ?points 0)
    (printout t "Let's see how much you know about art..." crlf)
    (printout t ?points crlf)
    (bind ?response 
-      (ask-question-with-values-int "Who is the author of 'The Lyly Pads'? "
+      (ask-question-with-values-int "Who is the author of 'The Lily Pads'? "
                     "Monet" "Manet"))
       (if(eq ?response 1) then (bind ?points (+ ?points 10)))
    (printout t ?points crlf)
@@ -271,7 +283,7 @@
       (if(eq ?response 2) then (bind ?points (+ ?points 10)))  
    (printout t ?points crlf)
    (bind ?response
-      (ask-question-with-values-int "Which of the following paintings from Dalí features a melting clock?" "The first days of spring" "The persistence of memory" "Living dead nature" "The accomodations of the wishes"))
+      (ask-question-with-values-int "Which of the following paintings from Dali features a melting clock?" "The first days of spring" "The persistence of memory" "Living dead nature" "The accomodations of the wishes"))
       (if(eq ?response 2) then (bind ?points (+ ?points 10)))  
    (printout t "Total points: " ?points crlf)   
     (if(> ?points 80)
@@ -280,6 +292,7 @@
         then(printout t "Meeeh, that was okay I guess..." crlf)
     else (printout t "I don't know why you are wasting your money in an art museum if you don't know anything, but hey, it's your money" crlf)))
    
+    ;Se crea la instancia del visitante y se le añade la información que ya tenemos
     (bind ?visitor_instance (make-instance visitor of Visitor))
     (send ?visitor_instance put-Visitor+name ?visitor_name)
     (send ?visitor_instance put-Days ?days)
@@ -288,6 +301,9 @@
     (send ?visitor_instance put-Knowledge ?points)
     (send ?visitor_instance put-Children ?children)
 
+    ;Empezamos a comprobar las preferencias del visitante y a añadirlas
+
+    ;Comprobamos las preferencias del visitante respecto a autores
     (bind ?count 1)
     (printout t "Alright, let's check your preferences now." crlf)
     (printout t "We'll start with the authors. For each author you like, type his number and press ENTER. Type 'done' when you are done" crlf);
@@ -298,6 +314,8 @@
         (printout t (send (nth$ ?i ?aux) get-Author+name) crlf)
     )
     (add-preference-number Author Author+name ?count ?visitor_instance $?aux)
+
+    ;Comprobamos las preferencias del visitante respecto a estilos
     (printout t "Good. Now same thing for the styles. For each style you like, type its name and press ENTER. Type 'done' when you are done" crlf);
     (printout t "Here are all the styles available:" crlf)
     (bind $?aux (find-all-instances((?m Style)) TRUE))
@@ -307,6 +325,7 @@
     )    
     (add-preference-number Style Style+name ?count ?visitor_instance $?aux)
 
+    ;Comprobamos las preferencias del visitante respecto a periodos pictoricos
     (printout t "Almost done. We also need to know which periods you prefer. For each period you like, type its name and press ENTER. Type 'done' when you are done" crlf);
     (printout t "Here are all the periods available:" crlf)
     (bind $?aux (find-all-instances((?m Period)) TRUE))
@@ -316,6 +335,7 @@
     )
     (add-preference-number Period Period+name ?count ?visitor_instance $?aux)
 
+    ;Comprobamos las preferencias del visitante respecto a temas
     (printout t "Last step! Tell us about the topics you like the most. For each topic you like, type its name and press ENTER. Type 'done' when you are done" crlf);
     (printout t "Here are all the topic available:" crlf)
     (bind $?aux (find-all-instances((?m Topic)) TRUE))
@@ -324,6 +344,5 @@
         (printout t (send (nth$ ?i ?aux) get-Topic+name) crlf)
     ) 
     (add-preference-number Topic Topic+name ?count ?visitor_instance $?aux)
-    (printout t "I'm out bitches" crlf)
 
 )
