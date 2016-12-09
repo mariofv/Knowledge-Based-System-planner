@@ -68,7 +68,7 @@
 (declare (salience 0))
     (YearFilters (firstYear ?fy) (lastYear ?ly))
     (NationalityFilters (nationality ?nationality))
-    ?painting <- (object (is-a Painting) (Year+of+creation ?year) (Created+By ?author))
+    ?painting <- (object (is-a Painting) (Year+of+creation ?year) (Created+by ?author))
     ?visitor <- (object (is-a Visitor))
     (test (>= ?year ?fy))
     (test (<= ?year ?ly))

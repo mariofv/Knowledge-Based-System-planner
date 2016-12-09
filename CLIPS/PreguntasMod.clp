@@ -1,7 +1,7 @@
 ;DEFFUNCTIONS
 (defmodule PreguntasMod 
     (import MAIN defclass ?ALL)
-    (import MAIN deftemplate YearFilters)
+    (import MAIN deftemplate YearFilters NationalityFilters)
 )
 
 (deffunction PreguntasMod::question-instance ()
@@ -70,6 +70,21 @@
         (if (not ?already) then    
             (slot-insert$ ?visitor_instance Preferences ?count ?aux)
             (bind ?count (+ ?count 1))
+        )
+        (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
+    )
+)
+
+(deffunction PreguntasMod::nationality-filter($?array)
+    (loop-for-count (?i 1 (length$ ?array)) do
+        (bind $?bools (insert$ ?bools 1 0))
+    )
+    (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
+    (while (not(= ?answer -1)) do
+        (bind ?aux (nth$ ?answer ?array))
+        (if (eq (nth$ ?answer ?bools) 0) then
+            (assert (NationalityFilters (nationality ?aux)))
+            (bind $?bools (replace$ ?bools ?answer ?answer 1))
         )
         (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     )
@@ -169,7 +184,8 @@
       (ask-question-integer "How many days are you going to stay? "))
    (bind ?time
       (ask-question-integer "How long are you going to stay each day (in seconds)? "))
-   (bind ?yearfilter
+   ;//Filtro del Año 
+  (bind ?yearfilter
       (yes-or-no-p "Do you wanna filter the paintings by year?"))
    (if(eq ?yearfilter TRUE) then
        (bind ?year1 (ask-question-integer "Introduce the first year of the range: "))
@@ -178,6 +194,13 @@
    else 
        (assert (YearFilters (firstYear -1) (lastYear 9999)))
    ) 
+   ;//Filtro de Nacionalidad
+   (bind ?nationalityfilter
+       (yes-or-no-p "Do you wanna filter the paintings by nationality of the author?"))
+   (if (eq ?nationalityfilter TRUE) then
+        (bind $?nationalities (find-all-instances((?m Country)) TRUE))
+        (nationality-filter $?nationalities)
+   )
    ;//////////////
    ;BEGIN TEST
    ;//////////////
