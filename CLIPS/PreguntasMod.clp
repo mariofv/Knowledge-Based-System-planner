@@ -76,16 +76,35 @@
 )
 
 (deffunction PreguntasMod::nationality-filter($?array)
+    (printout t "Possible values:" crlf)
+    (printout t "------------------------------------" crlf)
     (loop-for-count (?i 1 (length$ ?array)) do
+        (printout t ?i ". ")
+        (printout t (send (nth$ ?i ?array) get-Country+name) crlf)
+    )
+    (printout t "------------------------------------" crlf)
+   
+    (bind $?bools (create$ 0))
+    (loop-for-count (?i 2 (length$ ?array)) do
         (bind $?bools (insert$ ?bools 1 0))
     )
     (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     (while (not(= ?answer -1)) do
+        (printout t $?bools crlf)
         (bind ?aux (nth$ ?answer ?array))
+        (printout t "Answer: " ?answer crlf)
+        (printout t "Nth: " (nth$ ?answer ?bools))
         (if (eq (nth$ ?answer ?bools) 0) then
             (assert (NationalityFilters (nationality ?aux)))
             (bind $?bools (replace$ ?bools ?answer ?answer 1))
         )
+        (printout t "Possible values:" crlf)
+        (printout t "------------------------------------" crlf)
+        (loop-for-count (?i 1 (length$ ?array)) do
+            (printout t ?i ". " crlf)
+            (printout t (send (nth$ ?i ?array) get-Country+name))
+        )
+        (printout t "------------------------------------" crlf)
         (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     )
 )
@@ -190,6 +209,10 @@
    (if(eq ?yearfilter TRUE) then
        (bind ?year1 (ask-question-integer "Introduce the first year of the range: "))
        (bind ?year2 (ask-question-integer "Introduce the final year of the range: "))
+       (while (< ?year2 ?year1) 
+           (printout t "The second year must be bigger than the first" crlf);
+           (bind ?year2 (ask-question-integer "Introduce the final year of the range: "))
+       )
        (assert (YearFilters (firstYear ?year1) (lastYear ?year2)))
    else 
        (assert (YearFilters (firstYear -1) (lastYear 9999)))
@@ -294,7 +317,7 @@
     (add-preference-number Period Period+name ?count ?visitor_instance $?aux)
 
     (printout t "Last step! Tell us about the topics you like the most. For each topic you like, type its name and press ENTER. Type 'done' when you are done" crlf);
-    (printout t "Here are all the authors available:" crlf)
+    (printout t "Here are all the topic available:" crlf)
     (bind $?aux (find-all-instances((?m Topic)) TRUE))
     (loop-for-count (?i 1 (length$ ?aux)) do
         (printout t ?i ". ")

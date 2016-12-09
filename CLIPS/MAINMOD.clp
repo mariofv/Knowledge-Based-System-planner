@@ -110,7 +110,7 @@
     (printout t "Los cuadros a visitar en el dia " ?number " con tiempo asignado " ?asignedTime " son" crlf)
     (loop-for-count (?i 1 (length$ ?asignedPaintings)) do
         (bind ?painting (nth$ ?i ?asignedPaintings))
-        (printout t "Sala " (send (send ?painting get-Exhibited+in) get-Room+name) " El cuadro " (send ?painting get-Painting+name) " tiene un interes de " (send ?painting get-Visitor+interest) " y un tiempo de observacion de " (send ?painting get-Observation+time) " segundos." crlf)
+        (printout t "Sala " (send (send ?painting get-Exhibited+in) get-Number) " El cuadro " (send ?painting get-Painting+name) " tiene un interes de " (send ?painting get-Visitor+interest) " y un tiempo de observacion de " (send ?painting get-Observation+time) " segundos." crlf)
     )
     (printout t crlf)
 )
