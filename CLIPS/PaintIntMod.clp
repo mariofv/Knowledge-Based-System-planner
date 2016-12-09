@@ -1,11 +1,26 @@
-(defmodule PaintIntMod
+(defmodule PaintIntMod "Este módulo calcula el interés del visitante para un cuadro"
     (import HeuristicMod defclass ?ALL) 
     (import HeuristicMod deffunction ?ALL)
     (import HeuristicMod deftemplate ?ALL)
 )
 
+;///////////
+;HECHOS ///
+;/////////
 
-(deffunction ComputePaintInt (?painting ?preferenceLevel ?baseNumber ?superiorLimit)
+(deftemplate PaintIntMod::Interest ""
+    (slot level
+        (type SYMBOL)
+        (allowed-values Very_Low Low High Very_High)
+    )
+)
+
+;//////////////
+;FUNCIONES ///
+;////////////
+
+(deffunction ComputePaintInt (?painting ?preferenceLevel ?baseNumber ?superiorLimit) "Esta función sirve
+para refinar el interés teniendo en cuenta el valor cuantitativo de las variables usadas para calcularlo"
     (+ 
         ?baseNumber 
         (min 
@@ -15,14 +30,6 @@
                 (* 0.2 (send ?painting get-Relevance))
             )
         )
-    )
-)
-
-;Output modulo PaintInt
-(deftemplate PaintIntMod::Interest
-    (slot level
-        (type SYMBOL)
-        (allowed-values Very_Low Low High Very_High)
     )
 )
 
@@ -39,6 +46,7 @@
 =>
     (assert (Interest (level Very_High)))
 )
+
 
 (defrule PaintIntMod::FindInterestInPaintingHigh "Comprueba si el interes de un visitante por un cuadro es alto"
     (PaintingRelevance (relevance ?relevance))
