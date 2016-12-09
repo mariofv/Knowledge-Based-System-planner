@@ -31,7 +31,7 @@
     (OrganizeDay (day ?day))
 =>
     (loop-for-count (?i 1 (length$ ?paintings))
-        (slot-insert$ ?day Asigned+paintings (+ 1 (length$ (send ?day get-Asigned+paintings))) (nth$ 1 ?paintings))
+        (slot-insert$ ?day Asigned+paintings (+ 1 (length$ (send ?day get-Asigned+paintings))) (nth$ 1 (send ?room get-Asigned+paintings)))
         (slot-delete$ ?room Asigned+paintings 1 1)
     )
     (modify ?f (order (+ ?order 1)))
