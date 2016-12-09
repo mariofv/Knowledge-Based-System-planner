@@ -1,5 +1,6 @@
 (defmodule VisitaMod
     (import MAIN defclass ?ALL)
+    (import MAIN deftemplate YearFilters NationalityFilters)
     (export defclass ?ALL)
     (export deftemplate ?ALL)
 )
@@ -21,10 +22,33 @@
     )
 )
 
-(defrule VisitaMod::StartMod
+(defrule VisitaMod::MakeStateEmpty
 (declare (salience 3))
 =>
-    (make-instance STATE of State (Paintings+to+asign (find-all-instances ((?x Painting)) TRUE)))
+    (make-instance STATE of State)
+)
+
+(defrule VisitaMod::InsertPaintingIntoState
+(declare (salience 3))
+    (YearFilters (firstYear ?fy) (lastYear ?ly))
+    ?painting <- (object (is-a Painting) (Year+of+creation ?year) (Created+by ?author))
+    ?state <- (object (is-a State))
+    (test (>= ?year ?fy))
+    (test (<= ?year ?ly))
+    (or
+        (not (exists (NationalityFilters)))
+        (exists 
+            (NationalityFilters (nationality ?nationality))
+            (test (eq ?nationality (send ?author get-Nationality)))
+        )
+    )
+=>
+    (slot-insert$ ?state Paintings+to+asign 1 ?painting)
+)
+
+(defrule VisitaMod::StartSortMod
+(declare (salience 2))
+=>
     (printout t "focuseando SortMod" crlf)
     (focus SortMod)
 )

@@ -26,36 +26,22 @@
 (defrule OrganizeMod::ReorderPaintings
 (declare (salience 2))
     ?f <- (RoomOrder (order ?order))
-    (object (is-a Room) (Number ?n) (Asigned+paintings $?paintings))
+    ?room <- (object (is-a Room) (Number ?n) (Asigned+paintings $?paintings))
     (test (= ?order ?n))
     (OrganizeDay (day ?day))
 =>
     (loop-for-count (?i 1 (length$ ?paintings))
-        (slot-insert$ ?day Asigned+paintings (+ 1 (length$ (send ?day get-Asigned+paintings))) (nth$ ?i ?paintings))
+        (slot-insert$ ?day Asigned+paintings (+ 1 (length$ (send ?day get-Asigned+paintings))) (nth$ 1 ?paintings))
+        (slot-delete$ ?room Asigned+paintings 1 1)
     )
     (modify ?f (order (+ ?order 1)))
 )
 
-(defrule OrganizeMod::FlushRooms
-(declare (salience 1))
-    ?room <- (object (is-a Room) (Asigned+paintings $?asignedPaintings))
-=>
-    (loop-for-count (?i 1 (length$ ?asignedPaintings))
-        (slot-delete$ ?room Asigned+paintings 1 1)
-    )
-)
-
-(defrule OrganizeMod::FlushRoomsAndFinish
+(defrule OrganizeMod::Finish
 (declare (salience 1))
     ?fact <- (OrganizeDay (day ?day))
     ?fact2 <- (RoomOrder)
 =>
-;    (do-for-all-instances ((?room Room)) TRUE
-;        (bind ?size (length$ (send ?room get-Asigned+paintings)))
-;        (loop-for-count (?i 1 ?size)
-;            (slot-delete$ ?room Asigned+paintings 1 1)
-;        )
-;    )
     (retract ?fact)
     (retract ?fact2)
 )

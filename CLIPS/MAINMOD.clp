@@ -67,24 +67,21 @@
 (defrule AnalyzePainting
 (declare (salience 0))
     (YearFilters (firstYear ?fy) (lastYear ?ly))
-    (NationalityFilters (nationality ?nationality))
     ?painting <- (object (is-a Painting) (Year+of+creation ?year) (Created+by ?author))
     ?visitor <- (object (is-a Visitor))
     (test (>= ?year ?fy))
     (test (<= ?year ?ly))
-    (test (eq ?nationality (send ?author get-Nationality)))
+    (or
+        (not (exists (NationalityFilters)))
+        (exists 
+            (NationalityFilters (nationality ?nationality))
+            (test (eq ?nationality (send ?author get-Nationality)))
+        )
+    )
 =>
     (assert (AnalyzeVisitor (visitor ?visitor)))
     (assert (AnalyzePainting (painting ?painting)))
     (focus HeuristicMod)
-)
-
-(defrule StartVisita
-(declare (salience -1))
-=>
-    (printout t "Focuseando VisitaMod" crlf)
-    (focus VisitaMod)
-    (assert (Finish-Fact))
 )
 
 (defrule FinishAnalyzing
@@ -103,6 +100,14 @@
     (retract ?f4)
 )
 
+(defrule StartVisita
+(declare (salience -1))
+=>
+    (printout t "Focuseando VisitaMod" crlf)
+    (focus VisitaMod)
+    (assert (Finish-Fact))
+)
+
 (defrule FinishProgram
 (declare (salience 10000))
     ?object <- (object (is-a Day) (Number ?number) (Asigned+paintings $?asignedPaintings) (Asigned+time ?asignedTime))
@@ -115,8 +120,16 @@
     (printout t crlf)
 )
 
-(defrule END
+(defrule DeleteFilterFacts
 (declare (salience 9999))
+    ?f <- (NationalityFilters)
+    (Finish-Fact)
+=>
+    (retract ?f)
+)
+
+(defrule END
+(declare (salience 9998))
     ?f1 <- (Finish-Fact)
     ?f2 <- (YearFilters)
 =>
