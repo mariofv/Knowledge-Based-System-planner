@@ -11,10 +11,13 @@
 (load "F:/IA/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)
-Listo
+Juego de Prueba 1.2
 1
+n
 1
 600
+n
+n
 1
 3
 3

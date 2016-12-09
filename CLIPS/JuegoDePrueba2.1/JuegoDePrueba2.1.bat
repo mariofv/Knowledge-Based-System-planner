@@ -11,10 +11,13 @@
 (load "F:/IA/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)
-MedioTonto
+Juego de Prueba 2.1
 1
-3
+n
+1
 600
+n
+n
 1
 3
 3
@@ -26,6 +29,7 @@ MedioTonto
 1
 1
 done
+1
 done
 done
 done

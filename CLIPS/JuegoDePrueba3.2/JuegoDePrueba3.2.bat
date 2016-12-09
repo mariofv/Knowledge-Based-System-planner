@@ -11,17 +11,18 @@
 (load "F:/IA/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)
-Tonto
-1
+Juego de Prueba 3.2
+11
 n
 1
 600
 n
-2
+n
+1
+3
+3
 1
 1
-1
-2
 1
 1
 1

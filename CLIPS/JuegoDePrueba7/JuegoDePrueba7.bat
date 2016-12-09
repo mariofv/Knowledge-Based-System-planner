@@ -1,4 +1,4 @@
-(load "F:/IA/Practica2-IA/CLIPS/Ontologia.CLP")
+(load "F:/IA/Practica2-IA/CLIPS/OntologiaSinCuadros.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/MAINMOD.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/ComplexityMod.CLP")
 (load "F:/IA/Practica2-IA/CLIPS/PreguntasMod.CLP")
@@ -11,10 +11,13 @@
 (load "F:/IA/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)
-UnaPreferencia
+Juego de Prueba 7
 1
+n
 1
 600
+n
+n
 1
 3
 3
@@ -25,7 +28,6 @@ UnaPreferencia
 1
 1
 1
-3
 done
 done
 done

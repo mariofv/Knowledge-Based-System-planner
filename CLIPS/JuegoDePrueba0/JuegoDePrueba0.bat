@@ -11,15 +11,18 @@
 (load "F:/IA/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)
-Grupo
-5
+Juego de Prueba Base
+1
+n
 1
 600
-2
+n
+n
+1
+3
+3
 1
 1
-1
-2
 1
 1
 1

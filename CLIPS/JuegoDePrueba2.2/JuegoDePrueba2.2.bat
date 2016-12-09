@@ -11,10 +11,13 @@
 (load "F:/IA/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)
-MuchasPreferencias
+Juego de Prueba 2.2
 1
+n
 1
 600
+n
+n
 1
 3
 3
@@ -25,10 +28,9 @@ MuchasPreferencias
 1
 1
 1
-3
 done
+1
 done
-3
+1
 done
-2
 done
