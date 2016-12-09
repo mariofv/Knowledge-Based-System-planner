@@ -48,7 +48,7 @@
 (deftemplate NationalityFilters
     (slot nationality
         (type INSTANCE)
-        (allowed-classes Nationality)
+        (allowed-classes Country)
     )
 )
 

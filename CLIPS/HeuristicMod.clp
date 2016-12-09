@@ -1,4 +1,5 @@
-(defmodule HeuristicMod "Este modulo abstrae diferentes atributos de las clases."
+(defmodule HeuristicMod "Este módulo ejecuta los módulos de los subproblemas de
+                         asociación heurística y abstrae los elementos comunes"
     (import MAIN deftemplate ?ALL) 
     (import MAIN defclass ?ALL) 
 
@@ -7,25 +8,25 @@
     (export defclass ?ALL)
 )
 
-;///////////
-;HECHOS ///
-;/////////
+;//////////
+;HECHOS///
+;////////
 
-(deftemplate HeuristicMod::PaintingRelevance "Este hecho contiene la relevanca abstraida de un cuadro."
+(deftemplate HeuristicMod::PaintingRelevance "Este hecho contiene la relevancia abstraída de un cuadro."
     (slot relevance (type SYMBOL)
         (allowed-values Very_High High Medium Low Very_Low)
     )
 )
 
-(deftemplate HeuristicMod::Preference "Este hecho contiene la preferencia abstraida de un visitante por un cuadro."
+(deftemplate HeuristicMod::Preference "Este hecho contiene la preferencia abstraída de un visitante por un cuadro."
     (slot level
         (type SYMBOL)
         (allowed-values Low High)
     )
 )
 
-(deftemplate HeuristicMod::NumPreferences "Este hecho contiene el numero de preferencias que hay
-                                           en comun entre un visitante y un cuadro."
+(deftemplate HeuristicMod::NumPreferences "Este hecho contiene el número de preferencias que hay
+                                           en común entre un visitante y un cuadro."
     (slot number
         (type INTEGER)
     )
@@ -36,7 +37,7 @@
 ;////////////
 
 (deffunction HeuristicMod::abstractNumber(?relevance) "Esta funcion abstrae el numero de preferencias que 
-                                                       hay en comun entre un visitante y un cuadro." 
+                                                       hay en común entre un visitante y un cuadro." 
 	(if (>= ?relevance 80)
     then 
         Very_High
@@ -60,8 +61,8 @@
 	)
 )
 
-(deffunction HeuristicMod::correctPreference(?actual ?painting) "Esta funcion nos dice si una preferencia de un visitante
-                                                                 esta en un cuadro."
+(deffunction HeuristicMod::correctPreference(?actual ?painting) "Esta función nos dice si una preferencia de un visitante
+                                                                 está en un cuadro."
 	(if (eq (class ?actual) Author) 
     then
 		(if (eq (send ?actual get-Author+name) (send (send ?painting get-Created+by) get-Author+name)) 
@@ -107,14 +108,14 @@
 ;REGLAS//
 ;///////
 
-(defrule HeuristicMod::HeuristicModComplete "Esta regla llama al modulo de calculo del interes."
+(defrule HeuristicMod::HeuristicModComplete "Esta regla llama al módulo de cálculo del interés."
     (PaintingRelevance)
     (Preference)
 =>
     (focus PaintIntMod)
 )
 
-(defrule HeuristicMod::AllHeuristicModComplete1 "Esta regla llama al modulo de calculo del tiempo de observacion."
+(defrule HeuristicMod::AllHeuristicModComplete1 "Esta regla llama al módulo de cálculo del tiempo de observación."
 (declare (salience 0))
     (FinalPaintingInterest)
 =>
@@ -138,8 +139,8 @@
 ;REGLAS DE ABSTRACCIÓN //
 ;///////////////////////
 
-(defrule HeuristicMod::AbstractPreferences "Esta regla determina cuantas preferencias tiene
-                                            un visitante sobre un cuadro y crea los hechos convenientes"
+(defrule HeuristicMod::AbstractPreferences "Esta regla determina cuántas preferencias tiene
+                                            un visitante sobre un cuadro"
     (AnalyzeVisitor (visitor ?visitor))
     (AnalyzePainting (painting ?painting))
 =>

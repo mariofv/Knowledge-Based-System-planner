@@ -8,7 +8,7 @@
 ;HECHOS ///
 ;/////////
 
-(deftemplate ObsTimeMod::ObservationTime "Este hecho contiene el tiempo de observacion abstraído de un cuadro."
+(deftemplate ObsTimeMod::ObservationTime "Este hecho contiene el tiempo de observación abstraído de un cuadro."
     (slot time 
         (type SYMBOL)
         (allowed-values High Medium Low)
@@ -39,7 +39,6 @@
 ;//////////////
 ;FUNCIONES ///
 ;////////////
-
 
 (deffunction ObsTimeMod::AbstractComplexity (?complexity) "Esta función complementa la regla de abstracción AbstractComplexity"
     (if (>= ?complexity 66) 
@@ -123,14 +122,15 @@ usadas para calcularlo"
 ;REGLAS DE ASOCIACIÓN HEURÍSTICA //
 ;/////////////////////////////////
 
-(defrule ObsTimeMod::FirstFaseH "Tiene en cuenta la relevancia de un cuadro y el conocimiento "
+(defrule ObsTimeMod::FirstFaseH "Tiene en cuenta la relevancia del cuadro y el conocimiento del visitante para calcular
+                                el tiempo de observación alto"
     (PaintingRelevance (relevance ?relevance))
     (Knowledge (knowledge ?knowledge))
     (or
         (test (eq ?relevance Very_High))
         (and
             (test (eq ?relevance High))
-            (or 
+            (or
                 (test (eq ?knowledge Very_High))
                 (test (eq ?knowledge High))
                 (test (eq ?knowledge Medium))
@@ -148,7 +148,8 @@ usadas para calcularlo"
     (assert (ObservationTime (time High)))
 )
 
-(defrule ObsTimeMod::FirstPhaseM
+(defrule ObsTimeMod::FirstPhaseM "Tiene en cuenta la relevancia del cuadro y el conocimiento del visitante para calcular
+                                 el tiempo de observación medio"
     (PaintingRelevance (relevance ?relevance))
     (Knowledge (knowledge ?knowledge))
     (or
@@ -172,7 +173,8 @@ usadas para calcularlo"
     (assert (ObservationTime (time Medium)))
 )
 
-(defrule ObsTimeMod::FirstPhaseL
+(defrule ObsTimeMod::FirstPhaseL "Tiene en cuenta la relevancia del cuadro y el conocimiento del visitante para calcular
+                                 el tiempo de observación bajo"
     (PaintingRelevance (relevance ?relevance))
     (Knowledge (knowledge ?knowledge))
     (or
@@ -198,7 +200,9 @@ usadas para calcularlo"
     (assert (ObservationTime (time Low)))
 )
 
-(defrule ObsTimeMod::SecondPhase1
+(defrule ObsTimeMod::SecondPhase1 "Se tienen en cuenta el resto de variables, en concreto si todas
+                                    tienen valores muy altos el tiempo de observación será alto independientemente de
+                                    de lo que era antes"
 (declare (salience 2))
     ?f <- (ObservationTime(time Low))
     (GroupSize (size High))
@@ -209,7 +213,8 @@ usadas para calcularlo"
     (assert (PhasesFinished))
 )
 
-(defrule ObsTimeMod::SecondPhase2
+(defrule ObsTimeMod::SecondPhase2 "Se tienen en cuenta el resto de variables para determinar si se tiene que aumentar
+                                    el nivel cualitativo del tiempo de observación."
 (declare (salience 1))
     ?f <- (ObservationTime(time ?t))
     (GroupSize (size ?size))
@@ -236,14 +241,20 @@ usadas para calcularlo"
     (assert (PhasesFinished))
 )
 
-(defrule ObsTimeMod::SecondPhase3
+(defrule ObsTimeMod::SecondPhase3 "Esta es una regla auxiliar en caso de que las dos reglas anteriores
+                                    no se ejecuten, ya que para acabar la asociación heurística
+                                    es necesario el hecho PhasesFinished"
 (declare (salience 0))
     (ObservationTime)
 =>
     (assert (PhasesFinished))
 )
 
-(defrule ObsTimeMod::PreFinishModuleH
+;//////////////////////////
+;REGLAS DE REFINAMIENTO //
+;////////////////////////
+
+(defrule ObsTimeMod::PreFinishModuleH "Se calcula el valor cuantitativo del tiempo de observación alto"
 (declare (salience 10))
     (PhasesFinished)
     (ObservationTime(time High))
@@ -252,10 +263,9 @@ usadas para calcularlo"
     (NumPreferences (number ?numPreferences))
 =>
     (assert (FinalObservationTime (time (integer (ComputeObTime ?numPreferences ?visitor ?painting 120 44)))))
-
 )
 
-(defrule ObsTimeMod::PreFinishModuleM
+(defrule ObsTimeMod::PreFinishModuleM "Se calcula el valor cuantitativo del tiempo de observación medio"
 (declare (salience 10))
     (PhasesFinished)
     (ObservationTime(time Medium))
@@ -266,7 +276,7 @@ usadas para calcularlo"
     (assert (FinalObservationTime (time (integer(ComputeObTime ?numPreferences ?visitor ?painting 75 44)))))
 )
 
-(defrule ObsTimeMod::PreFinishModuleL
+(defrule ObsTimeMod::PreFinishModuleL "Se calcula el valor cuantitativo del tiempo de observación bajo"
 (declare (salience 10))
     (PhasesFinished)
     (ObservationTime(time Low))
@@ -277,7 +287,8 @@ usadas para calcularlo"
     (assert (FinalObservationTime (time (integer(ComputeObTime ?numPreferences ?visitor ?painting 30 44)))))
 )
 
-(defrule ObsTimeMod::GroupWithoutChildren1
+(defrule ObsTimeMod::GroupWithoutChildren1 "Se tiene en cuenta si hay niños en el grupo, ya que
+                                            el tiempo de observación será menor"
 (declare (salience 21))
     ?f <- (FinalObservationTime (time ?t))
     (object (is-a Visitor) (Children TRUE))
@@ -286,14 +297,16 @@ usadas para calcularlo"
     (assert (FinishMod))
 )
 
-(defrule ObsTimeMod::GroupWithChildren2
+(defrule ObsTimeMod::GroupWithChildren2 "Regla auxiliar en caso de que no haya niños, ya que para acabar el módulo
+                                         se necesita el hecho FinishMod"
 (declare (salience 20))
     (FinalObservationTime (time ?t))
 =>
     (assert (FinishMod))  
 )
 
-(defrule ObsTimeMod::FinishModule
+(defrule ObsTimeMod::FinishModule "Se eliminan todos los hechos creados por el módulo 
+                                   (excepto el FinalObservationTime) y se acaba su ejecución"
 (declare (salience 30))
     ?fact <- (FinishMod)
     ?phase <- (PhasesFinished)
