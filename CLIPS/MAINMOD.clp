@@ -45,6 +45,13 @@
     )
 )
 
+(deftemplate NationalityFilters
+    (slot nationality
+        (type INSTANCE)
+        (allowed-classes Nationality)
+    )
+)
+
 (defrule InitializeMaxMinPaintingArea "Inicializa MaxMinPaintingArea"
 (declare (salience 200))
 =>
@@ -60,10 +67,12 @@
 (defrule AnalyzePainting
 (declare (salience 0))
     (YearFilters (firstYear ?fy) (lastYear ?ly))
-    ?painting <- (object (is-a Painting) (Year+of+creation ?year))
+    (NationalityFilters (nationality ?nationality))
+    ?painting <- (object (is-a Painting) (Year+of+creation ?year) (Created+By ?author))
     ?visitor <- (object (is-a Visitor))
     (test (>= ?year ?fy))
     (test (<= ?year ?ly))
+    (test (eq ?nationality (send ?author get-Nationality)))
 =>
     (assert (AnalyzeVisitor (visitor ?visitor)))
     (assert (AnalyzePainting (painting ?painting)))
