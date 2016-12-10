@@ -103,7 +103,6 @@
 (defrule StartVisita
 (declare (salience -1))
 =>
-    (printout t "Focuseando VisitaMod" crlf)
     (focus VisitaMod)
     (assert (Finish-Fact))
 )
@@ -133,7 +132,6 @@
     ?f1 <- (Finish-Fact)
     ?f2 <- (YearFilters)
 =>
-    (printout t "Acaba MAIN" crlf)
     (retract ?f1)
     (retract ?f2)
 )

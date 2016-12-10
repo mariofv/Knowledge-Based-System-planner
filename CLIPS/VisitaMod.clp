@@ -49,7 +49,6 @@
 (defrule VisitaMod::StartSortMod
 (declare (salience 2))
 =>
-    (printout t "focuseando SortMod" crlf)
     (focus SortMod)
 )
 
@@ -58,14 +57,10 @@
     (object (is-a State) (Paintings+to+asign $?paintingsToAsign))
     (object (is-a Visitor) (Days ?days))
 =>
-    (printout t "SortMod acabado, he vuelto a VisitaMod" crlf)
     (bind ?size (length$ ?paintingsToAsign))
     (loop-for-count (?i 1 ?size ) do
         (bind ?painting (nth$ ?i ?paintingsToAsign))
-        (printout t "El cuadro " (send ?painting get-Painting+name) " tiene un interes de " (send ?painting get-Visitor+interest)  crlf)
     )
-    (printout t "He acabado, la lista es " $?paintingsToAsign crlf)
-    (printout t "Focuseando CrearVisitaMod" crlf)
     (loop-for-count (?i 1 ?days) do
         (make-instance (gensym) of Day (Number ?i))
     )
@@ -78,7 +73,6 @@
     (Organize)
     ?day <- (object (is-a Day))
 =>
-    (printout t "Focuseando OriganizeMod" crlf)
     (assert (OrganizeDay (day ?day)))
     (focus OrganizeMod)
 )
@@ -87,7 +81,6 @@
 (declare (salience 1))
     ?fact <- (Organize)
 =>
-    (printout t "Acabando VisitaMod, vuelvo a MAIN" crlf)
     (retract ?fact)
     (return)
 )

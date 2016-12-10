@@ -11,17 +11,18 @@
 (load "C:/Users/Juan Miguel/Documents/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)
-Tonto
+Juego de Prueba Base
 1
 n
 1
 600
 n
-2
+n
+1
+3
+3
 1
 1
-1
-2
 1
 1
 1

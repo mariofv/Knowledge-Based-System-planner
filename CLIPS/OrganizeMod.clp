@@ -3,7 +3,7 @@
     (import VisitaMod deftemplate OrganizeDay)
 )
 
-(deftemplate RoomOrder
+(deftemplate OrganizeMod::RoomOrder
     (slot order
         (type INTEGER)
     )

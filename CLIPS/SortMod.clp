@@ -58,8 +58,6 @@
 (defrule SortMod::Sort
     ?state <- (object (is-a State) (Paintings+to+asign $?paintingsToAsign))
 =>
-    (printout t "Empezando quicksort" crlf)
     (quickSort 1 (length$ ?paintingsToAsign) ?state)
-    (printout t "QuickSort acabado" crlf)
     (return)
 )

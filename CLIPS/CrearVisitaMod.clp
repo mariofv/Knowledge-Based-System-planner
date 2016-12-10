@@ -28,7 +28,6 @@
         )
     )
 =>
-    (printout t "Ejecutando operador Asignar" crlf)
     (bind ?maxPainting (first ?paintingsToAsign))
     (slot-insert$ ?day Asigned+paintings 1 ?maxPainting)
     (send ?day put-Asigned+time (+ ?dayTime (send ?maxPainting get-Observation+time)))
@@ -41,16 +40,14 @@
     (test (> (length$ ?paintingsToAsign) 0))
     (object (is-a Visitor) (Duration ?duration))
 =>
-    (printout t "Ejecutando operador eliminar" crlf)
     (slot-insert$ ?state Deleted+paintings (+ (length$ ?deletedPaintings) 1) (first ?paintingsToAsign))
     (slot-delete$ ?state Paintings+to+asign 1 1)
 )
 
-(defrule CrearVisitaMod::FinishAlgorithm
-(declare (salience 30))
-    (object (is-a State) (Paintings+to+asign $?paintingsToAsign))
-    (test (= (length$ ?paintingsToAsign) 0))
-=>
-    (printout t "CrearVisitaMod acabado" crlf)
-    (return)
-)
+;(defrule CrearVisitaMod::FinishAlgorithm
+;(declare (salience 30))
+;    (object (is-a State) (Paintings+to+asign $?paintingsToAsign))
+;    (test (= (length$ ?paintingsToAsign) 0))
+;=>
+;    (return)
+;)
