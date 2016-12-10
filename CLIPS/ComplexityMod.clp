@@ -1,4 +1,4 @@
-(defmodule ComplexityModç
+(defmodule ComplexityMod
 "Este modulo calcula la complejidad de cada cuadro a partir de las áreas, escogiendo
 el máxmimo, el mínimo y normalizando para que el resultado sea de 0 a 100"
 

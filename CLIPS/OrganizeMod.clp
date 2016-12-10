@@ -11,7 +11,6 @@ otra y luego volver a la primera para observar otro cuadro."
 ;HECHOS ///
 ;/////////
 
-
 (deftemplate OrganizeMod::RoomOrder 
 "Hecho auxiliar para asignar las salas en orden creciente, ya que
 están enumeradsa, y dos salas con números consecutivos son adyacentes (excepto la
