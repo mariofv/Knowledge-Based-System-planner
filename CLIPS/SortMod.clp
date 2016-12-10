@@ -1,16 +1,27 @@
-(defmodule SortMod 
+(defmodule SortMod
+"Este módulo sirve para ordenar todos los cuadros por interés descendiente."
+
     (import VisitaMod defclass State)
 )
 
+;//////////////
+;FUNCIONES ///
+;////////////
+
 (deffunction SortMod::getPainting (?index ?auxClass)
+"Función para acceder a un cuadro guardado en un multi-slot de una clase."
+
     (nth$ ?index (send ?auxClass get-Paintings+to+asign))
 )
 
-(deffunction SortMod::getInterest (?index ?auxClass) 
+(deffunction SortMod::getInterest (?index ?auxClass)
+"Función para conseguir el interés de un cuadro guardado en un multi-slot de una clase."
+
     (send  (getPainting ?index ?auxClass) get-Visitor+interest)
 )
 
-(deffunction SortMod::divide(?start ?end ?auxClass) 
+(deffunction SortMod::divide(?start ?end ?auxClass)
+"Función que pertenece a la implementación del QuickSort en CLIPS."
  
     (bind ?pivot (getInterest ?start ?auxClass))
     (bind ?left ?start)
@@ -42,8 +53,9 @@
     ?right
 )
 
-
 (deffunction SortMod::quickSort (?start ?end ?auxClass)
+"Función recursiva de la implementación del QuickSort en CLIPS."
+
     (if (< ?start ?end) then 
         (bind ?pivot (divide ?start ?end ?auxClass))
         ; Ordeno la lista de los menores
@@ -54,7 +66,14 @@
     )
 )
 
+;///////////
+;REGLAS ///
+;/////////
+
 (defrule SortMod::Sort
+"Regla que ejecuta el QuickSort sobre la instancia de State creada en el módulo
+VisitaMod y luego finaliza la ejecución del módulo."
+
     ?state <- (object (is-a State) (Paintings+to+asign $?paintingsToAsign))
 =>
     (quickSort 1 (length$ ?paintingsToAsign) ?state)

@@ -1,4 +1,6 @@
-(defmodule PaintIntMod "Este módulo calcula el interés del visitante para un cuadro"
+(defmodule PaintIntMod
+"Este módulo calcula el interés del visitante para un cuadro"
+
     (import HeuristicMod deftemplate AnalyzePainting FinalPaintingInterest PaintingRelevance Preference NumPreferences)
 )
 
@@ -17,8 +19,10 @@
 ;FUNCIONES ///
 ;////////////
 
-(deffunction ComputePaintInt (?painting ?preferenceLevel ?baseNumber ?superiorLimit) "Esta función sirve
-para refinar el interés teniendo en cuenta el valor cuantitativo de las variables usadas para calcularlo"
+(deffunction ComputePaintInt (?painting ?preferenceLevel ?baseNumber ?superiorLimit)
+"Esta función sirve para refinar el interés teniendo en cuenta el valor cuantitativo
+de las variables usadas para calcularlo"
+
     (+ 
         ?baseNumber 
         (min 
@@ -31,7 +35,13 @@ para refinar el interés teniendo en cuenta el valor cuantitativo de las variabl
     )
 )
 
-(defrule PaintIntMod::FindInterestInPaintingVeryHigh "Comprueba si el interes de un visitante por un cuadro es muy alto"
+;///////////////////////////////////
+;REGLAS DE ASOCIACIÓN HEURÍSTICA //
+;/////////////////////////////////
+
+(defrule PaintIntMod::FindInterestInPaintingVeryHigh
+"Comprueba si el interes de un visitante por un cuadro es muy alto"
+
     (PaintingRelevance (relevance ?relevance)) 
     (Preference (level ?preferenceLevel)) 
     (or 
@@ -46,7 +56,9 @@ para refinar el interés teniendo en cuenta el valor cuantitativo de las variabl
 )
 
 
-(defrule PaintIntMod::FindInterestInPaintingHigh "Comprueba si el interes de un visitante por un cuadro es alto"
+(defrule PaintIntMod::FindInterestInPaintingHigh
+"Comprueba si el interes de un visitante por un cuadro es alto"
+
     (PaintingRelevance (relevance ?relevance))
     (Preference (level ?preferenceLevel)) 
     (or 
@@ -63,7 +75,9 @@ para refinar el interés teniendo en cuenta el valor cuantitativo de las variabl
     (assert (Interest (level High)))
 )
 
-(defrule PaintIntMod::FindInterestInPaintingLow "Comprueba si el interes de un visitante por un cuadro es bajo"
+(defrule PaintIntMod::FindInterestInPaintingLow
+"Comprueba si el interes de un visitante por un cuadro es bajo"
+
     (PaintingRelevance (relevance ?relevance))
     (Preference (level ?preferenceLevel)) 
     (or
@@ -80,7 +94,9 @@ para refinar el interés teniendo en cuenta el valor cuantitativo de las variabl
     (assert (Interest (level Low)))
 )
 
-(defrule PaintIntMod::FindInterestInPaintingVeryLow "Comprueba si el interes de un visitante por un cuadro es muy bajo"
+(defrule PaintIntMod::FindInterestInPaintingVeryLow
+"Comprueba si el interes de un visitante por un cuadro es muy bajo"
+
     (PaintingRelevance (relevance ?relevance))
     (Preference (level ?preferenceLevel)) 
     (or
@@ -94,9 +110,13 @@ para refinar el interés teniendo en cuenta el valor cuantitativo de las variabl
     (assert (Interest (level Very_Low)))
 )
 
-
+;//////////////////////////
+;REGLAS DE REFINAMIENTO //
+;////////////////////////
 
 (defrule PaintIntMod::FinishModuleVH
+"Se calcula el valor cuantitativo del interés muy alto"
+
 (declare (salience 0))
     ?f <- (Interest (level Very_High))
     (AnalyzePainting (painting ?painting))
@@ -107,6 +127,8 @@ para refinar el interés teniendo en cuenta el valor cuantitativo de las variabl
 )
 
 (defrule PaintIntMod::FinishModuleH
+"Se calcula el valor cuantitativo del interés alto"
+
 (declare (salience 0))
     ?f <- (Interest (level High))
     (AnalyzePainting (painting ?painting))
@@ -117,6 +139,8 @@ para refinar el interés teniendo en cuenta el valor cuantitativo de las variabl
 )
 
 (defrule PaintIntMod::FinishModuleL
+"Se calcula el valor cuantitativo del interés bajo"
+
 (declare (salience 0))
     ?f <- (Interest (level Low))
     (AnalyzePainting (painting ?painting))
@@ -127,6 +151,8 @@ para refinar el interés teniendo en cuenta el valor cuantitativo de las variabl
 )
 
 (defrule PaintIntMod::FinishModuleVL
+"Se calcula el valor cuantitativo del interés muy bajo"
+
 (declare (salience 0))
     ?f <- (Interest (level Very_Low))
     (AnalyzePainting (painting ?painting))

@@ -1,5 +1,7 @@
-(defmodule CrearVisitaMod "Este módulo sirve para crear la visita del visitante, es decir,
+(defmodule CrearVisitaMod
+"Este módulo sirve para crear la visita del visitante, es decir,
 escoger los cuadros a visitar cada día, sin tener en cuenta el orden de visita."
+
     (import VisitaMod defclass State Day Visitor)
 )
 

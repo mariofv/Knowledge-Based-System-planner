@@ -5,6 +5,10 @@
     (import MAIN deftemplate YearFilters NationalityFilters)
 )
 
+;//////////////
+;FUNCIONES ///
+;////////////
+
 (deffunction PreguntasMod::question-instance () 
 "Función para una pregunta que se responde con string"
 
@@ -182,7 +186,6 @@
    )
    ?answer)
 
-;
 (deffunction PreguntasMod::ask-question-integer (?question)
 "Función para preguntas que se responden con un entero"
 
@@ -211,6 +214,10 @@
        then TRUE 
        else FALSE)
 )
+
+;///////////
+;REGLAS ///
+;/////////
 
 (defrule PreguntasMod::visitor-questions 
 "Regla que se encarga de adquirir toda la información necesaria del visitante mediante
