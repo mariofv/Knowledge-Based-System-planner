@@ -899,7 +899,8 @@
 	(Nationality [Ontologia_Class50009]))
 
 ([Ontologia_Class60005] of  Painting
-
+    
+    (Created+by [Ontologia_Class40022])
 	(Exhibited+in [Ontologia_Class40003])
 	(Height 500)
 	(Observation+time -1)

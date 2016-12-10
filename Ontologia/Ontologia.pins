@@ -1,4 +1,4 @@
-; Sat Dec 10 19:12:53 CET 2016
+; Sat Dec 10 19:24:32 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -551,6 +551,7 @@
 
 ([Ontologia_Class60005] of  Painting
 
+	(Created+by [Ontologia_Class40022])
 	(Exhibited+in [Ontologia_Class40003])
 	(Height 500)
 	(Observation+time -1)

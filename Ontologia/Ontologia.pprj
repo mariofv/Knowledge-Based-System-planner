@@ -1,4 +1,4 @@
-; Sat Dec 10 19:12:42 CET 2016
+; Sat Dec 10 19:24:32 CET 2016
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -20,17 +20,17 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[Ontologia_ProjectKB_Class10132]
-		[Ontologia_ProjectKB_Class10133]
-		[Ontologia_ProjectKB_Class10134]
-		[Ontologia_ProjectKB_Class10135]
-		[Ontologia_ProjectKB_Class10136]
-		[Ontologia_ProjectKB_Class10137]
-		[Ontologia_ProjectKB_Class10138]
-		[Ontologia_ProjectKB_Class10139]
-		[Ontologia_ProjectKB_Class10140]
-		[Ontologia_ProjectKB_Class10141]
-		[Ontologia_ProjectKB_Class10142]))
+		[Ontologia_ProjectKB_Class10043]
+		[Ontologia_ProjectKB_Class10044]
+		[Ontologia_ProjectKB_Class10045]
+		[Ontologia_ProjectKB_Class10046]
+		[Ontologia_ProjectKB_Class10047]
+		[Ontologia_ProjectKB_Class10048]
+		[Ontologia_ProjectKB_Class10049]
+		[Ontologia_ProjectKB_Class10050]
+		[Ontologia_ProjectKB_Class10051]
+		[Ontologia_ProjectKB_Class10052]
+		[Ontologia_ProjectKB_Class10053]))
 
 ([CLSES_TAB] of  Widget
 
@@ -74,7 +74,7 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
-([KB_142878_Class3] of  Map
+([KB_445167_Class3] of  Map
 )
 
 ([KB_887472_Class0] of  String
@@ -85,9 +85,9 @@
 ([KB_887472_Class1] of  Map
 
 	(entries
-		[Ontologia_ProjectKB_Class10143]
-		[Ontologia_ProjectKB_Class10144]
-		[Ontologia_ProjectKB_Class10145]))
+		[Ontologia_ProjectKB_Class10054]
+		[Ontologia_ProjectKB_Class10055]
+		[Ontologia_ProjectKB_Class10056]))
 
 ([KB_887472_Class100] of  String
 
@@ -195,76 +195,76 @@
 ([Ontologia_ProjectKB_Class10] of  Property_List
 )
 
-([Ontologia_ProjectKB_Class10132] of  String
+([Ontologia_ProjectKB_Class10043] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([Ontologia_ProjectKB_Class10133] of  String
+([Ontologia_ProjectKB_Class10044] of  String
 
 	(name "Visitor")
 	(string_value "Visitor+name"))
 
-([Ontologia_ProjectKB_Class10134] of  String
+([Ontologia_ProjectKB_Class10045] of  String
 
 	(name "Style")
 	(string_value "Style+name"))
 
-([Ontologia_ProjectKB_Class10135] of  String
+([Ontologia_ProjectKB_Class10046] of  String
 
 	(name "Room")
 	(string_value "Number"))
 
-([Ontologia_ProjectKB_Class10136] of  String
+([Ontologia_ProjectKB_Class10047] of  String
 
 	(name "Period")
 	(string_value "Period+name"))
 
-([Ontologia_ProjectKB_Class10137] of  String
+([Ontologia_ProjectKB_Class10048] of  String
 
 	(name "Painting")
 	(string_value "Painting+name"))
 
-([Ontologia_ProjectKB_Class10138] of  String
+([Ontologia_ProjectKB_Class10049] of  String
 
 	(name "Author")
 	(string_value "Author+name"))
 
-([Ontologia_ProjectKB_Class10139] of  String
+([Ontologia_ProjectKB_Class10050] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([Ontologia_ProjectKB_Class10140] of  String
+([Ontologia_ProjectKB_Class10051] of  String
 
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
-([Ontologia_ProjectKB_Class10141] of  String
+([Ontologia_ProjectKB_Class10052] of  String
 
 	(name "Topic")
 	(string_value "Topic+name"))
 
-([Ontologia_ProjectKB_Class10142] of  String
+([Ontologia_ProjectKB_Class10053] of  String
 
 	(name "Country")
 	(string_value "Country+name"))
 
-([Ontologia_ProjectKB_Class10143] of  Map_Entry
+([Ontologia_ProjectKB_Class10054] of  Map_Entry
 
 	(key "suppress_instance_counting")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([Ontologia_ProjectKB_Class10144] of  Map_Entry
+([Ontologia_ProjectKB_Class10055] of  Map_Entry
 
 	(key "add_name_on_instance_form")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([Ontologia_ProjectKB_Class10145] of  Map_Entry
+([Ontologia_ProjectKB_Class10056] of  Map_Entry
 
 	(key "change_tracking_active")
 	(key_class "java.lang.String")
