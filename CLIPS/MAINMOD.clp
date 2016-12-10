@@ -122,7 +122,7 @@ indican por pantalla los resultados."
     ?f3 <- (AnalyzePainting (painting ?painting))
     ?f4 <- (AnalyzeVisitor)
 =>
-    (printout t "El cuadro " (send ?painting get-Painting+name) " tiene un interes de " ?interest " y un tiempo de observacion de " ?time " segundos." crlf)
+    (printout t "El cuadro " (send ?painting get-Painting+name) " tiene un interes de " ?interest " y un tiempo de observacion de " ?time " segundos y complejidad " (send ?painting get-Complexity)  crlf)
     (send ?painting put-Visitor+interest ?interest)
     (send ?painting put-Observation+time ?time)
     (retract ?f1)
