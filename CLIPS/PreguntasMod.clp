@@ -214,7 +214,7 @@
    (bind ?days
       (ask-question-integer "How many days are you going to stay? "))
    (bind ?time
-      (ask-question-integer "How long are you going to stay each day (in seconds)? "))
+      (ask-question-integer "How long are you going to stay each day (in hours)? "))
    ;//Filtro del Año 
   (bind ?yearfilter
       (yes-or-no-p "Do you wanna filter the paintings by year?"))
@@ -296,7 +296,7 @@
     (bind ?visitor_instance (make-instance visitor of Visitor))
     (send ?visitor_instance put-Visitor+name ?visitor_name)
     (send ?visitor_instance put-Days ?days)
-    (send ?visitor_instance put-Duration ?time)
+    (send ?visitor_instance put-Duration (* 3600 ?time))
     (send ?visitor_instance put-Number+of+people ?number_of_people)
     (send ?visitor_instance put-Knowledge ?points)
     (send ?visitor_instance put-Children ?children)
