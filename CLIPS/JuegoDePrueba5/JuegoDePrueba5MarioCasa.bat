@@ -15,7 +15,7 @@ Juego de Prueba 5
 1
 n
 1
-600
+1
 y
 1500
 1900

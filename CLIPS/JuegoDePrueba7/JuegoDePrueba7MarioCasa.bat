@@ -15,7 +15,7 @@ Juego de Prueba 7
 1
 n
 1
-600
+1
 n
 n
 1
