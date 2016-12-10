@@ -17,13 +17,6 @@
     )
 )
 
-(deftemplate PaintingFact
-    (slot paintingFact 
-        (type INSTANCE)
-        (allowed-classes Painting)
-    )
-)
-
 (deftemplate FinalObservationTime
     (slot time
         (type INTEGER)

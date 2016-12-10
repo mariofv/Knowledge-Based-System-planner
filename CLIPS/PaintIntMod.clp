@@ -1,7 +1,5 @@
 (defmodule PaintIntMod "Este módulo calcula el interés del visitante para un cuadro"
-    (import HeuristicMod defclass ?ALL) 
-    (import HeuristicMod deffunction ?ALL)
-    (import HeuristicMod deftemplate ?ALL)
+    (import HeuristicMod deftemplate AnalyzePainting FinalPaintingInterest PaintingRelevance Preference NumPreferences)
 )
 
 ;///////////

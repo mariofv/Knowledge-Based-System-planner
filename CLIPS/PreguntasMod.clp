@@ -1,10 +1,13 @@
-;DEFFUNCTIONS
 (defmodule PreguntasMod 
+"Este módulo se ocupa de adquirir la información necesaria del visitante."
+
     (import MAIN defclass ?ALL)
     (import MAIN deftemplate YearFilters NationalityFilters)
 )
-;Función para una pregunta que se responde con string
-(deffunction PreguntasMod::question-instance ()
+
+(deffunction PreguntasMod::question-instance () 
+"Función para una pregunta que se responde con string"
+
    (bind ?answer (readline))
    (if (lexemep ?answer) 
        then (bind ?answer ?answer))
@@ -28,8 +31,9 @@
 ;    )
 ;)
 
-;Función para las preguntas con multiples opciones que se responden por enteros
-(deffunction PreguntasMod::add-question-with-values-int-extra (?maxindex)
+
+(deffunction PreguntasMod::add-question-with-values-int-extra (?maxindex) 
+"Función para las preguntas con múltiples opciones que se responden por enteros"
 
    (bind ?answer (read))
    (bind ?out 0)
@@ -61,8 +65,9 @@
    ?answer
 )
 
-;Añade preferencias de un tipo a la instancia de visitante. La pregunta se responde con numeros
-(deffunction PreguntasMod::add-preference-number (?classtype ?slot ?count ?visitor_instance $?array)
+
+(deffunction PreguntasMod::add-preference-number (?classtype ?slot ?count ?visitor_instance $?array) 
+"Añade preferencias de un tipo a la instancia de visitante. La pregunta se responde con números"
     (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     (while (not(= ?answer -1)) do
         (bind ?aux (nth$ ?answer ?array))
@@ -78,8 +83,9 @@
     )
 )
 
-;Filtro de nacionalidades de autor
-(deffunction PreguntasMod::nationality-filter($?array)
+(deffunction PreguntasMod::nationality-filter($?array) 
+"Filtro de nacionalidades de autor"
+
     (printout t "Possible values:" crlf)
     (printout t "------------------------------------" crlf)
     (loop-for-count (?i 1 (length$ ?array)) do
@@ -113,8 +119,9 @@
     )
 )
 
-;Funcion para preguntas que se responden con un entero de entre una lista de valores posibles
-(deffunction PreguntasMod::ask-question-with-values-int (?question $?allowed-values)
+(deffunction PreguntasMod::ask-question-with-values-int (?question $?allowed-values) 
+"Función para preguntas que se responden con un entero de entre una lista de valores posibles"
+
    (printout t ?question crlf)
    (printout t "Possible values: [" 1 "," (length$ ?allowed-values)"]")
    (printout t $?allowed-values crlf)
@@ -139,8 +146,9 @@
    ?answer)
 
 
-;Función para preguntas que se responden con string y con una serie de valores posibles
-(deffunction PreguntasMod::ask-question-with-values (?question $?allowed-values)
+(deffunction PreguntasMod::ask-question-with-values (?question $?allowed-values) 
+"Función para preguntas que se responden con string y con una serie de valores posibles"
+
    (printout t ?question crlf)
    (printout t "Possible values: ")
    (printout t $?allowed-values crlf)
@@ -156,8 +164,9 @@
           then (bind ?answer ?answer)))
    ?answer)
 
-;Función para preguntas que se responden con una string
-(deffunction PreguntasMod::ask-question-string (?question)
+(deffunction PreguntasMod::ask-question-string (?question) 
+"Función para preguntas que se responden con una string"
+
    (printout t ?question)
    (bind ?answer (readline))
    (if (lexemep ?answer) 
@@ -173,8 +182,10 @@
    )
    ?answer)
 
-;Función para preguntas que se responden con un entero
+;
 (deffunction PreguntasMod::ask-question-integer (?question)
+"Función para preguntas que se responden con un entero"
+
    (printout t ?question)
    (bind ?answer (read))
    (if (integerp ?answer) 
@@ -192,17 +203,19 @@
    )
    ?answer)
 
-;Función para preguntas que se responden con sí o no
 (deffunction PreguntasMod::yes-or-no-p (?question)
+"Función para preguntas que se responden con sí o no"
+
    (bind ?response (ask-question-with-values ?question "yes" "no" "y" "n"))
    (if (or (eq ?response "yes") (eq ?response "y"))
        then TRUE 
        else FALSE)
 )
 
-;//DEFRULES
+(defrule PreguntasMod::visitor-questions 
+"Regla que se encarga de adquirir toda la información necesaria del visitante mediante
+pretuntas."
 
-(defrule PreguntasMod::visitor-questions ""
 (declare (salience -9999))
    =>
    (bind ?visitor_name
@@ -325,7 +338,7 @@
     )    
     (add-preference-number Style Style+name ?count ?visitor_instance $?aux)
 
-    ;Comprobamos las preferencias del visitante respecto a periodos pictoricos
+    ;Comprobamos las preferencias del visitante respecto a periodos pictóricos
     (printout t "Almost done. We also need to know which periods you prefer. For each period you like, type its name and press ENTER. Type 'done' when you are done" crlf);
     (printout t "Here are all the periods available:" crlf)
     (bind $?aux (find-all-instances((?m Period)) TRUE))

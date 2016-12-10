@@ -1,11 +1,9 @@
 (defmodule HeuristicMod "Este módulo ejecuta los módulos de los subproblemas de
                          asociación heurística y abstrae los elementos comunes"
-    (import MAIN deftemplate ?ALL) 
-    (import MAIN defclass ?ALL) 
+    (import MAIN deftemplate AnalyzePainting AnalyzeVisitor FinalObservationTime FinalPaintingInterest)   
 
     (export deftemplate ?ALL)
     (export deffunction abstractNumber)
-    (export defclass ?ALL)
 )
 
 ;//////////
@@ -122,7 +120,7 @@
     (focus ObsTimeMod)
 )
 
-(defrule HeuristicMod::AllHeuristicModComplete2 "Esta regla acaba la ejecucion del modulo."
+(defrule HeuristicMod::AllHeuristicModComplete2 "Esta regla acaba la ejecucion del módulo."
 (declare (salience 1))
     ?paintingRelevance <- (PaintingRelevance)
     ?preference <- (Preference)

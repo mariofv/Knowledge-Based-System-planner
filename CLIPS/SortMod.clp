@@ -10,7 +10,6 @@
     (send  (getPainting ?index ?auxClass) get-Visitor+interest)
 )
 
-;(deffunction SortMod::divide(?start ?end $?paintings) 
 (deffunction SortMod::divide(?start ?end ?auxClass) 
  
     (bind ?pivot (getInterest ?start ?auxClass))

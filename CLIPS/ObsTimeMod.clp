@@ -1,7 +1,6 @@
 (defmodule ObsTimeMod "Este modulo calcula el tiempo de observacion de un cuadro."
-    (import HeuristicMod deffunction ?ALL)
-    (import HeuristicMod defclass ?ALL)
-    (import HeuristicMod deftemplate ?ALL)
+    (import HeuristicMod deffunction abstractNumber)
+    (import HeuristicMod deftemplate AnalyzePainting AnalyzeVisitor FinalObservationTime PaintingRelevance Preference NumPreferences)
 )
 
 ;///////////
@@ -291,7 +290,8 @@ usadas para calcularlo"
                                             el tiempo de observación será menor"
 (declare (salience 21))
     ?f <- (FinalObservationTime (time ?t))
-    (object (is-a Visitor) (Children TRUE))
+    (AnalyzeVisitor (visitor ?visitor))
+    (test (eq (send ?visitor get-Children) TRUE))
 =>
     (modify ?f (time (integer (* 0.8 ?t))))
     (assert (FinishMod))
