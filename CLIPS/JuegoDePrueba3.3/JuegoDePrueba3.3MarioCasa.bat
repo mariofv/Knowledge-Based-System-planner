@@ -11,8 +11,8 @@
 (load "C:/Users/Fanz0/Desktop/Uni/5/IA/Practica2-IA/CLIPS/OrganizeMod.CLP")
 (reset)
 (run)
-Juego de Prueba 3.1
-5
+Juego de Prueba 3.3
+11
 y
 1
 1
