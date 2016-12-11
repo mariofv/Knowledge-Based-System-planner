@@ -72,6 +72,7 @@
 
 (deffunction PreguntasMod::add-preference-number (?classtype ?slot ?count ?visitor_instance $?array) 
 "Añade preferencias de un tipo a la instancia de visitante. La pregunta se responde con números"
+
     (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     (while (not(= ?answer -1)) do
         (bind ?aux (nth$ ?answer ?array))
@@ -104,10 +105,7 @@
     )
     (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
     (while (not(= ?answer -1)) do
-        (printout t $?bools crlf)
         (bind ?aux (nth$ ?answer ?array))
-        (printout t "Answer: " ?answer crlf)
-        (printout t "Nth: " (nth$ ?answer ?bools))
         (if (eq (nth$ ?answer ?bools) 0) then
             (assert (NationalityFilters (nationality ?aux)))
             (bind $?bools (replace$ ?bools ?answer ?answer 1))
@@ -115,8 +113,8 @@
         (printout t "Possible values:" crlf)
         (printout t "------------------------------------" crlf)
         (loop-for-count (?i 1 (length$ ?array)) do
-            (printout t ?i ". " crlf)
-            (printout t (send (nth$ ?i ?array) get-Country+name))
+            (printout t ?i ". ")
+            (printout t (send (nth$ ?i ?array) get-Country+name) crlf)
         )
         (printout t "------------------------------------" crlf)
         (bind ?answer (add-question-with-values-int-extra (length$ ?array)))
