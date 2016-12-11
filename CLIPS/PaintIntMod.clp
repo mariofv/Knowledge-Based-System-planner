@@ -8,7 +8,9 @@
 ;HECHOS ///
 ;/////////
 
-(deftemplate PaintIntMod::Interest ""
+(deftemplate PaintIntMod::Interest 
+"Hecho que contiene el valor abstracto del interés"
+
     (slot level
         (type SYMBOL)
         (allowed-values Very_Low Low High Very_High)
