@@ -28,7 +28,8 @@ primera y la última, ya que el museo es circular)."
 (defrule OrganizeMod::GroupByRoom
 "Esta regla elimina los cuadros asignados, para insertarlos en un  multi-slot auxiliar
 de la clase Room. El propósito de esta regla es indicar, para cada sala, los cuadros
-que se tienen que visitar en un día concreto."
+que se tienen que visitar en un día concreto. Se insertan de manera aleatoria para que al
+final los cuadros a visitar en una sala no estén en orden de interés."
 
 (declare (salience 2))
     (OrganizeDay (day ?day))
@@ -37,7 +38,8 @@ que se tienen que visitar en un día concreto."
     (loop-for-count (?i 1 ?size)
         (bind ?painting (nth$ 1 (send ?day get-Asigned+paintings)))
         (bind ?room (send ?painting get-Exhibited+in))
-        (slot-insert$ ?room Asigned+paintings 1 ?painting)
+        (bind ?rand (random 1 (+ 1 (length$ (send ?room get-Asigned+paintings)))))
+        (slot-insert$ ?room Asigned+paintings ?rand ?painting)
         (slot-delete$ ?day Asigned+paintings 1 1)
     )
     (assert (RoomOrder (order 1)))
