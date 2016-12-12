@@ -224,24 +224,24 @@ pretuntas."
 (declare (salience -9999))
    =>
    (bind ?visitor_name
-      (ask-question-string "What is your name? "))
+      (ask-question-string "Como te llamas? "))
    (bind ?number_of_people
-      (ask-question-integer "How many people is your group composed of? "))
+      (ask-question-integer "De cuanta gente se compone tu grupo? "))
    (bind ?children
-      (yes-or-no-p "Do you have children with you?"))
+      (yes-or-no-p "Hay ninos en tu grupo?"))
    (bind ?days
-      (ask-question-integer "How many days are you going to stay? "))
+      (ask-question-integer "Cuantos dias vais a estar? "))
    (bind ?time
-      (ask-question-integer "How long are you going to stay each day (in hours)? "))
+      (ask-question-integer "Cuanto vais a estar cada dia (en horas)? "))
    ;//Filtro del Año 
   (bind ?yearfilter
-      (yes-or-no-p "Do you wanna filter the paintings by year?"))
+      (yes-or-no-p "Quereis filtrar los cuadros por anos?"))
    (if(eq ?yearfilter TRUE) then
-       (bind ?year1 (ask-question-integer "Introduce the first year of the range: "))
-       (bind ?year2 (ask-question-integer "Introduce the final year of the range: "))
+       (bind ?year1 (ask-question-integer "Introduce el primer ano del intervalo: "))
+       (bind ?year2 (ask-question-integer "Introduce el ultimo ano del intervalo: "))
        (while (< ?year2 ?year1) 
-           (printout t "The second year must be bigger than the first" crlf);
-           (bind ?year2 (ask-question-integer "Introduce the final year of the range: "))
+           (printout t "El ultimo ano ha de ser mayor que el primero" crlf);
+           (bind ?year2 (ask-question-integer "Introduce el ultimo ano del intervalo : "))
        )
        (assert (YearFilters (firstYear ?year1) (lastYear ?year2)))
    else 
@@ -249,7 +249,7 @@ pretuntas."
    ) 
    ;//Filtro de Nacionalidad
    (bind ?nationalityfilter
-       (yes-or-no-p "Do you wanna filter the paintings by nationality of the author?"))
+       (yes-or-no-p "Quieres filtrar los cuadros por nacionalidad del autor?"))
    (if (eq ?nationalityfilter TRUE) then
         (bind $?nationalities (find-all-instances((?m Country)) TRUE))
         (nationality-filter $?nationalities)
@@ -258,57 +258,57 @@ pretuntas."
    ;Empieza el test para determinar el conocimiento del visitante
    ;//////////////
    (bind ?points 0)
-   (printout t "Let's see how much you know about art..." crlf)
+   (printout t "Veamos cuanto sabeis sobre arte..." crlf)
    (printout t ?points crlf)
    (bind ?response 
-      (ask-question-with-values-int "Who is the author of 'The Lily Pads'? "
+      (ask-question-with-values-int "Quien es el autor de los nenufares? "
                     "Monet" "Manet"))
       (if(eq ?response 1) then (bind ?points (+ ?points 10)))
    (printout t ?points crlf)
    (bind ?response
-      (ask-question-with-values-int "Which style does the painting 'In the car' by Roy Lichtenstein belong to? "
-                    "Hyperrealism" "Op-Art" "Pop-Art" "Graffiti"))
+      (ask-question-with-values-int "A que genero pertenece la obra 'En el coche' de Roy Lichtenstein? "
+                    "Hiperrealismo" "Op-Art" "Pop-Art" "Graffiti"))
       (if(eq ?response 3) then (bind ?points (+ ?points 10)))
    (printout t ?points crlf) 
    (bind ?response
-      (ask-question-with-values-int "Who composed 'Moonlight Sonata'? "
+      (ask-question-with-values-int "Quien compuso 'Moonlight Sonata'? "
                     "Mozart" "Bach" "Beethoven" "Brahms"))
       (if(eq ?response 3) then (bind ?points (+ ?points 10)))
    (printout t ?points crlf)   
    (bind ?response
-      (ask-question-with-values-int "Which of the following paintings belongs to the modernism? "
-                    "Penitent Magdalena" "The Virgin" "Portrait of a philosopher" "Roe with a landscape in the background"))
+      (ask-question-with-values-int "Cual de estas pinturas pertenece al modernismo? "
+                    "Magdalena Penitente" "The Joven" "Retrato de un filosofo" "Roe con un paisaje en el fondo"))
       (if(eq ?response 2) then (bind ?points (+ ?points 10)))
    (printout t ?points crlf) 
    (bind ?response
-      (ask-question-with-values-int "Where is the 'Monument to the Little Mermaid' located?" "Copenhague" "Berlin" "Stockholm" "Oslo"))
+      (ask-question-with-values-int "Donde se ubica el monumento a la Sirenita de los cuentos de Andersen?" "Copenhague" "Berlin" "Estocolmo" "Oslo"))
       (if(eq ?response 1) then (bind ?points (+ ?points 10)))
    (printout t ?points crlf)
    (bind ?response
-      (ask-question-with-values-int "What's the name of a famous Edvard Munch picture?" "The Terror" "The Scream" "The Wind" "The Bridge"))
+      (ask-question-with-values-int "Como se llama la famosa pintura de Edvard Munch" "El terror" "El grito" "El viento" "El puente"))
       (if(eq ?response 2) then (bind ?points (+ ?points 10)))
    (printout t ?points crlf)
    (bind ?response
-      (ask-question-with-values-int "Which styles does the Notre Dame catheral combine?" "Romanic and gothic" "Gothic and baroque" "Romantic and rococo" "Byzantine and gothic"))
+      (ask-question-with-values-int "Que estilos combina la Catedral de Notre Dame?" "Romanico y gotico" "Gotico y barroco" "Romantico y gotico" "Bizantino y gotico"))
       (if(eq ?response 1) then (bind ?points (+ ?points 10)))
    (printout t ?points crlf)
    (bind ?response
-      (ask-question-with-values-int "Which style does Gustav Klimpt represent?" "Postmodernism" "Art Nouveau"))
+      (ask-question-with-values-int "Gustav Klimpt es un tipico representante del..." "Postmodernismo" "Art Nouveau"))
       (if(eq ?response 2) then (bind ?points (+ ?points 10)))
    (printout t ?points crlf)
    (bind ?response
-      (ask-question-with-values-int "Sandro Botticelli painted the birth of which of these goddesses?" "Artemis" "Venus" "Hera" "Atenea"))
+      (ask-question-with-values-int "Sandro Botticelli pinto el nacimiento de cual de estas diosas?" "Artemis" "Venus" "Hera" "Atenea"))
       (if(eq ?response 2) then (bind ?points (+ ?points 10)))  
    (printout t ?points crlf)
    (bind ?response
-      (ask-question-with-values-int "Which of the following paintings from Dali features a melting clock?" "The first days of spring" "The persistence of memory" "Living dead nature" "The accomodations of the wishes"))
+      (ask-question-with-values-int "Cual de estas pinturas de Dali contiene un reloj derretido?" "Los primeros dias de primavera" "La persistencia de la memoria" "Naturaleza muerta viviente" "La acomodacion de los deseos"))
       (if(eq ?response 2) then (bind ?points (+ ?points 10)))  
    (printout t "Total points: " ?points crlf)   
     (if(> ?points 80)
-        then(printout t "Well done you little art nerd!" crlf)
+        then(printout t "Bien hecho pequeño friki del arte!" crlf)
     else (if(> ?points 40)
-        then(printout t "Meeeh, that was okay I guess..." crlf)
-    else (printout t "I don't know why you are wasting your money in an art museum if you don't know anything, but hey, it's your money" crlf)))
+        then(printout t "Meeeh, supongo que no esta mal..." crlf)
+    else (printout t "No se para que vienes a un museo de arte sin tener ni idea, pero eh, es tu dinero." crlf)))
    
     ;Se crea la instancia del visitante y se le añade la información que ya tenemos
     (bind ?visitor_instance (make-instance visitor of Visitor))
@@ -323,9 +323,9 @@ pretuntas."
 
     ;Comprobamos las preferencias del visitante respecto a autores
     (bind ?count 1)
-    (printout t "Alright, let's check your preferences now." crlf)
-    (printout t "We'll start with the authors. For each author you like, type his number and press ENTER. Type 'done' when you are done" crlf);
-    (printout t "Here are all the authors available:" crlf)
+    (printout t "Muy bien, comprobemos tus preferencias." crlf)
+    (printout t "Empezaremos por los autores. Para cada autor que te guste, escribe su numero y pulsa ENTER. Cuando hayas acabado escribe 'done' y pulsa ENTER." crlf);
+    (printout t "Aqui estan todos los autores disponibles:" crlf)
     (bind $?aux (find-all-instances((?m Author)) TRUE))
     (loop-for-count (?i 1 (length$ ?aux)) do
         (printout t ?i ". ")
@@ -334,8 +334,8 @@ pretuntas."
     (add-preference-number Author Author+name ?count ?visitor_instance $?aux)
 
     ;Comprobamos las preferencias del visitante respecto a estilos
-    (printout t "Good. Now same thing for the styles. For each style you like, type its name and press ENTER. Type 'done' when you are done" crlf);
-    (printout t "Here are all the styles available:" crlf)
+    (printout t "Bien, ahora lo mismo con los estilos. Para cada estilo que te guste, escribe su numero y pulsa ENTER. Cuando hayas acabado escribe 'done' y pulsa ENTER." crlf);
+    (printout t "Aqui estan todos los estilos disponibles:" crlf)
     (bind $?aux (find-all-instances((?m Style)) TRUE))
     (loop-for-count (?i 1 (length$ ?aux)) do
         (printout t ?i ". ")
@@ -344,8 +344,8 @@ pretuntas."
     (add-preference-number Style Style+name ?count ?visitor_instance $?aux)
 
     ;Comprobamos las preferencias del visitante respecto a periodos pictóricos
-    (printout t "Almost done. We also need to know which periods you prefer. For each period you like, type its name and press ENTER. Type 'done' when you are done" crlf);
-    (printout t "Here are all the periods available:" crlf)
+    (printout t "Ya casi estamos. Tambien necesitamos saber que epocas prefieres. Para cada epoca que te guste, escribe su numero y pulsa ENTER. Cuando hayas acabado escribe 'done' y pulsa ENTER." crlf);
+    (printout t "Aqui estan todas las epocas disponibles:" crlf)
     (bind $?aux (find-all-instances((?m Period)) TRUE))
     (loop-for-count (?i 1 (length$ ?aux)) do
         (printout t ?i ". ")
@@ -354,8 +354,8 @@ pretuntas."
     (add-preference-number Period Period+name ?count ?visitor_instance $?aux)
 
     ;Comprobamos las preferencias del visitante respecto a temas
-    (printout t "Last step! Tell us about the topics you like the most. For each topic you like, type its name and press ENTER. Type 'done' when you are done" crlf);
-    (printout t "Here are all the topic available:" crlf)
+    (printout t "Ultimo paso! Dinos que temas te gustan mas. Para cada tema que te guste, escribe su numero y pulsa ENTER. Cuando hayas acabado escribe 'done' y pulsa ENTER." crlf);
+    (printout t "Aqui estan todos los temas disponibles: " crlf)
     (bind $?aux (find-all-instances((?m Topic)) TRUE))
     (loop-for-count (?i 1 (length$ ?aux)) do
         (printout t ?i ". ")
