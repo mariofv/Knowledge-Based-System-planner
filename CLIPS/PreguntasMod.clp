@@ -20,22 +20,6 @@
         bind ?answer (readline))
 ?answer)
 
-;Añade preferencias de un tipo a la clase visitante
-;(deffunction PreguntasMod::add-preference (?classtype ?slot ?count ?visitor_instance)
-;    (bind ?answer (question-instance))
-;    (while (not(eq ?answer "done")) do
-;        (bind ?aux (find-instance ((?inst ?classtype)) (eq (lowcase ?inst:?slot) (lowcase ?answer))))
-;        (bind ?mslot (send ?visitor_instance get-Preferences))
-;        (bind ?already (member$ ?aux ?mslot))
-;        (printout t ?aux crlf)
-;        (if (not ?already) then    
-;        (slot-insert$ ?visitor_instance Preferences ?count ?aux)
-;        (bind ?count (+ ?count 1)))
-;        (bind ?answer (question-instance))
-;    )
-;)
-
-
 (deffunction PreguntasMod::add-question-with-values-int-extra (?maxindex) 
 "Función para las preguntas con múltiples opciones que se responden por enteros"
 
