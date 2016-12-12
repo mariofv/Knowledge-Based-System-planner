@@ -1,0 +1,1 @@
+Para ejecutar los juegos de prueba o cargar los módulos, es necesario cambiar los paths, ya que éstos son absolutos.
