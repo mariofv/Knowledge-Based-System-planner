@@ -1,0 +1,4 @@
+digraph "Ontologia" {
+
+"Visitor" [shape=record, color="0.0,0.0,0.0", fontcolor="0.0,0.0,0.0", label="{Visitor|{Duration|Integer}|{Days|Integer}|{Number of people|Integer}|{Visitor name|String}|{Preferences|Instance*|{Author|Period|Style|Topic}}|{Knowledge|Integer}|{Children|Boolean}}"]
+}

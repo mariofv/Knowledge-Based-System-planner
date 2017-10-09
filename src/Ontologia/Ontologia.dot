@@ -1,0 +1,8 @@
+digraph Ontologia {
+	node [label="\N"];
+	graph [bb="0,0,208,254"];
+	Visitor [label="{Visitor|{Duration|Integer}|{Days|Integer}|{Number of people|Integer}|{Visitor name|String}|{Preferences|Instance*|{Author|Period\
+|Style|Topic}}|{Knowledge|Integer}|{Children|Boolean}}", shape=record, color="0.0,0.0,0.0", fontcolor="0.0,0.0,0.0", pos="104,127", rects="0,230.5,208,253.5 0,207.5,109,230.5 109,207.5,208,230.5 0,184.5,99,207.5 99,184.5,208,207.5 0,161.5,136,184.5 136,161.5,208,184.5\
+ 0,138.5,122,161.5 122,138.5,208,161.5 0,46.5,82,138.5 82,46.5,152,138.5 152,115.5,208,138.5 152,92.5,208,115.5 152,69.5,208,92.5\
+ 152,46.5,208,69.5 0,23.5,116,46.5 116,23.5,208,46.5 0,0.5,105,23.5 105,0.5,208,23.5", width="2.8889", height="3.5278"];
+}
